@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 TR iterative heuristic
+
+To-do:
+    1. control the number of iterations per stage, the time per iteration
+    2. realize Xu's algorithm
 """
 
 import numpy as np
@@ -73,12 +77,12 @@ class Network(object):
         # define supply 
         supply = np.zeros((self.n_nodes, n_demands))
         for n in range(self.n_nodes):
-            for d in range(n_demands):
+            for d in demands.id:
                 if demands.source[d]==n:
                     supply[n, d] = -1
 
         for n in range(self.n_nodes):
-            for d in range(n_demands):
+            for d in demands.id:
                 if demands.destination[d]==n:
                     supply[n, d] = 1
         
@@ -139,7 +143,7 @@ class Network(object):
                 
         Ynode = {}
         for n in self.nodes:
-            for d in range(n_demands):
+            for d in demands.id:
                 Ynode[n, d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, 
                      ub=bigM1, name='Ynode_{}_{}'.format(n, d))
                 
@@ -300,7 +304,7 @@ class Network(object):
                   
         Ynodex = {}
         for n in self.nodes:
-            for d in range(n_demands):
+            for d in demands.id:
                 Ynodex[n, d] = Ynode[n, d].x
                       
         Totalx = Total.x
@@ -350,12 +354,12 @@ class Network(object):
         # define supply 
         supply = np.zeros((self.n_nodes, n_demands))
         for n in range(self.n_nodes):
-            for d in range(n_demands):
+            for d in demands.id:
                 if demands.source[d]==n:
                     supply[n, d] = -1
 
         for n in range(self.n_nodes):
-            for d in range(n_demands):
+            for d in demands.id:
                 if demands.destination[d]==n:
                     supply[n, d] = 1
                           
@@ -427,7 +431,7 @@ class Network(object):
                 
         Ynode = {}
         for n in self.nodes:
-            for d in range(n_demands):
+            for d in demands.id:
                 Ynode[n, d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, 
                      ub=bigM1, name='Ynode_{}_{}'.format(n, d))
                 
@@ -588,7 +592,7 @@ class Network(object):
                   
         Ynodex = {}
         for n in self.nodes:
-            for d in range(n_demands):
+            for d in demands.id:
                 Ynodex[n, d] = Ynode[n, d].x
                       
         Totalx = Total.x
@@ -795,7 +799,7 @@ if __name__=='__main__':
     network_cost = pd.read_csv('networkDT.csv', header=None)/100
     network_cost = network_cost.as_matrix()
     sn = Network(network_cost)
-    n_demands = 25
+    n_demands = 10
     demands = sn.create_demands(n_demands, low=40, high=100)
     demands = pd.read_csv('demands25.csv')
     demands = demands.iloc[:10]
