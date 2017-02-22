@@ -28,7 +28,7 @@ Noise = (10**4)/7.03
 
 
 # big number
-bigM1 = 10**4 
+bigM1 = 10**5 
 bigM2 = 10**5
 bigM3 = 2*10**6 
 
@@ -240,10 +240,12 @@ class Network(object):
         model.update()
         
         # define constraints
-        model.addConstr(Total==quicksum(I[n] for n in self.nodes))
+        model.addConstr(Total==quicksum(I[n] for n in self.nodes), 
+                        name='total')
 
         for d in demands.id:
-            model.addConstr(c>=Fstart[d]+demands.data_rates[d])
+            model.addConstr(c>=Fstart[d]+demands.data_rates[d], 
+                            name='c_{}'.format(d))
 
         # flow conservation
         for n in self.nodes:
@@ -252,14 +254,14 @@ class Network(object):
                                          if self.links.source[l]==n)-
                                 quicksum(UsageL[l, d] for l in self.links.id
                                          if self.links.destination[l]==n)
-                                == supply[n, d])
+                                == supply[n, d], 
+                                name='flow_{}_{}'.format(n, d))
 
         for d1 in demands.id:
             for d2 in demands.id:
                 if d1!=d2:
-                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1)
-                else:
-                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==0)
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1,
+                                    name='delta_{}_{}'.format(d1, d2))
                     
         for d1 in demands.id:
             for d2 in demands.id:
@@ -267,7 +269,8 @@ class Network(object):
                     if d1!=d2:
                         model.addConstr(Fstart[d1]-Fstart[d2]<=
                                         bigM3*(3-Delta[d1, d2]-
-                                               UsageL[l, d1]-UsageL[l, d2]))
+                                               UsageL[l, d1]-UsageL[l, d2]),
+                                        name='sharelink1_{}_{}_{}'.format(d1,d2,l))
                     
         for d1 in demands.id:
             for d2 in demands.id:
@@ -276,84 +279,111 @@ class Network(object):
                         model.addConstr(Fstart[d1]-Fstart[d2]+
                                         demands.data_rates[d1]+G<=
                                         bigM3*(3-Delta[d1, d2]-UsageL[l, d1]-
-                                        UsageL[l, d2]))
+                                        UsageL[l, d2]),
+                                        name='sharelink2_{}_{}_{}'.format(d1,d2,l))
         
         for l in self.links.id:
-            model.addConstr(GASEws[l]==self.links.length[l]*cofase)
+            model.addConstr(GASEws[l]==self.links.length[l]*cofase,
+                            name='gasews_{}'.format(l))
             
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(A1[l, d]<=bigM1*UsageL[l, d])
-                model.addConstr(A1[l, d]<=GASEws[l])
-                model.addConstr(A1[l, d]>=GASEws[l]-(1-UsageL[l, d])*bigM1)
-                model.addConstr(A1[l, d]>=0)
+                model.addConstr(A1[l, d]<=bigM2*UsageL[l, d],
+                                name='a11_{}_{}'.format(l,d))
+                model.addConstr(A1[l, d]<=GASEws[l],name='a12_{}_{}'.format(l,d))
+                model.addConstr(A1[l, d]>=GASEws[l]-(1-UsageL[l, d])*bigM2,
+                                name='a13_{}_{}'.format(l,d))
+                model.addConstr(A1[l, d]>=0,
+                                name='a14_{}_{}'.format(l,d))
         
         for l in self.links.id:
             for d1 in demands.id:
                 for d2 in demands.id:
-                    model.addConstr(UsageL1[l, d1, d2]<=UsageL[l, d1])
-                    model.addConstr(UsageL1[l, d1, d2]<=UsageL[l, d2])
+                    model.addConstr(UsageL1[l, d1, d2]<=UsageL[l, d1],
+                                    name='usagel11_{}_{}'.format(l,d1,d2))
+                    model.addConstr(UsageL1[l, d1, d2]<=UsageL[l, d2],
+                                    name='usagel12_{}_{}'.format(l,d1,d2))
                     model.addConstr(UsageL1[l, d1, d2]>=UsageL[l, d1]+
-                                    UsageL[l, d2]-1)
+                                    UsageL[l, d2]-1,
+                                    name='usagel13_{}_{}'.format(l,d1,d2))
                     model.addConstr(GNi[l, d1]==np.log(rou*
                         demands.data_rates[d1]*demands.data_rates[d1])
 #                        -UsageL[l, d1]*np.log(1.5*demands.data_rates[d1]/
 #                        (G+0.5*demands.data_rates[d1]))
-                        +quicksum(UsageL1[l,d1,d3]*
-                        np.log(
+                        +quicksum(UsageL1[l,d1,d3]*np.log(
                         (demands.data_rates[d1]+0.5*demands.data_rates[d3])/
                         (G+0.5*demands.data_rates[d1]) ) 
-                        for d3 in demands.id if d3 is not d1))
+                        for d3 in demands.id if d3 is not d1),
+                        name='usagel14_{}_{}'.format(l,d1,d2))
         
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(GNliws[l, d]==self.links.length[l]*GNi[l, d])
+                model.addConstr(GNliws[l, d]==self.links.length[l]*GNi[l, d],
+                        name='gnliws_{}_{}'.format(l,d))
                 
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(G1[l, d]<=bigM1*UsageL[l, d])
-                model.addConstr(G1[l, d]<=GNliws[l, d])
-                model.addConstr(G1[l, d]>=GNliws[l, d]-(1-UsageL[l, d])*bigM1)
-                model.addConstr(G1[l, d]>=0)
+                model.addConstr(G1[l, d]<=bigM2*UsageL[l, d],
+                        name='g11_{}_{}'.format(l,d))
+                model.addConstr(G1[l, d]<=GNliws[l, d],
+                        name='g12_{}_{}'.format(l,d))
+                model.addConstr(G1[l, d]>=GNliws[l, d]-(1-UsageL[l, d])*bigM2,
+                        name='g13_{}_{}'.format(l,d))
+                model.addConstr(G1[l, d]>=0,
+                        name='g14_{}_{}'.format(l,d))
                 
         for n in self.nodes:
             for d in demands.id:
-                model.addConstr(Y[n, d]<=Noise)
+                model.addConstr(Y[n, d]<=Noise,
+                        name='y_{}_{}'.format(n,d))
                 
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(U[l, d]<=bigM1*UsageL[l, d])
-                model.addConstr(U[l, d]<=Y[self.links.source[l], d])
+                model.addConstr(U[l, d]<=bigM2*UsageL[l, d],
+                        name='u11_{}_{}'.format(l,d))
+                model.addConstr(U[l, d]<=Y[self.links.source[l], d],
+                        name='u12_{}_{}'.format(l,d))
                 model.addConstr(U[l, d]>=Y[self.links.source[l], d]
-                    -(1-UsageL[l, d])*bigM1)
-                model.addConstr(U[l, d]>=0)
+                    -(1-UsageL[l, d])*bigM2,name='u13_{}_{}'.format(l,d))
+                model.addConstr(U[l, d]>=0,name='u14_{}_{}'.format(l,d))
                 
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(Asenli[l, d]==miu*G1[l, d]+A1[l, d])
-                model.addConstr(UseAsenli[l, d]<=bigM1*UsageL[l, d])
-                model.addConstr(UseAsenli[l, d]<=Asenli[l, d])
+                model.addConstr(Asenli[l, d]==miu*G1[l, d]+A1[l, d],
+                        name='asenli_{}_{}'.format(l,d))
+                model.addConstr(UseAsenli[l, d]<=bigM1*UsageL[l, d],
+                        name='useasenli11_{}_{}'.format(l,d))
+                model.addConstr(UseAsenli[l, d]<=Asenli[l, d],
+                        name='useasenli12_{}_{}'.format(l,d))
                 model.addConstr(UseAsenli[l, d]>=Asenli[l, d]
-                    -bigM1*(1-UsageL[l, d]))
-                model.addConstr(UseAsenli[l, d]>=0)
+                        -bigM1*(1-UsageL[l, d]),
+                        name='useasenli13_{}_{}'.format(l,d))
+                model.addConstr(UseAsenli[l, d]>=0,
+                        name='useasenli14_{}_{}'.format(l,d))
                 
         for n in self.nodes:
             for d in demands.id:
                 model.addConstr(Y[n, d]==quicksum(X[l, d]+UseAsenli[l, d]
-                    for l in self.links.id if self.links.destination[l]==n))
-                model.addConstr(III[n, d]==1-Ire[n, d])
+                    for l in self.links.id if self.links.destination[l]==n),
+                    name='yx_{}_{}'.format(n, d))
+                model.addConstr(III[n, d]==1-Ire[n, d], 
+                                name='III_{}_{}'.format(n, d))
                 
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(X[l, d]<=bigM1*III[self.links.source[l], d])
-                model.addConstr(X[l, d]<=U[l, d])
+                model.addConstr(X[l, d]<=bigM1*III[self.links.source[l], d],
+                        name='x11_{}_{}'.format(l,d))
+                model.addConstr(X[l, d]<=U[l, d],
+                        name='x12_{}_{}'.format(l,d))
                 model.addConstr(X[l, d]>=U[l, d]-
-                                bigM1*(1-III[self.links.source[l], d]))
-                model.addConstr(X[l, d]>=0)
+                                bigM1*(1-III[self.links.source[l], d]),
+                        name='x13_{}_{}'.format(l,d))
+                model.addConstr(X[l, d]>=0,name='x14_{}_{}'.format(l,d))
         
         for n in self.nodes:
-            model.addConstr(NNN[n]==quicksum(Ire[n, d] for d in demands.id))
-            model.addConstr(I[n]*Nmax>=NNN[n])
+            model.addConstr(NNN[n]==quicksum(Ire[n, d] for d in demands.id),
+                            name='nnn_{}'.format(n))
+            model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
             
         # objective
         model.setObjective(c+Total, GRB.MINIMIZE)
@@ -395,13 +425,19 @@ class Network(object):
         UsageLx = {}
         for l in self.links.id:
             for d in demands.id:
-                UsageLx[l, d] = UsageL[l, d].x
+                if UsageL[l, d].x<0.5:
+                    UsageLx[l, d] = 0
+                else:
+                    UsageLx[l, d] = 1
                        
         Deltax = {}
         for d1 in demands.id:
             for d2 in demands.id:
                 if d1!=d2:
-                    Deltax[d1, d2] = Delta[d1, d2].x
+                    if Delta[d1, d2].x <0.5:
+                        Deltax[d1, d2] = 0
+                    else:
+                        Deltax[d1, d2] = 1
 
         Fstartx = {}
         for d in demands.id:
@@ -504,7 +540,7 @@ class Network(object):
         solutions['c'] = cx
         solutions['GASEws'] = GASEwsx
         solutions['GNliws'] = GNliwsx
-        solutions['Al'] = A1x
+        solutions['A1'] = A1x
         solutions['UsageL1'] = UsageL1x
         solutions['Asenli'] = Asenlix
         solutions['UseAsenli'] = UseAsenlix
@@ -527,6 +563,7 @@ class Network(object):
         demands_fixed = previous_solutions['demands_fixed'] # old demands
         UsageLx = previous_solutions['UsageL']
         Deltax = previous_solutions['Delta']
+        Fstartx = previous_solutions['Fstart']
         demands_all = list(set(demands_added).union(set(demands_fixed)))
 #        print(demands_added)
 #        print(demands_fixed)
@@ -562,11 +599,19 @@ class Network(object):
                 elif d in demands_added:
                     UsageL[l, d] = model.addVar(vtype=GRB.BINARY, 
                         name='UsageL_{}_{}'.format(l, d))
+#                try:
+#                    UsageL[l, d].start=UsageLx[l, d]
+#                except:
+#                    pass
                 
         Fstart = {} # the start frequency of demand d
         for d in demands.id:
             Fstart[d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM1, 
                   name='Fstart_{}'.format(d))
+#            try:
+#                Fstart[d].start = Fstartx[d]
+#            except:
+#                pass
             
         Delta = {} # order between demands
         for d1 in demands.id:
@@ -579,7 +624,11 @@ class Network(object):
                 elif d1!=d2:
                     Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
                          name='Delta_{}_{}'.format(d1, d2))
-                    
+#                try:
+#                    Delta[d1, d2].start = Deltax[d1, d2]
+#                except:
+#                    pass
+#                    
                     
         # define variables
         U = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
@@ -685,10 +734,12 @@ class Network(object):
         model.update()
         
         # define constraints
-        model.addConstr(Total==quicksum(I[n] for n in self.nodes))
+        model.addConstr(Total==quicksum(I[n] for n in self.nodes), 
+                        name='total')
 
         for d in demands.id:
-            model.addConstr(c>=Fstart[d]+demands.data_rates[d])
+            model.addConstr(c>=Fstart[d]+demands.data_rates[d], 
+                            name='c_{}'.format(d))
 
         # flow conservation
         for n in self.nodes:
@@ -697,12 +748,14 @@ class Network(object):
                                          if self.links.source[l]==n)-
                                 quicksum(UsageL[l, d] for l in self.links.id
                                          if self.links.destination[l]==n)
-                                == supply[n, d])
+                                == supply[n, d], 
+                                name='flow_{}_{}'.format(n, d))
 
         for d1 in demands.id:
             for d2 in demands.id:
                 if d1!=d2:
-                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1)
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1,
+                                    name='delta_{}_{}'.format(d1, d2))
                     
         for d1 in demands.id:
             for d2 in demands.id:
@@ -710,7 +763,8 @@ class Network(object):
                     if d1!=d2:
                         model.addConstr(Fstart[d1]-Fstart[d2]<=
                                         bigM3*(3-Delta[d1, d2]-
-                                               UsageL[l, d1]-UsageL[l, d2]))
+                                               UsageL[l, d1]-UsageL[l, d2]),
+                                        name='sharelink1_{}_{}_{}'.format(d1,d2,l))
                     
         for d1 in demands.id:
             for d2 in demands.id:
@@ -719,84 +773,111 @@ class Network(object):
                         model.addConstr(Fstart[d1]-Fstart[d2]+
                                         demands.data_rates[d1]+G<=
                                         bigM3*(3-Delta[d1, d2]-UsageL[l, d1]-
-                                        UsageL[l, d2]))
+                                        UsageL[l, d2]),
+                                        name='sharelink2_{}_{}_{}'.format(d1,d2,l))
         
         for l in self.links.id:
-            model.addConstr(GASEws[l]==self.links.length[l]*cofase)
+            model.addConstr(GASEws[l]==self.links.length[l]*cofase,
+                            name='gasews_{}'.format(l))
             
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(A1[l, d]<=bigM1*UsageL[l, d])
-                model.addConstr(A1[l, d]<=GASEws[l])
-                model.addConstr(A1[l, d]>=GASEws[l]-(1-UsageL[l, d])*bigM1)
-                model.addConstr(A1[l, d]>=0)
+                model.addConstr(A1[l, d]<=bigM2*UsageL[l, d],
+                                name='a11_{}_{}'.format(l,d))
+                model.addConstr(A1[l, d]<=GASEws[l],name='a12_{}_{}'.format(l,d))
+                model.addConstr(A1[l, d]>=GASEws[l]-(1-UsageL[l, d])*bigM2,
+                                name='a13_{}_{}'.format(l,d))
+                model.addConstr(A1[l, d]>=0,
+                                name='a14_{}_{}'.format(l,d))
         
         for l in self.links.id:
             for d1 in demands.id:
                 for d2 in demands.id:
-                    model.addConstr(UsageL1[l, d1, d2]<=UsageL[l, d1])
-                    model.addConstr(UsageL1[l, d1, d2]<=UsageL[l, d2])
+                    model.addConstr(UsageL1[l, d1, d2]<=UsageL[l, d1],
+                                    name='usagel11_{}_{}'.format(l,d1,d2))
+                    model.addConstr(UsageL1[l, d1, d2]<=UsageL[l, d2],
+                                    name='usagel12_{}_{}'.format(l,d1,d2))
                     model.addConstr(UsageL1[l, d1, d2]>=UsageL[l, d1]+
-                                    UsageL[l, d2]-1)
+                                    UsageL[l, d2]-1,
+                                    name='usagel13_{}_{}'.format(l,d1,d2))
                     model.addConstr(GNi[l, d1]==np.log(rou*
                         demands.data_rates[d1]*demands.data_rates[d1])
 #                        -UsageL[l, d1]*np.log(1.5*demands.data_rates[d1]/
 #                        (G+0.5*demands.data_rates[d1]))
-                        +quicksum(UsageL1[l,d1,d3]*
-                        np.log(
+                        +quicksum(UsageL1[l,d1,d3]*np.log(
                         (demands.data_rates[d1]+0.5*demands.data_rates[d3])/
                         (G+0.5*demands.data_rates[d1]) ) 
-                        for d3 in demands.id if d3 is not d1))
+                        for d3 in demands.id if d3 is not d1),
+                        name='usagel14_{}_{}'.format(l,d1,d2))
         
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(GNliws[l, d]==self.links.length[l]*GNi[l, d])
+                model.addConstr(GNliws[l, d]==self.links.length[l]*GNi[l, d],
+                        name='gnliws_{}_{}'.format(l,d))
                 
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(G1[l, d]<=bigM1*UsageL[l, d])
-                model.addConstr(G1[l, d]<=GNliws[l, d])
-                model.addConstr(G1[l, d]>=GNliws[l, d]-(1-UsageL[l, d])*bigM1)
-                model.addConstr(G1[l, d]>=0)
+                model.addConstr(G1[l, d]<=bigM2*UsageL[l, d],
+                        name='g11_{}_{}'.format(l,d))
+                model.addConstr(G1[l, d]<=GNliws[l, d],
+                        name='g12_{}_{}'.format(l,d))
+                model.addConstr(G1[l, d]>=GNliws[l, d]-(1-UsageL[l, d])*bigM2,
+                        name='g13_{}_{}'.format(l,d))
+                model.addConstr(G1[l, d]>=0,
+                        name='g14_{}_{}'.format(l,d))
                 
         for n in self.nodes:
             for d in demands.id:
-                model.addConstr(Y[n, d]<=Noise)
+                model.addConstr(Y[n, d]<=Noise,
+                        name='y_{}_{}'.format(n,d))
                 
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(U[l, d]<=bigM1*UsageL[l, d])
-                model.addConstr(U[l, d]<=Y[self.links.source[l], d])
+                model.addConstr(U[l, d]<=bigM2*UsageL[l, d],
+                        name='u11_{}_{}'.format(l,d))
+                model.addConstr(U[l, d]<=Y[self.links.source[l], d],
+                        name='u12_{}_{}'.format(l,d))
                 model.addConstr(U[l, d]>=Y[self.links.source[l], d]
-                    -(1-UsageL[l, d])*bigM1)
-                model.addConstr(U[l, d]>=0)
+                    -(1-UsageL[l, d])*bigM2,name='u13_{}_{}'.format(l,d))
+                model.addConstr(U[l, d]>=0,name='u14_{}_{}'.format(l,d))
                 
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(Asenli[l, d]==miu*G1[l, d]+A1[l, d])
-                model.addConstr(UseAsenli[l, d]<=bigM1*UsageL[l, d])
-                model.addConstr(UseAsenli[l, d]<=Asenli[l, d])
+                model.addConstr(Asenli[l, d]==miu*G1[l, d]+A1[l, d],
+                        name='asenli_{}_{}'.format(l,d))
+                model.addConstr(UseAsenli[l, d]<=bigM1*UsageL[l, d],
+                        name='useasenli11_{}_{}'.format(l,d))
+                model.addConstr(UseAsenli[l, d]<=Asenli[l, d],
+                        name='useasenli12_{}_{}'.format(l,d))
                 model.addConstr(UseAsenli[l, d]>=Asenli[l, d]
-                    -bigM1*(1-UsageL[l, d]))
-                model.addConstr(UseAsenli[l, d]>=0)
+                        -bigM1*(1-UsageL[l, d]),
+                        name='useasenli13_{}_{}'.format(l,d))
+                model.addConstr(UseAsenli[l, d]>=0,
+                        name='useasenli14_{}_{}'.format(l,d))
                 
         for n in self.nodes:
             for d in demands.id:
                 model.addConstr(Y[n, d]==quicksum(X[l, d]+UseAsenli[l, d]
-                    for l in self.links.id if self.links.destination[l]==n))
-                model.addConstr(III[n, d]==1-Ire[n, d])
+                    for l in self.links.id if self.links.destination[l]==n),
+                    name='yx_{}_{}'.format(n, d))
+                model.addConstr(III[n, d]==1-Ire[n, d], 
+                                name='III_{}_{}'.format(n, d))
                 
         for l in self.links.id:
             for d in demands.id:
-                model.addConstr(X[l, d]<=bigM1*III[self.links.source[l], d])
-                model.addConstr(X[l, d]<=U[l, d])
+                model.addConstr(X[l, d]<=bigM1*III[self.links.source[l], d],
+                        name='x11_{}_{}'.format(l,d))
+                model.addConstr(X[l, d]<=U[l, d],
+                        name='x12_{}_{}'.format(l,d))
                 model.addConstr(X[l, d]>=U[l, d]-
-                                bigM1*(1-III[self.links.source[l], d]))
-                model.addConstr(X[l, d]>=0)
+                                bigM1*(1-III[self.links.source[l], d]),
+                        name='x13_{}_{}'.format(l,d))
+                model.addConstr(X[l, d]>=0,name='x14_{}_{}'.format(l,d))
         
         for n in self.nodes:
-            model.addConstr(NNN[n]==quicksum(Ire[n, d] for d in demands.id))
-            model.addConstr(I[n]*Nmax>=NNN[n])
+            model.addConstr(NNN[n]==quicksum(Ire[n, d] for d in demands.id),
+                            name='nnn_{}'.format(n))
+            model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
             
         # objective
         model.setObjective(c+Total, GRB.MINIMIZE)
@@ -838,13 +919,19 @@ class Network(object):
         UsageLx = {}
         for l in self.links.id:
             for d in demands.id:
-                UsageLx[l, d] = UsageL[l, d].x
+                if UsageL[l, d].x<0.5:
+                    UsageLx[l, d] = 0
+                else:
+                    UsageLx[l, d] = 1
                        
         Deltax = {}
         for d1 in demands.id:
             for d2 in demands.id:
                 if d1!=d2:
-                    Deltax[d1, d2] = Delta[d1, d2].x
+                    if Delta[d1, d2].x <0.5:
+                        Deltax[d1, d2] = 0
+                    else:
+                        Deltax[d1, d2] = 1
                           
         Fstartx = {}
         for d in demands.id:
@@ -947,7 +1034,7 @@ class Network(object):
         solutions['c'] = cx
         solutions['GASEws'] = GASEwsx
         solutions['GNliws'] = GNliwsx
-        solutions['Al'] = A1x
+        solutions['A1'] = A1x
         solutions['UsageL1'] = UsageL1x
         solutions['Asenli'] = Asenlix
         solutions['UseAsenli'] = UseAsenlix
@@ -1095,6 +1182,7 @@ class Network(object):
             previous_solutions['Delta'] = Deltax
             previous_solutions['demands_added'] = demands_added
             previous_solutions['demands_fixed'] = demands_fixed
+            previous_solutions['Fstart'] = iteration_history[idx-1]['solutions']['Fstart']
             model, solutions, UsageLx, Deltax = \
                 self.solve_partial(demands, previous_solutions, **kwargs)
             
@@ -1120,12 +1208,15 @@ class Network(object):
         toc = time.clock()
         self.total_runtime = toc-tic
         
-        c_hist = [iteration_history[i]['solutions']['c'] 
-            for i in range(len(iteration_history))]
-        Total_hist = [iteration_history[i]['solutions']['Total'] 
-            for i in range(len(iteration_history))]
-        
         return iteration_history
+    
+    def extract_history(self, iteration_history, variable_name):
+        '''Extract the history of a certain variable in the iteration_history
+        '''
+        var_history = [iteration_history[i]['solutions'].get(variable_name)
+            for i in range(len(iteration_history))]
+            
+        return var_history
         
 
 if __name__=='__main__':
@@ -1141,10 +1232,12 @@ if __name__=='__main__':
     n_demands = 25
     demands = sn.create_demands(n_demands, modulation='bpsk', low=40, high=100)
     demands = pd.read_csv('demands25.csv')
-    demands = demands.iloc[:10]
+    demands = demands.iloc[:15]
 
-#    iteration_history = sn.iterate(demands, mipfocus=1, timelimit=240, method=2, 
-#                                   mipgap=0.01, outputflag=1)
+    iteration_history = sn.iterate(demands, mipfocus=1, timelimit=240, method=2, 
+                                   mipgap=0.001, outputflag=1, 
+                                   FeasibilityTol=1e-9, IntFeasTol=1e-9, 
+                                   OptimalityTol=1e-9)
     
-    model, solutions, UsageLx, Deltax = sn.solve_all(demands, mipfocus=1, timelimit=240, method=2, 
-                                   mipgap=0.01, outputflag=1)
+#    model, solutions, UsageLx, Deltax = sn.solve_all(demands, mipfocus=1, timelimit=240, method=2, 
+#                                   mipgap=0.01, outputflag=1)
