@@ -802,7 +802,7 @@ if __name__=='__main__':
     n_demands = 10
     demands = sn.create_demands(n_demands, low=40, high=100)
     demands = pd.read_csv('demands25.csv')
-    demands = demands.iloc[:10]
+    demands = demands.iloc[:5]
 #    model, solutions, UsageLx, Deltax = \
 #        sn.solve_all(demands, mipfocus=1, timelimit=1, method=2, 
 #                         mipgap=0.01, write=['solution.sol', 'test.mps'])

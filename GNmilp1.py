@@ -7,8 +7,9 @@ Created on Mon Feb 20 15:58:44 2017
 CLGN iterative heuristic
 
 To-do:
-    1. demand data rate is normal distribution
-    2. guardband is 12.5 GHz
+    1. demand data rate is normal distribution - DONE
+    2. guardband is 12.5 GHz, change TR as well - DONE
+    3. save solutions for new variables
 """
 
 import numpy as np
@@ -18,7 +19,7 @@ import time
 import copy
 
 INF = np.inf # infinity
-G = 10 # guardband
+G = 12.5 # guardband
 Nmax = 10 # max number of regenerator circuits per regenerator node
 cofase = 23.86 # ASE coefficient
 rou = 2.11*10**-3
@@ -60,13 +61,22 @@ class Network(object):
                                    'destination': dst, 'length':length})
         self.links = self.links[['id', 'source', 'destination', 'length']]
     
-    def create_demands(self, n_demands, low=30, high=400):
+    def create_demands(self, n_demands, modulation='bpsk', distribution='uniform', 
+                       low=30, high=400):
         '''Create demands
         '''
         demand_pairs_id = np.random.choice(self.n_node_pairs, n_demands)
         demand_pairs_id = sorted(demand_pairs_id)
         demand_pairs = [self.node_pairs[i] for i in demand_pairs_id]
-        data_rates = np.random.randint(low, high, n_demands)
+        if distribution=='uniform':
+        # uniform distribution
+            data_rates = np.random.randint(low, high, n_demands)
+        elif distribution=='normal':
+        # normal distribution
+            data_rates = np.random.normal(loc=(low+high)/2, scale=(low+high)/4,
+                                          size=n_demands)
+            data_rates = [int(max(low, data_rates[i])) for i in range(n_demands)]
+            data_rates = [int(min(high, data_rates[i])) for i in range(n_demands)]
         src = [x[0] for x in demand_pairs]
         dst = [x[1] for x in demand_pairs]
         ids = [i for i in range(n_demands)]
@@ -74,10 +84,17 @@ class Network(object):
                                 'data_rates': data_rates})
         demands = demands[['id', 'source', 'destination', 'data_rates']]
 
-        # QPSK
-        tr = [(3651-1.25*data_rates[i])/100 for i in range(n_demands)]
-        # BPSK
-#        tr = [(7400-3.66*data_rates[i])/100 for i in range(n_demands)]
+        # choose modulation format
+        if modulation=='qpsk':
+            tr = [(3651-1.25*data_rates[i])/100 for i in range(n_demands)]
+        elif modulation=='bpsk':
+            bpsk_tr = pd.read_csv('bpsk_TR.csv', header=None)
+            bpsk_tr.columns = ['data_rate', 'distance']
+            bpsk_tr.distance = bpsk_tr.distance/100
+            bpsk_tr.set_index('data_rate', inplace=True)
+            tr = [float(bpsk_tr.loc[int(np.round(data_rates[i]))]) 
+                for i in range(n_demands)]
+            
         demands['TR'] = tr
 
         return demands
@@ -427,6 +444,51 @@ class Network(object):
         
         cx = c.x
         
+        GNix = {}
+        for l in self.links.id:
+            for d in demands.id:
+                GNix[l, d] = GNi[l, d].x
+                    
+        G1x={}# intermedia variables for product
+        for l in self.links.id:
+            for d in demands.id:
+                G1x[l,d] = G1[l,d].x
+
+        #dvar float GASEws[Links] in 0..10000;
+        GASEwsx={}
+        for l in self.links.id:
+            GASEwsx[l] = GASEws[l].x
+             
+        #dvar float GNliws[Links][Demands]in 0..10000;
+        GNliwsx={}# intermedia variables for product
+        for l in self.links.id:
+            for d in demands.id:
+                GNliwsx[l,d] = GNliws[l,d].x
+                 
+        #dvar float A1[Links][Demands] in 0..10000;
+        A1x={}# intermedia variables for product
+        for l in self.links.id:
+            for d in demands.id:
+                A1x[l,d] = A1[l,d].x
+                 
+        #var int UsageL1[Links][Demands][Demands]in 0..1;
+        UsageL1x={}# intermedia variables for product
+        for l in self.links.id:
+            for d1 in demands.id:
+                for d2 in demands.id:
+                    UsageL1x[l,d1,d2] = UsageL1[l,d1,d2].x
+                     
+        #dvar float Asenli[Links][Demands]in 0..10000;
+        Asenlix={}# intermedia variables for product
+        for l in self.links.id:
+            for d in demands.id:
+                Asenlix[l,d] = Asenli[l,d].x
+                 
+        UseAsenlix = {}
+        for l in self.links.id:
+            for d in demands.id:
+                UseAsenlix[l, d] = UseAsenli[l, d].x
+        
         solutions = {}
         solutions['UsageL'] = UsageLx
         solutions['Fstart'] = Fstartx
@@ -440,6 +502,12 @@ class Network(object):
         solutions['Y'] = Yx
         solutions['Total'] = Totalx
         solutions['c'] = cx
+        solutions['GASEws'] = GASEwsx
+        solutions['GNliws'] = GNliwsx
+        solutions['Al'] = A1x
+        solutions['UsageL1'] = UsageL1x
+        solutions['Asenli'] = Asenlix
+        solutions['UseAsenli'] = UseAsenlix
         
         return model, solutions, UsageLx, Deltax
 
@@ -819,6 +887,51 @@ class Network(object):
         
         cx = c.x
         
+        GNix = {}
+        for l in self.links.id:
+            for d in demands.id:
+                GNix[l, d] = GNi[l, d].x
+                    
+        G1x={}# intermedia variables for product
+        for l in self.links.id:
+            for d in demands.id:
+                G1x[l,d] = G1[l,d].x
+
+        #dvar float GASEws[Links] in 0..10000;
+        GASEwsx={}
+        for l in self.links.id:
+            GASEwsx[l] = GASEws[l].x
+             
+        #dvar float GNliws[Links][Demands]in 0..10000;
+        GNliwsx={}# intermedia variables for product
+        for l in self.links.id:
+            for d in demands.id:
+                GNliwsx[l,d] = GNliws[l,d].x
+                 
+        #dvar float A1[Links][Demands] in 0..10000;
+        A1x={}# intermedia variables for product
+        for l in self.links.id:
+            for d in demands.id:
+                A1x[l,d] = A1[l,d].x
+                 
+        #var int UsageL1[Links][Demands][Demands]in 0..1;
+        UsageL1x={}# intermedia variables for product
+        for l in self.links.id:
+            for d1 in demands.id:
+                for d2 in demands.id:
+                    UsageL1x[l,d1,d2] = UsageL1[l,d1,d2].x
+                     
+        #dvar float Asenli[Links][Demands]in 0..10000;
+        Asenlix={}# intermedia variables for product
+        for l in self.links.id:
+            for d in demands.id:
+                Asenlix[l,d] = Asenli[l,d].x
+                 
+        UseAsenlix = {}
+        for l in self.links.id:
+            for d in demands.id:
+                UseAsenlix[l, d] = UseAsenli[l, d].x
+        
         solutions = {}
         solutions['UsageL'] = UsageLx
         solutions['Fstart'] = Fstartx
@@ -829,9 +942,15 @@ class Network(object):
         solutions['I'] = Ix
         solutions['NNN'] = NNNx
         solutions['X'] = Xx
-        solutions['Ynode'] = Yx
+        solutions['Y'] = Yx
         solutions['Total'] = Totalx
         solutions['c'] = cx
+        solutions['GASEws'] = GASEwsx
+        solutions['GNliws'] = GNliwsx
+        solutions['Al'] = A1x
+        solutions['UsageL1'] = UsageL1x
+        solutions['Asenli'] = Asenlix
+        solutions['UseAsenli'] = UseAsenlix
         
         return model, solutions, UsageLx, Deltax
     
@@ -856,7 +975,7 @@ class Network(object):
         n_iter_per_stage = 10
         th_mipgap = 0.01
         n_demands_increment = 5
-        n_demands_holdout = 3
+#        n_demands_holdout = 5
         
         # the first iteration
         if idx==0:
@@ -913,6 +1032,7 @@ class Network(object):
             demands_solved = \
                 copy.copy(iteration_history[idx-1]['demands_solved'])
             np.random.shuffle(demands_solved)
+            n_demands_holdout = int(len(demands_solved)/2)
             demands_added = list(demands_solved[:n_demands_holdout])
             demands_fixed = list(demands_solved[n_demands_holdout:])
             no_demands = False
@@ -930,12 +1050,6 @@ class Network(object):
         idx = 0
         iteration_history = {}
         iteration_history[idx] = {}
-#        iteration_history = {'step_id': [], 'demands_fixed': [], 
-#                             'demands_added': [], 'solutions': [], 
-#                             'UsageLx': [], 'Deltax': []}
-#        iteration_history = pd.DataFrame(iteration_history)
-#        iteration_history = iteration_history[['step_id', 'demands_fixed', 
-#                            'demands_added', 'solutions', 'UsageLx', 'Deltax']]
         iteration_history[idx]['step_id'] = idx
         iteration_history[idx]['demands_fixed'] = None
         iteration_history[idx]['demands_added'] = None
@@ -1006,6 +1120,11 @@ class Network(object):
         toc = time.clock()
         self.total_runtime = toc-tic
         
+        c_hist = [iteration_history[i]['solutions']['c'] 
+            for i in range(len(iteration_history))]
+        Total_hist = [iteration_history[i]['solutions']['Total'] 
+            for i in range(len(iteration_history))]
+        
         return iteration_history
         
 
@@ -1020,19 +1139,12 @@ if __name__=='__main__':
     network_cost = network_cost.as_matrix()
     sn = Network(network_cost)
     n_demands = 25
-    demands = sn.create_demands(n_demands, low=40, high=100)
+    demands = sn.create_demands(n_demands, modulation='bpsk', low=40, high=100)
     demands = pd.read_csv('demands25.csv')
-    demands = demands.iloc[:5]
-#    model, solutions, UsageLx, Deltax = \
-#        sn.solve_all(demands, mipfocus=1, timelimit=1, method=2, 
-#                         mipgap=0.01, write=['solution.sol', 'test.mps'])
-#    
-#    previous_solutions = {}
-#    previous_solutions['demands_added'] = [7, 8, 9]
-#    previous_solutions['demands_fixed'] = [0, 1, 2, 3, 4, 5, 6]
-#    previous_solutions['UsageL'] = UsageLx
-#    previous_solutions['Delta'] = Deltax
-#    model, solutions, UsageLx, Deltax = sn.solve_partial(demands, previous_solutions)
+    demands = demands.iloc[:10]
+
+#    iteration_history = sn.iterate(demands, mipfocus=1, timelimit=240, method=2, 
+#                                   mipgap=0.01, outputflag=1)
     
-    iteration_history = sn.iterate(demands, mipfocus=1, timelimit=120, method=2, 
+    model, solutions, UsageLx, Deltax = sn.solve_all(demands, mipfocus=1, timelimit=240, method=2, 
                                    mipgap=0.01, outputflag=1)
