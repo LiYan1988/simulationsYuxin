@@ -15,6 +15,7 @@ import pandas as pd
 from gurobipy import *
 import time
 import copy
+import cPickle as pickle
 
 # fiber parameters
 INF = np.inf
@@ -32,7 +33,6 @@ n_demands_initial = 5
 n_iter_per_stage = 10
 th_mipgap = 0.01
 n_demands_increment = 5
-n_demands_holdout = 3
 
 class Network(object):
     '''The network 
@@ -60,13 +60,22 @@ class Network(object):
                                    'destination': dst, 'length':length})
         self.links = self.links[['id', 'source', 'destination', 'length']]
     
-    def create_demands(self, n_demands, low=30, high=400):
+    def create_demands(self, n_demands, modulation='bpsk', distribution='uniform', 
+                       low=30, high=400):
         '''Create demands
         '''
         demand_pairs_id = np.random.choice(self.n_node_pairs, n_demands)
         demand_pairs_id = sorted(demand_pairs_id)
         demand_pairs = [self.node_pairs[i] for i in demand_pairs_id]
-        data_rates = np.random.randint(low, high, n_demands)
+        if distribution=='uniform':
+        # uniform distribution
+            data_rates = np.random.randint(low, high, n_demands)
+        elif distribution=='normal':
+        # normal distribution
+            data_rates = np.random.normal(loc=(low+high)/2, scale=(low+high)/4,
+                                          size=n_demands)
+            data_rates = [int(max(low, data_rates[i])) for i in range(n_demands)]
+            data_rates = [int(min(high, data_rates[i])) for i in range(n_demands)]
         src = [x[0] for x in demand_pairs]
         dst = [x[1] for x in demand_pairs]
         ids = [i for i in range(n_demands)]
@@ -74,10 +83,17 @@ class Network(object):
                                 'data_rates': data_rates})
         demands = demands[['id', 'source', 'destination', 'data_rates']]
 
-        # QPSK
-        tr = [(3651-1.25*data_rates[i])/100 for i in range(n_demands)]
-        # BPSK
-#        tr = [(7400-3.66*data_rates[i])/100 for i in range(n_demands)]
+        # choose modulation format
+        if modulation=='qpsk':
+            tr = [(3651-1.25*data_rates[i])/100 for i in range(n_demands)]
+        elif modulation=='bpsk':
+            bpsk_tr = pd.read_csv('bpsk_TR.csv', header=None)
+            bpsk_tr.columns = ['data_rate', 'distance']
+            bpsk_tr.distance = bpsk_tr.distance/100
+            bpsk_tr.set_index('data_rate', inplace=True)
+            tr = [float(bpsk_tr.loc[int(np.round(data_rates[i]))]) 
+                for i in range(n_demands)]
+            
         demands['TR'] = tr
 
         return demands
@@ -833,6 +849,18 @@ class Network(object):
         demands['TR'] = tr
 
         return demands
+    
+def save_data(file_name, data):
+    """File name must ends with .pkl
+    """
+    with open(file_name, 'wb') as f:
+        pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
+        
+def read_data(file_name):
+    with open(file_name, 'rb') as f:
+        data = pickle.load(f)
+        
+    return data
         
 
 if __name__=='__main__':

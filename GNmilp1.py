@@ -17,7 +17,9 @@ import pandas as pd
 from gurobipy import *
 import time
 import copy
+import cPickle as pickle
 
+# fiber parameters
 INF = np.inf # infinity
 G = 12.5 # guardband
 Nmax = 10 # max number of regenerator circuits per regenerator node
@@ -26,11 +28,16 @@ rou = 2.11*10**-3
 miu = 1.705
 Noise = (10**4)/3.52
 
-
-# big number
+# modelling parameters
 bigM1 = 10**5 
 bigM2 = 10**5
 bigM3 = 2*10**6 
+
+# scheduler parameters
+n_demands_initial = 5
+n_iter_per_stage = 10
+th_mipgap = 0.01
+n_demands_increment = 5
 
 np.random.seed(0) # set random seed
 
@@ -1086,13 +1093,7 @@ class Network(object):
                 - no_demands, whether there is no demands left and we should 
                     stop
         '''
-        
-        n_demands_initial = 5
-        n_iter_per_stage = 10
-        th_mipgap = 0.01
-        n_demands_increment = 5
-#        n_demands_holdout = 5
-        
+                
         # the first iteration
         if idx==0:
             demands_id = demands.id.as_matrix()
@@ -1180,6 +1181,8 @@ class Network(object):
         demands_tmp = demands.loc[demands.id.isin(demands_added), :]
         model, solutions, UsageLx, Deltax = \
             self.solve_all(demands_tmp, **kwargs)
+        toc_now = time.clock()
+        iteration_history[idx]['runtime'] = toc_now-tic
         iteration_history[idx]['demands_fixed'] = demands_fixed
         iteration_history[idx]['demands_added'] = demands_added
         iteration_history[idx]['demands_solved'] = demands_added
@@ -1214,7 +1217,7 @@ class Network(object):
             previous_solutions['Fstart'] = iteration_history[idx-1]['solutions']['Fstart']
             model, solutions, UsageLx, Deltax = \
                 self.solve_partial(demands, previous_solutions, mipstart=mipstart, **kwargs)
-            
+            toc_now = time.clock()
             iteration_history[idx] = {}
             iteration_history[idx]['step_id'] = idx
             iteration_history[idx]['demands_fixed'] = demands_fixed
@@ -1224,6 +1227,7 @@ class Network(object):
             iteration_history[idx]['UsageLx'] = UsageLx
             iteration_history[idx]['Deltax'] = Deltax
             iteration_history[idx]['model'] = model
+            iteration_history[idx]['runtime'] = toc_now-tic
 
 #            print('Iteration {}: Total={}, c={}, {} old demands, {} new demands.'.\
 #                  format(idx, iteration_history[idx]['solutions']['Total'],
@@ -1274,6 +1278,18 @@ class Network(object):
         demands['TR'] = tr
 
         return demands
+    
+def save_data(file_name, data):
+    """File name must ends with .pkl
+    """
+    with open(file_name, 'wb') as f:
+        pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
+        
+def read_data(file_name):
+    with open(file_name, 'rb') as f:
+        data = pickle.load(f)
+        
+    return data
         
 
 if __name__=='__main__':
