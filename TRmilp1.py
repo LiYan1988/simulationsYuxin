@@ -5,6 +5,9 @@ TR iterative heuristic
 To-do:
     1. control the number of iterations per stage, the time per iteration
     2. realize Xu's algorithm
+    3. double check the qpsk TR, a qpsk TR table should be provided
+    4. warm start can be added to solvers, but depending on the problem, it 
+        may not be helpful
 """
 
 import numpy as np
@@ -13,13 +16,23 @@ from gurobipy import *
 import time
 import copy
 
+# fiber parameters
 INF = np.inf
 Nmax = 10 # max number of regenerator circuits per regenerator node
 np.random.seed(0) # set random seed
+G = 12.5 # guardband
+
+# modelling parameters
 bigM1 = 10**4 # big number
 bigM2 = 10**5 
 bigM3 = 2*10**6 
-G = 10 # guardband
+
+# scheduler parameters
+n_demands_initial = 5
+n_iter_per_stage = 10
+th_mipgap = 0.01
+n_demands_increment = 5
+n_demands_holdout = 3
 
 class Network(object):
     '''The network 
@@ -69,7 +82,8 @@ class Network(object):
 
         return demands
     
-    def solve_all(self, demands, **kwargs):
+    def solve_all(self, demands, FeasibilityTol=1e-9, IntFeasTol=1e-9, 
+                  OptimalityTol=1e-9, **kwargs):
         '''Formulate and solve
         '''
         n_demands = demands.shape[0]
@@ -327,7 +341,8 @@ class Network(object):
         
         return model, solutions, UsageLx, Deltax
 
-    def solve_partial(self, demands, previous_solutions, **kwargs):
+    def solve_partial(self, demands, previous_solutions, FeasibilityTol=1e-9, 
+                      IntFeasTol=1e-9, OptimalityTol=1e-9, **kwargs):
         '''Formulate and solve iteratively
         previous_solutions is dict, contains:
             - UsageL from the previous solve, dict
@@ -632,12 +647,6 @@ class Network(object):
                     stop
         '''
         
-        n_demands_initial = 5
-        n_iter_per_stage = 10
-        th_mipgap = 0.01
-        n_demands_increment = 5
-        n_demands_holdout = 3
-        
         # the first iteration
         if idx==0:
             demands_id = demands.id.as_matrix()
@@ -693,6 +702,7 @@ class Network(object):
             demands_solved = \
                 copy.copy(iteration_history[idx-1]['demands_solved'])
             np.random.shuffle(demands_solved)
+            n_demands_holdout = int(len(demands_solved)/2)
             demands_added = list(demands_solved[:n_demands_holdout])
             demands_fixed = list(demands_solved[n_demands_holdout:])
             no_demands = False
@@ -787,6 +797,42 @@ class Network(object):
         self.total_runtime = toc-tic
         
         return iteration_history
+    
+    def extract_history(self, iteration_history, variable_name):
+        '''Extract the history of a certain variable in the iteration_history
+        '''
+        if variable_name in iteration_history[0]['solutions']:
+            var_history = [iteration_history[i]['solutions'].get(variable_name)
+                for i in range(len(iteration_history))]
+        elif variable_name in iteration_history[0]:
+            var_history = [iteration_history[i].get(variable_name)
+                for i in range(len(iteration_history))]
+        elif hasattr(iteration_history[0]['model'], variable_name):
+            var_history = [getattr(iteration_history[i]['model'], variable_name)
+                for i in range(len(iteration_history))]
+            
+        return var_history
+    
+    def read_demands(self, demands_csv, modulation='bpsk'):
+        '''read demand csv file'''
+        demands = pd.read_csv(demands_csv, header=None)
+        demands.reset_index(drop=False, inplace=True)
+        demands.columns = ['id', 'source', 'destination', 'data_rates']
+        n_demands = demands.shape[0]
+        # choose modulation format
+        if modulation=='qpsk':
+            tr = [(3651-1.25*demands.data_rates[i])/100 for i in range(n_demands)]
+        elif modulation=='bpsk':
+            bpsk_tr = pd.read_csv('bpsk_TR.csv', header=None)
+            bpsk_tr.columns = ['data_rate', 'distance']
+            bpsk_tr.distance = bpsk_tr.distance/100
+            bpsk_tr.set_index('data_rate', inplace=True)
+            tr = [float(bpsk_tr.loc[int(np.round(demands.data_rates[i]))]) 
+                for i in range(n_demands)]
+            
+        demands['TR'] = tr
+
+        return demands
         
 
 if __name__=='__main__':

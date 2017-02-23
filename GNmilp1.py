@@ -24,7 +24,7 @@ Nmax = 10 # max number of regenerator circuits per regenerator node
 cofase = 23.86 # ASE coefficient
 rou = 2.11*10**-3
 miu = 1.705
-Noise = (10**4)/7.03
+Noise = (10**4)/3.52
 
 
 # big number
@@ -99,7 +99,8 @@ class Network(object):
 
         return demands
     
-    def solve_all(self, demands, **kwargs):
+    def solve_all(self, demands, FeasibilityTol=1e-9, IntFeasTol=1e-9, 
+                  OptimalityTol=1e-9, **kwargs):
         '''Formulate and solve
         '''
         n_demands = demands.shape[0]
@@ -250,8 +251,8 @@ class Network(object):
         # flow conservation
         for n in self.nodes:
             for d in demands.id:
-                model.addConstr(quicksum(UsageL[l, d] for l in self.links.id
-                                         if self.links.source[l]==n)-
+                model.addConstr(-quicksum(UsageL[l, d] for l in self.links.id
+                                         if self.links.source[l]==n)+
                                 quicksum(UsageL[l, d] for l in self.links.id
                                          if self.links.destination[l]==n)
                                 == supply[n, d], 
@@ -306,15 +307,19 @@ class Network(object):
                     model.addConstr(UsageL1[l, d1, d2]>=UsageL[l, d1]+
                                     UsageL[l, d2]-1,
                                     name='usagel13_{}_{}'.format(l,d1,d2))
-                    model.addConstr(GNi[l, d1]==np.log(rou*
-                        demands.data_rates[d1]*demands.data_rates[d1])
-#                        -UsageL[l, d1]*np.log(1.5*demands.data_rates[d1]/
+                    
+        for l in self.links.id:
+            for d1 in demands.id:
+                model.addConstr(GNi[l, d1]==np.log(rou*
+                    demands.data_rates[d1]*demands.data_rates[d1])
+#                       -UsageL[l, d1]*np.log((1.5*demands.data_rates[d1]+G)/
 #                        (G+0.5*demands.data_rates[d1]))
-                        +quicksum(UsageL1[l,d1,d3]*np.log(
-                        (demands.data_rates[d1]+0.5*demands.data_rates[d3])/
-                        (G+0.5*demands.data_rates[d1]) ) 
-                        for d3 in demands.id if d3 is not d1),
-                        name='usagel14_{}_{}'.format(l,d1,d2))
+                    +quicksum(UsageL1[l,d1,d3]*np.log(
+                    (demands.data_rates[d3]+0.5*demands.data_rates[d1]+G)/
+                    (G+0.5*demands.data_rates[d1]) ) 
+                    for d3 in demands.id if d3!=d1),
+                    name='usagel14_{}_{}'.format(l,d1))
+        
         
         for l in self.links.id:
             for d in demands.id:
@@ -421,133 +426,144 @@ class Network(object):
                         except:
                             pass
                         
-        # construct solutions for UsageL and Delta
-        UsageLx = {}
-        for l in self.links.id:
-            for d in demands.id:
-                if UsageL[l, d].x<0.5:
-                    UsageLx[l, d] = 0
-                else:
-                    UsageLx[l, d] = 1
-                       
-        Deltax = {}
-        for d1 in demands.id:
-            for d2 in demands.id:
-                if d1!=d2:
-                    if Delta[d1, d2].x <0.5:
-                        Deltax[d1, d2] = 0
+        try:
+            # construct solutions for UsageL and Delta
+            UsageLx = {}
+            for l in self.links.id:
+                for d in demands.id:
+                    if UsageL[l, d].x<0.5:
+                        UsageLx[l, d] = 0
                     else:
-                        Deltax[d1, d2] = 1
-
-        Fstartx = {}
-        for d in demands.id:
-            Fstartx[d] = Fstart[d].x
-                   
-        Ux = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
-        for l in self.links.id:
-            for d in demands.id:
-                Ux[l, d] = U[l, d].x
-                  
-        Irex = {} # 
-        for n in self.nodes:
-            for d in demands.id:
-                Irex[n, d] = Ire[n, d].x
-                    
-        IIIx = {} # 
-        for n in self.nodes:
-            for d in demands.id:
-                IIIx[n, d] = III[n, d].x
-                    
-        Ix = {}
-        for n in self.nodes:
-            Ix[n] = I[n].x
-              
-        NNNx = {}
-        for n in self.nodes:
-            NNNx[n] = NNN[n].x
-                
-        Xx = {}
-        for l in self.links.id:
-            for d in demands.id:
-                Xx[l, d] = X[l, d].x
-                  
-        Yx = {}
-        for n in self.nodes:
-            for d in demands.id:
-                Yx[n, d] = Y[n, d].x
-                      
-        Totalx = Total.x
-        
-        cx = c.x
-        
-        GNix = {}
-        for l in self.links.id:
-            for d in demands.id:
-                GNix[l, d] = GNi[l, d].x
-                    
-        G1x={}# intermedia variables for product
-        for l in self.links.id:
-            for d in demands.id:
-                G1x[l,d] = G1[l,d].x
-
-        #dvar float GASEws[Links] in 0..10000;
-        GASEwsx={}
-        for l in self.links.id:
-            GASEwsx[l] = GASEws[l].x
-             
-        #dvar float GNliws[Links][Demands]in 0..10000;
-        GNliwsx={}# intermedia variables for product
-        for l in self.links.id:
-            for d in demands.id:
-                GNliwsx[l,d] = GNliws[l,d].x
-                 
-        #dvar float A1[Links][Demands] in 0..10000;
-        A1x={}# intermedia variables for product
-        for l in self.links.id:
-            for d in demands.id:
-                A1x[l,d] = A1[l,d].x
-                 
-        #var int UsageL1[Links][Demands][Demands]in 0..1;
-        UsageL1x={}# intermedia variables for product
-        for l in self.links.id:
+                        UsageLx[l, d] = 1
+                           
+            Deltax = {}
             for d1 in demands.id:
                 for d2 in demands.id:
-                    UsageL1x[l,d1,d2] = UsageL1[l,d1,d2].x
-                     
-        #dvar float Asenli[Links][Demands]in 0..10000;
-        Asenlix={}# intermedia variables for product
-        for l in self.links.id:
+                    if d1!=d2:
+                        if Delta[d1, d2].x <0.5:
+                            Deltax[d1, d2] = 0
+                        else:
+                            Deltax[d1, d2] = 1
+    
+            Fstartx = {}
             for d in demands.id:
-                Asenlix[l,d] = Asenli[l,d].x
+                Fstartx[d] = Fstart[d].x
+                       
+            Ux = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
+            for l in self.links.id:
+                for d in demands.id:
+                    Ux[l, d] = U[l, d].x
+                      
+            Irex = {} # 
+            for n in self.nodes:
+                for d in demands.id:
+                    Irex[n, d] = Ire[n, d].x
+                        
+            IIIx = {} # 
+            for n in self.nodes:
+                for d in demands.id:
+                    IIIx[n, d] = III[n, d].x
+                        
+            Ix = {}
+            for n in self.nodes:
+                Ix[n] = I[n].x
+                  
+            NNNx = {}
+            for n in self.nodes:
+                NNNx[n] = NNN[n].x
+                    
+            Xx = {}
+            for l in self.links.id:
+                for d in demands.id:
+                    Xx[l, d] = X[l, d].x
+                      
+            Yx = {}
+            for n in self.nodes:
+                for d in demands.id:
+                    Yx[n, d] = Y[n, d].x
+                          
+            Totalx = Total.x
+            
+            cx = c.x
+            
+            GNix = {}
+            for l in self.links.id:
+                for d in demands.id:
+                    GNix[l, d] = GNi[l, d].x
+                        
+            G1x={}# intermedia variables for product
+            for l in self.links.id:
+                for d in demands.id:
+                    G1x[l,d] = G1[l,d].x
+    
+            #dvar float GASEws[Links] in 0..10000;
+            GASEwsx={}
+            for l in self.links.id:
+                GASEwsx[l] = GASEws[l].x
                  
-        UseAsenlix = {}
-        for l in self.links.id:
-            for d in demands.id:
-                UseAsenlix[l, d] = UseAsenli[l, d].x
-        
-        solutions = {}
-        solutions['UsageL'] = UsageLx
-        solutions['Fstart'] = Fstartx
-        solutions['Delta'] = Deltax
-        solutions['U'] = Ux
-        solutions['Ire'] = Irex
-        solutions['III'] = IIIx
-        solutions['I'] = Ix
-        solutions['NNN'] = NNNx
-        solutions['X'] = Xx
-        solutions['Y'] = Yx
-        solutions['Total'] = Totalx
-        solutions['c'] = cx
-        solutions['GASEws'] = GASEwsx
-        solutions['GNliws'] = GNliwsx
-        solutions['A1'] = A1x
-        solutions['UsageL1'] = UsageL1x
-        solutions['Asenli'] = Asenlix
-        solutions['UseAsenli'] = UseAsenlix
-        
-        return model, solutions, UsageLx, Deltax
+            #dvar float GNliws[Links][Demands]in 0..10000;
+            GNliwsx={}# intermedia variables for product
+            for l in self.links.id:
+                for d in demands.id:
+                    GNliwsx[l,d] = GNliws[l,d].x
+                     
+            #dvar float A1[Links][Demands] in 0..10000;
+            A1x={}# intermedia variables for product
+            for l in self.links.id:
+                for d in demands.id:
+                    A1x[l,d] = A1[l,d].x
+                     
+            #var int UsageL1[Links][Demands][Demands]in 0..1;
+            UsageL1x={}# intermedia variables for product
+            for l in self.links.id:
+                for d1 in demands.id:
+                    for d2 in demands.id:
+                        UsageL1x[l,d1,d2] = UsageL1[l,d1,d2].x
+                         
+            #dvar float Asenli[Links][Demands]in 0..10000;
+            Asenlix={}# intermedia variables for product
+            for l in self.links.id:
+                for d in demands.id:
+                    Asenlix[l,d] = Asenli[l,d].x
+                     
+            UseAsenlix = {}
+            for l in self.links.id:
+                for d in demands.id:
+                    UseAsenlix[l, d] = UseAsenli[l, d].x
+                              
+            G1x={}# intermedia variables for product
+            for l in self.links.id:
+                for d in demands.id:
+                    G1x[l,d]=G1[l, d].x
+            
+            solutions = {}
+            solutions['UsageL'] = UsageLx
+            solutions['Fstart'] = Fstartx
+            solutions['Delta'] = Deltax
+            solutions['U'] = Ux
+            solutions['Ire'] = Irex
+            solutions['III'] = IIIx
+            solutions['I'] = Ix
+            solutions['NNN'] = NNNx
+            solutions['X'] = Xx
+            solutions['Y'] = Yx
+            solutions['Total'] = Totalx
+            solutions['c'] = cx
+            solutions['GASEws'] = GASEwsx
+            solutions['GNliws'] = GNliwsx
+            solutions['A1'] = A1x
+            solutions['UsageL1'] = UsageL1x
+            solutions['Asenli'] = Asenlix
+            solutions['UseAsenli'] = UseAsenlix
+            solutions['G1'] = G1x
+            
+            return model, solutions, UsageLx, Deltax
+        except:
+            return model
 
-    def solve_partial(self, demands, previous_solutions, **kwargs):
+    def solve_partial(self, demands, previous_solutions, mipstart=False, 
+                      FeasibilityTol=1e-9, IntFeasTol=1e-9, 
+                      OptimalityTol=1e-9, **kwargs):
         '''Formulate and solve iteratively
         previous_solutions is dict, contains:
             - UsageL from the previous solve, dict
@@ -599,19 +615,21 @@ class Network(object):
                 elif d in demands_added:
                     UsageL[l, d] = model.addVar(vtype=GRB.BINARY, 
                         name='UsageL_{}_{}'.format(l, d))
-#                try:
-#                    UsageL[l, d].start=UsageLx[l, d]
-#                except:
-#                    pass
+                if mipstart:
+                    try:
+                        UsageL[l, d].start=UsageLx[l, d]
+                    except:
+                        pass
                 
         Fstart = {} # the start frequency of demand d
         for d in demands.id:
             Fstart[d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM1, 
                   name='Fstart_{}'.format(d))
-#            try:
-#                Fstart[d].start = Fstartx[d]
-#            except:
-#                pass
+            if mipstart:
+                try:
+                    Fstart[d].start = Fstartx[d]
+                except:
+                    pass
             
         Delta = {} # order between demands
         for d1 in demands.id:
@@ -624,10 +642,11 @@ class Network(object):
                 elif d1!=d2:
                     Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
                          name='Delta_{}_{}'.format(d1, d2))
-#                try:
-#                    Delta[d1, d2].start = Deltax[d1, d2]
-#                except:
-#                    pass
+                if mipstart:
+                    try:
+                        Delta[d1, d2].start = Deltax[d1, d2]
+                    except:
+                        pass
 #                    
                     
         # define variables
@@ -744,8 +763,8 @@ class Network(object):
         # flow conservation
         for n in self.nodes:
             for d in demands.id:
-                model.addConstr(quicksum(UsageL[l, d] for l in self.links.id
-                                         if self.links.source[l]==n)-
+                model.addConstr(-quicksum(UsageL[l, d] for l in self.links.id
+                                         if self.links.source[l]==n)+
                                 quicksum(UsageL[l, d] for l in self.links.id
                                          if self.links.destination[l]==n)
                                 == supply[n, d], 
@@ -800,15 +819,18 @@ class Network(object):
                     model.addConstr(UsageL1[l, d1, d2]>=UsageL[l, d1]+
                                     UsageL[l, d2]-1,
                                     name='usagel13_{}_{}'.format(l,d1,d2))
-                    model.addConstr(GNi[l, d1]==np.log(rou*
-                        demands.data_rates[d1]*demands.data_rates[d1])
-#                        -UsageL[l, d1]*np.log(1.5*demands.data_rates[d1]/
+                    
+        for l in self.links.id:
+            for d1 in demands.id:
+                model.addConstr(GNi[l, d1]==np.log(rou*
+                    demands.data_rates[d1]*demands.data_rates[d1])
+#                       -UsageL[l, d1]*np.log((1.5*demands.data_rates[d1]+G)/
 #                        (G+0.5*demands.data_rates[d1]))
-                        +quicksum(UsageL1[l,d1,d3]*np.log(
-                        (demands.data_rates[d1]+0.5*demands.data_rates[d3])/
-                        (G+0.5*demands.data_rates[d1]) ) 
-                        for d3 in demands.id if d3 is not d1),
-                        name='usagel14_{}_{}'.format(l,d1,d2))
+                    +quicksum(UsageL1[l,d1,d3]*np.log(
+                    (demands.data_rates[d3]+0.5*demands.data_rates[d1]+G)/
+                    (G+0.5*demands.data_rates[d1]) ) 
+                    for d3 in demands.id if d3!=d1),
+                    name='usagel14_{}_{}'.format(l,d1))
         
         for l in self.links.id:
             for d in demands.id:
@@ -1018,6 +1040,12 @@ class Network(object):
         for l in self.links.id:
             for d in demands.id:
                 UseAsenlix[l, d] = UseAsenli[l, d].x
+                          
+        G1x={}# intermedia variables for product
+        for l in self.links.id:
+            for d in demands.id:
+                G1x[l,d]=G1[l, d].x
+        
         
         solutions = {}
         solutions['UsageL'] = UsageLx
@@ -1038,6 +1066,7 @@ class Network(object):
         solutions['UsageL1'] = UsageL1x
         solutions['Asenli'] = Asenlix
         solutions['UseAsenli'] = UseAsenlix
+        solutions['G1'] = G1x
         
         return model, solutions, UsageLx, Deltax
     
@@ -1127,7 +1156,7 @@ class Network(object):
             return demands_added, demands_fixed, no_demands
         
     
-    def iterate(self, demands, random_state=0, shuffle=False, **kwargs):
+    def iterate(self, demands, random_state=0, shuffle=False, mipstart=False, **kwargs):
         '''Iterate 
         
         '''
@@ -1184,7 +1213,7 @@ class Network(object):
             previous_solutions['demands_fixed'] = demands_fixed
             previous_solutions['Fstart'] = iteration_history[idx-1]['solutions']['Fstart']
             model, solutions, UsageLx, Deltax = \
-                self.solve_partial(demands, previous_solutions, **kwargs)
+                self.solve_partial(demands, previous_solutions, mipstart=mipstart, **kwargs)
             
             iteration_history[idx] = {}
             iteration_history[idx]['step_id'] = idx
@@ -1213,10 +1242,38 @@ class Network(object):
     def extract_history(self, iteration_history, variable_name):
         '''Extract the history of a certain variable in the iteration_history
         '''
-        var_history = [iteration_history[i]['solutions'].get(variable_name)
-            for i in range(len(iteration_history))]
+        if variable_name in iteration_history[0]['solutions']:
+            var_history = [iteration_history[i]['solutions'].get(variable_name)
+                for i in range(len(iteration_history))]
+        elif variable_name in iteration_history[0]:
+            var_history = [iteration_history[i].get(variable_name)
+                for i in range(len(iteration_history))]
+        elif hasattr(iteration_history[0]['model'], variable_name):
+            var_history = [getattr(iteration_history[i]['model'], variable_name)
+                for i in range(len(iteration_history))]
             
         return var_history
+    
+    def read_demands(self, demands_csv, modulation='bpsk'):
+        '''read demand csv file'''
+        demands = pd.read_csv(demands_csv, header=None)
+        demands.reset_index(drop=False, inplace=True)
+        demands.columns = ['id', 'source', 'destination', 'data_rates']
+        n_demands = demands.shape[0]
+        # choose modulation format
+        if modulation=='qpsk':
+            tr = [(3651-1.25*demands.data_rates[i])/100 for i in range(n_demands)]
+        elif modulation=='bpsk':
+            bpsk_tr = pd.read_csv('bpsk_TR.csv', header=None)
+            bpsk_tr.columns = ['data_rate', 'distance']
+            bpsk_tr.distance = bpsk_tr.distance/100
+            bpsk_tr.set_index('data_rate', inplace=True)
+            tr = [float(bpsk_tr.loc[int(np.round(demands.data_rates[i]))]) 
+                for i in range(n_demands)]
+            
+        demands['TR'] = tr
+
+        return demands
         
 
 if __name__=='__main__':
@@ -1233,6 +1290,7 @@ if __name__=='__main__':
     demands = sn.create_demands(n_demands, modulation='bpsk', low=40, high=100)
     demands = pd.read_csv('demands25.csv')
     demands = demands.iloc[:15]
+    demands.drop(['Unnamed: 0'], axis=1, inplace=True)
 
     iteration_history = sn.iterate(demands, mipfocus=1, timelimit=240, method=2, 
                                    mipgap=0.001, outputflag=1, 
