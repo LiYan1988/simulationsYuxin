@@ -15,7 +15,7 @@ import pandas as pd
 from gurobipy import *
 import time
 import copy
-import cPickle as pickle
+import pickle
 
 # fiber parameters
 INF = np.inf
@@ -24,7 +24,7 @@ np.random.seed(0) # set random seed
 G = 12.5 # guardband
 
 # modelling parameters
-bigM1 = 10**4 # big number
+bigM1 = 10**5 # big number
 bigM2 = 10**5 
 bigM3 = 2*10**6 
 
@@ -357,8 +357,9 @@ class Network(object):
         
         return model, solutions, UsageLx, Deltax
 
-    def solve_partial(self, demands, previous_solutions, FeasibilityTol=1e-9, 
-                      IntFeasTol=1e-9, OptimalityTol=1e-9, **kwargs):
+    def solve_partial(self, demands, previous_solutions, mipstart=False,
+                      FeasibilityTol=1e-9, IntFeasTol=1e-9, 
+                      OptimalityTol=1e-9, **kwargs):
         '''Formulate and solve iteratively
         previous_solutions is dict, contains:
             - UsageL from the previous solve, dict
@@ -374,6 +375,7 @@ class Network(object):
         demands_fixed = previous_solutions['demands_fixed'] # old demands
         UsageLx = previous_solutions['UsageL']
         Deltax = previous_solutions['Delta']
+        Fstartx = previous_solutions['Fstart']
         demands_all = list(set(demands_added).union(set(demands_fixed)))
 #        print(demands_added)
 #        print(demands_fixed)
@@ -409,11 +411,21 @@ class Network(object):
                 elif d in demands_added:
                     UsageL[l, d] = model.addVar(vtype=GRB.BINARY, 
                         name='UsageL_{}_{}'.format(l, d))
+                if mipstart:
+                    try:
+                        UsageL[l, d].start = UsageL[l, d]
+                    except:
+                        pass
                 
         Fstart = {} # the start frequency of demand d
         for d in demands.id:
             Fstart[d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM1, 
                   name='Fstart_{}'.format(d))
+            if mipstart:
+                try:
+                    Fstart[d].start = Fstartx[d]
+                except:
+                    pass
             
         Delta = {} # order between demands
         for d1 in demands.id:
@@ -426,6 +438,11 @@ class Network(object):
                 elif d1!=d2:
                     Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
                          name='Delta_{}_{}'.format(d1, d2))
+                if mipstart:
+                    try:
+                        Delta[d1, d2].start = Deltax[d1, d2]
+                    except:
+                        pass
                     
         U = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
         for l in self.links.id:
@@ -756,6 +773,8 @@ class Network(object):
         demands_tmp = demands.loc[demands.id.isin(demands_added), :]
         model, solutions, UsageLx, Deltax = \
             self.solve_all(demands_tmp, **kwargs)
+        toc_now = time.clock()
+        iteration_history[idx]['elapsed_time'] = toc_now-tic
         iteration_history[idx]['demands_fixed'] = demands_fixed
         iteration_history[idx]['demands_added'] = demands_added
         iteration_history[idx]['demands_solved'] = demands_added
@@ -787,9 +806,10 @@ class Network(object):
             previous_solutions['Delta'] = Deltax
             previous_solutions['demands_added'] = demands_added
             previous_solutions['demands_fixed'] = demands_fixed
+            previous_solutions['Fstart'] = iteration_history[idx-1]['solutions']['Fstart']
             model, solutions, UsageLx, Deltax = \
                 self.solve_partial(demands, previous_solutions, **kwargs)
-            
+            toc_now = time.clock()
             iteration_history[idx] = {}
             iteration_history[idx]['step_id'] = idx
             iteration_history[idx]['demands_fixed'] = demands_fixed
@@ -799,7 +819,8 @@ class Network(object):
             iteration_history[idx]['UsageLx'] = UsageLx
             iteration_history[idx]['Deltax'] = Deltax
             iteration_history[idx]['model'] = model
-
+            iteration_history[idx]['elapsed_time'] = toc_now-tic
+            
 #            print('Iteration {}: Total={}, c={}, {} old demands, {} new demands.'.\
 #                  format(idx, iteration_history[idx]['solutions']['Total'],
 #                         iteration_history[idx]['solutions']['c'],

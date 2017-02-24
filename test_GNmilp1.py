@@ -24,11 +24,12 @@ sn = Network(network_cost)
 #demands.destination = demands.destination-1
 n_demands = 50
 demands = sn.create_demands(n_demands, modulation='bpsk', low=40, high=100)
-demands = demands.iloc[:25]
+demands = demands.iloc[:10]
 
-iteration_history = sn.iterate(demands, mipstart=True, mipfocus=1, timelimit=600, method=2, 
+iteration_history = sn.iterate(demands, mipstart=True, mipfocus=1, 
+                               timelimit=120, method=-1, 
                                mipgap=0.001, outputflag=1, 
-                               FeasibilityTol=1e-9, IntFeasTol=1e-9, 
-                               OptimalityTol=1e-9)
+                               FeasibilityTol=1e-7, IntFeasTol=1e-7, 
+                               OptimalityTol=1e-7)
 
 #model = sn.solve_all(demands)

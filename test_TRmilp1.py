@@ -5,27 +5,29 @@ Created on Thu Feb 23 15:18:35 2017
 @author: yx4vf
 
 save solutions from TR and input to GN
+#demands,   TR time,    GN time
+10,         40.7,       129.8
+
 """
 
-from TRmilp1 import *
+import TRmilp1 as tr
+import GNmilp1 as gn
+import numpy as np
+import pandas as pd
+
 np.random.seed(0)
 
 network_cost = pd.read_csv('networkDT.csv', header=None)/100
 network_cost = network_cost.as_matrix()
-sn = Network(network_cost)
-# read from matlab data
-#demands = sn.read_demands('demands_30.csv')
-#demands = demands.iloc[:15]
-#demands.source = demands.source-1
-#demands.destination = demands.destination-1
+sntr = tr.Network(network_cost)
 n_demands = 50
-demands = sn.create_demands(n_demands, modulation='bpsk', low=40, high=100)
+demands = sntr.create_demands(n_demands, modulation='bpsk', low=40, high=100)
 demands = demands.iloc[:15]
 
-iteration_history = sn.iterate(demands, mipstart=True, mipfocus=1, 
-                               timelimit=600, method=2, 
-                               mipgap=0.001, outputflag=1, 
-                               FeasibilityTol=1e-9, IntFeasTol=1e-9, 
-                               OptimalityTol=1e-9)
+iteration_history_tr = sntr.iterate(demands, mipstart=True, mipfocus=1, 
+                                    timelimit=120, method=-1, mipgap=0.001) 
 
-#model = sn.solve_all(demands)
+sngn = gn.Network(network_cost)
+
+iteration_history_gn = sngn.iterate(demands, mipstart=True, mipfocus=1, 
+                                    timelimit=120, method=-1, mipgap=0.001)

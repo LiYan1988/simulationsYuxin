@@ -1,15 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb 20 15:58:44 2017
+Created on Thu Feb 23 17:35:05 2017
 
 @author: yx4vf
-
-CLGN iterative heuristic
-
-To-do:
-    1. demand data rate is normal distribution - DONE
-    2. guardband is 12.5 GHz, change TR as well - DONE
-    3. save solutions for new variables
 """
 
 import numpy as np
@@ -40,7 +33,6 @@ th_mipgap = 0.01
 n_demands_increment = 5
 
 np.random.seed(0) # set random seed
-
 
 class Network(object):
     '''The network 
@@ -106,8 +98,7 @@ class Network(object):
 
         return demands
     
-    def solve_all(self, demands, FeasibilityTol=1e-9, IntFeasTol=1e-9, 
-                  OptimalityTol=1e-9, **kwargs):
+    def solve_all_gn(self, demands, **kwargs):
         '''Formulate and solve
         '''
         n_demands = demands.shape[0]
@@ -565,10 +556,279 @@ class Network(object):
             solutions['G1'] = G1x
             
             return model, solutions, UsageLx, Deltax
+        
         except:
             return model
+        
+    def solve_all_tr(self, demands, **kwargs):
+        '''Formulate and solve
+        '''
+        n_demands = demands.shape[0]
+        
+        # define supply 
+        supply = np.zeros((self.n_nodes, n_demands))
+        for n in range(self.n_nodes):
+            for d in demands.id:
+                if demands.source[d]==n:
+                    supply[n, d] = -1
 
-    def solve_partial(self, demands, previous_solutions, mipstart=False, 
+        for n in range(self.n_nodes):
+            for d in demands.id:
+                if demands.destination[d]==n:
+                    supply[n, d] = 1
+        
+        tic = time.clock()
+        model = Model('TR')
+        
+        # define variables
+        UsageL = {} # if demand d uses link l
+        for l in self.links.id:
+            for d in demands.id:
+                UsageL[l, d] = model.addVar(vtype=GRB.BINARY, 
+                    name='UsageL_{}_{}'.format(l, d))
+                
+        Fstart = {} # the start frequency of demand d
+        for d in demands.id:
+            Fstart[d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM1, 
+                  name='Fstart_{}'.format(d))
+            
+        Delta = {} # order between demands
+        for d1 in demands.id:
+            for d2 in demands.id:
+                if d1!=d2:
+                    Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
+                         name='Delta_{}_{}'.format(d1, d2))
+                    
+        U = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
+        for l in self.links.id:
+            for d in demands.id:
+                U[l, d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM1, 
+                 name='U_{}_{}'.format(l, d))
+                
+        Ire = {} # 
+        for n in self.nodes:
+            for d in demands.id:
+                Ire[n, d] = model.addVar(vtype=GRB.BINARY, 
+                   name='Ire_{}_{}'.format(n, d))
+                
+        III = {} # 
+        for n in self.nodes:
+            for d in demands.id:
+                III[n, d] = model.addVar(vtype=GRB.BINARY, 
+                   name='III_{}_{}'.format(n, d))
+                
+        I = {}
+        for n in self.nodes:
+            I[n] = model.addVar(vtype=GRB.BINARY, name='I_{}'.format(n))
+                
+        NNN = {}
+        for n in self.nodes:
+            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=10, 
+               name='NNN_{}'.format(n))
+            
+        X = {}
+        for l in self.links.id:
+            for d in demands.id:
+                X[l, d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM1, 
+                 name='X_{}_{}'.format(l, d))
+                
+        Ynode = {}
+        for n in self.nodes:
+            for d in demands.id:
+                Ynode[n, d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, 
+                     ub=bigM1, name='Ynode_{}_{}'.format(n, d))
+                
+        Total = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=self.n_nodes, 
+                             name='Total')
+        
+        c = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM2, name='c')
+        
+        model.update()
+        
+        # define constraints
+        model.addConstr(Total==quicksum(I[n] for n in self.nodes))
+        
+        for d in demands.id:
+            model.addConstr(c>=Fstart[d]+demands.data_rates[d])
+            
+        # flow conservation
+        for n in self.nodes:
+            for d in demands.id:
+                model.addConstr(-quicksum(UsageL[l, d] for l in self.links.id
+                                         if self.links.source[l]==n)+
+                                quicksum(UsageL[l, d] for l in self.links.id
+                                         if self.links.destination[l]==n)
+                                == supply[n, d])
+                                
+        for d1 in demands.id:
+            for d2 in demands.id:
+                if d1!=d2:
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1)
+                    
+        for d1 in demands.id:
+            for d2 in demands.id:
+                for l in self.links.id:
+                    if d1!=d2:
+                        model.addConstr(Fstart[d1]-Fstart[d2]<=
+                                        bigM3*(3-Delta[d1, d2]-
+                                               UsageL[l, d1]-UsageL[l, d2]))
+                    
+        for d1 in demands.id:
+            for d2 in demands.id:
+                for l in self.links.id:
+                    if d1!=d2:
+                        model.addConstr(Fstart[d1]-Fstart[d2]+
+                                        demands.data_rates[d1]+G<=
+                                        bigM3*(3-Delta[d1, d2]-UsageL[l, d1]-
+                                        UsageL[l, d2]))
+                    
+        for l in self.links.id:
+            for d in demands.id:
+                model.addConstr(U[l, d]<=UsageL[l, d]*demands.TR[d])
+                model.addConstr(U[l, d]<=Ynode[self.links.source[l], d])
+                model.addConstr(Ynode[self.links.source[l], d]-U[l, d]<=
+                                demands.TR[d]*(1-UsageL[l, d]))
+                
+        for n in self.nodes:
+            for d in demands.id:
+                model.addConstr(Ynode[n, d]==
+                                quicksum(X[l, d]+UsageL[l, d]*
+                                          self.links.length[l] 
+                                          for l in self.links.id 
+                                          if self.links.destination[l]==n))
+                
+        for n in self.nodes:
+            for d in demands.id:
+                model.addConstr(III[n, d]==1-Ire[n, d])
+                
+        for l in self.links.id:
+            for d in demands.id:
+                model.addConstr(X[l, d]<=bigM1*III[self.links.source[l], d])
+                model.addConstr(X[l, d]<=U[l, d])
+                model.addConstr(X[l, d]>=U[l, d]-
+                                bigM1*(1-III[self.links.source[l], d]))
+                model.addConstr(X[l, d]>=0)
+        
+        for n in self.nodes:
+            model.addConstr(NNN[n]==quicksum(Ire[n, d] for d in demands.id))
+            model.addConstr(I[n]*Nmax>=NNN[n])
+            
+        # objective
+        model.setObjective(c+Total, GRB.MINIMIZE)
+            
+        # set gurobi parameters
+        if len(kwargs):
+            for key, value in kwargs.items():
+                try:
+                    setattr(model.params, key, value)
+                except:
+                    pass
+        model.update()
+                
+        toc = time.clock()
+        self.model_time = toc-tic
+        
+        model.optimize()
+        
+        toc2 = time.clock()
+        self.solve_time = toc2-toc
+        
+        # save files
+        if len(kwargs):
+            for key, value in kwargs.items():
+                if key=='write':
+                    if type(value) is list:
+                        for i in value:
+                            try:
+                                model.write(i)
+                            except:
+                                pass
+                    elif type(value) is str:
+                        try:
+                            model.write(value)
+                        except:
+                            pass
+                        
+        try:
+        # construct solutions for UsageL and Delta
+            UsageLx = {}
+            for l in self.links.id:
+                for d in demands.id:
+                    if UsageL[l, d].x<0.5:
+                        UsageLx[l, d] = 0
+                    else:
+                        UsageLx[l, d] = 1
+                           
+            Deltax = {}
+            for d1 in demands.id:
+                for d2 in demands.id:
+                    if d1!=d2:
+                        if Delta[d1, d2].x <0.5:
+                            Deltax[d1, d2] = 0
+                        else:
+                            Deltax[d1, d2] = 1
+    
+            Fstartx = {}
+            for d in demands.id:
+                Fstartx[d] = Fstart[d].x
+                       
+            Ux = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
+            for l in self.links.id:
+                for d in demands.id:
+                    Ux[l, d] = U[l, d].x
+                      
+            Irex = {} # 
+            for n in self.nodes:
+                for d in demands.id:
+                    Irex[n, d] = Ire[n, d].x
+                        
+            IIIx = {} # 
+            for n in self.nodes:
+                for d in demands.id:
+                    IIIx[n, d] = III[n, d].x
+                        
+            Ix = {}
+            for n in self.nodes:
+                Ix[n] = I[n].x
+                  
+            NNNx = {}
+            for n in self.nodes:
+                NNNx[n] = NNN[n].x
+                    
+            Xx = {}
+            for l in self.links.id:
+                for d in demands.id:
+                    Xx[l, d] = X[l, d].x
+                      
+            Ynodex = {}
+            for n in self.nodes:
+                for d in demands.id:
+                    Ynodex[n, d] = Ynode[n, d].x
+                          
+            Totalx = Total.x
+            
+            cx = c.x
+            
+            solutions = {}
+            solutions['UsageL'] = UsageLx
+            solutions['Fstart'] = Fstartx
+            solutions['Delta'] = Deltax
+            solutions['U'] = Ux
+            solutions['Ire'] = Irex
+            solutions['III'] = IIIx
+            solutions['I'] = Ix
+            solutions['NNN'] = NNNx
+            solutions['X'] = Xx
+            solutions['Ynode'] = Ynodex
+            solutions['Total'] = Totalx
+            solutions['c'] = cx
+        
+            return model, solutions, UsageLx, Deltax
+        
+        except:
+            return model
+        
+    def solve_partial_gn(self, demands, previous_solutions, mipstart=False, 
                       FeasibilityTol=1e-9, IntFeasTol=1e-9, 
                       OptimalityTol=1e-9, **kwargs):
         '''Formulate and solve iteratively
@@ -1077,6 +1337,318 @@ class Network(object):
         
         return model, solutions, UsageLx, Deltax
     
+    def solve_partial_tr(self, demands, previous_solutions, mipstart=False,
+                      FeasibilityTol=1e-9, IntFeasTol=1e-9, 
+                      OptimalityTol=1e-9, **kwargs):
+        '''Formulate and solve iteratively
+        previous_solutions is dict, contains:
+            - UsageL from the previous solve, dict
+            - Delta from the previous solve, dict
+            - demands_added new demands that will be allocated this time, list
+            - demands_fixed old demands allocated previously, list, 
+                can be empty
+            we should make sure that UsageL and Delta contain solutions for 
+            all the demands in demands_fixed
+        '''
+        # process input data
+        demands_added = previous_solutions['demands_added'] # new demands
+        demands_fixed = previous_solutions['demands_fixed'] # old demands
+        UsageLx = previous_solutions['UsageL']
+        Deltax = previous_solutions['Delta']
+        Fstartx = previous_solutions['Fstart']
+        demands_all = list(set(demands_added).union(set(demands_fixed)))
+#        print(demands_added)
+#        print(demands_fixed)
+#        print(demands_all)
+        n_demands = len(demands_all)
+        demands = demands.loc[demands.id.isin(demands_all), :]
+        
+
+        # define supply 
+        supply = np.zeros((self.n_nodes, n_demands))
+        for n in range(self.n_nodes):
+            for d in demands.id:
+                if demands.source[d]==n:
+                    supply[n, d] = -1
+
+        for n in range(self.n_nodes):
+            for d in demands.id:
+                if demands.destination[d]==n:
+                    supply[n, d] = 1
+                          
+        
+        tic = time.clock()
+        model = Model('TR')
+        
+        # define variables
+        UsageL = {} # if demand d uses link l
+        for l in self.links.id:
+            for d in demands.id:
+                if d in demands_fixed:
+                    UsageL[l, d] = model.addVar(vtype=GRB.BINARY, 
+                        name='UsageL_{}_{}'.format(l, d), 
+                        lb=UsageLx[l, d], ub=UsageLx[l, d])
+                elif d in demands_added:
+                    UsageL[l, d] = model.addVar(vtype=GRB.BINARY, 
+                        name='UsageL_{}_{}'.format(l, d))
+                if mipstart:
+                    try:
+                        UsageL[l, d].start = UsageL[l, d]
+                    except:
+                        pass
+                
+        Fstart = {} # the start frequency of demand d
+        for d in demands.id:
+            Fstart[d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM1, 
+                  name='Fstart_{}'.format(d))
+            if mipstart:
+                try:
+                    Fstart[d].start = Fstartx[d]
+                except:
+                    pass
+            
+        Delta = {} # order between demands
+        for d1 in demands.id:
+            for d2 in demands.id:
+                if (d1!=d2) and (d1 in demands_fixed) and \
+                   (d2 in demands_fixed):
+                    Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
+                         name='Delta_{}_{}'.format(d1, d2), 
+                         lb=Deltax[d1, d2], ub=Deltax[d1, d2])
+                elif d1!=d2:
+                    Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
+                         name='Delta_{}_{}'.format(d1, d2))
+                if mipstart:
+                    try:
+                        Delta[d1, d2].start = Deltax[d1, d2]
+                    except:
+                        pass
+                    
+        U = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
+        for l in self.links.id:
+            for d in demands.id:
+                U[l, d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM1, 
+                 name='U_{}_{}'.format(l, d))
+                
+        Ire = {} # 
+        for n in self.nodes:
+            for d in demands.id:
+                Ire[n, d] = model.addVar(vtype=GRB.BINARY, 
+                   name='Ire_{}_{}'.format(n, d))
+                
+        III = {} # 
+        for n in self.nodes:
+            for d in demands.id:
+                III[n, d] = model.addVar(vtype=GRB.BINARY, 
+                   name='III_{}_{}'.format(n, d))
+                
+        I = {}
+        for n in self.nodes:
+            I[n] = model.addVar(vtype=GRB.BINARY, name='I_{}'.format(n))
+                
+        NNN = {}
+        for n in self.nodes:
+            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=10, 
+               name='NNN_{}'.format(n))
+            
+        X = {}
+        for l in self.links.id:
+            for d in demands.id:
+                X[l, d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM1, 
+                 name='X_{}_{}'.format(l, d))
+                
+        Ynode = {}
+        for n in self.nodes:
+            for d in demands.id:
+                Ynode[n, d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, 
+                     ub=bigM1, name='Ynode_{}_{}'.format(n, d))
+                
+        Total = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=self.n_nodes, 
+                             name='Total')
+        
+        c = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM2, name='c')
+        
+        model.update()
+        
+        # define constraints
+        model.addConstr(Total==quicksum(I[n] for n in self.nodes))
+        
+        for d in demands.id:
+            model.addConstr(c>=Fstart[d]+demands.data_rates[d])
+            
+        # flow conservation
+        for n in self.nodes:
+            for d in demands.id:
+                model.addConstr(-quicksum(UsageL[l, d] for l in self.links.id
+                                         if self.links.source[l]==n)+
+                                quicksum(UsageL[l, d] for l in self.links.id
+                                         if self.links.destination[l]==n)
+                                == supply[n, d])
+                                
+        for d1 in demands.id:
+            for d2 in demands.id:
+                if d1!=d2:
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1)
+                    
+        for d1 in demands.id:
+            for d2 in demands.id:
+                for l in self.links.id:
+                    if d1!=d2:
+                        model.addConstr(Fstart[d1]-Fstart[d2]<=
+                                        bigM3*(3-Delta[d1, d2]-
+                                               UsageL[l, d1]-UsageL[l, d2]))
+                    
+        for d1 in demands.id:
+            for d2 in demands.id:
+                for l in self.links.id:
+                    if d1!=d2:
+                        model.addConstr(Fstart[d1]-Fstart[d2]+
+                                        demands.data_rates[d1]+G<=
+                                        bigM3*(3-Delta[d1, d2]-UsageL[l, d1]-
+                                        UsageL[l, d2]))
+                    
+        for l in self.links.id:
+            for d in demands.id:
+                model.addConstr(U[l, d]<=UsageL[l, d]*demands.TR[d])
+                model.addConstr(U[l, d]<=Ynode[self.links.source[l], d])
+                model.addConstr(Ynode[self.links.source[l], d]-U[l, d]<=
+                                demands.TR[d]*(1-UsageL[l, d]))
+                
+        for n in self.nodes:
+            for d in demands.id:
+                model.addConstr(Ynode[n, d]==
+                                quicksum(X[l, d]+UsageL[l, d]*
+                                          self.links.length[l] 
+                                          for l in self.links.id 
+                                          if self.links.destination[l]==n))
+                
+        for n in self.nodes:
+            for d in demands.id:
+                model.addConstr(III[n, d]==1-Ire[n, d])
+                
+        for l in self.links.id:
+            for d in demands.id:
+                model.addConstr(X[l, d]<=bigM1*III[self.links.source[l], d])
+                model.addConstr(X[l, d]<=U[l, d])
+                model.addConstr(X[l, d]>=U[l, d]-
+                                bigM1*(1-III[self.links.source[l], d]))
+                model.addConstr(X[l, d]>=0)
+        
+        for n in self.nodes:
+            model.addConstr(NNN[n]==quicksum(Ire[n, d] for d in demands.id))
+            model.addConstr(I[n]*Nmax>=NNN[n])
+            
+        # objective
+        model.setObjective(c+Total, GRB.MINIMIZE)
+            
+        # set gurobi parameters
+        if len(kwargs):
+            for key, value in kwargs.items():
+                try:
+                    setattr(model.params, key, value)
+                except:
+                    pass
+        model.update()
+                
+        toc = time.clock()
+        self.model_time = toc-tic
+                
+        model.optimize()
+        
+        toc2 = time.clock()
+        self.solve_time = toc2-toc
+        
+        # save files
+        if len(kwargs):
+            for key, value in kwargs.items():
+                if key=='write':
+                    if type(value) is list:
+                        for i in value:
+                            try:
+                                model.write(i)
+                            except:
+                                pass
+                    elif type(value) is str:
+                        try:
+                            model.write(value)
+                        except:
+                            pass
+                        
+        # construct solutions for UsageL and Delta
+        UsageLx = {}
+        for l in self.links.id:
+            for d in demands.id:
+                if UsageL[l, d].x<0.5:
+                    UsageLx[l, d] = 0
+                else:
+                    UsageLx[l, d] = 1
+                       
+        Deltax = {}
+        for d1 in demands.id:
+            for d2 in demands.id:
+                if d1!=d2:
+                    if Delta[d1, d2].x <0.5:
+                        Deltax[d1, d2] = 0
+                    else:
+                        Deltax[d1, d2] = 1
+                          
+        Fstartx = {}
+        for d in demands.id:
+            Fstartx[d] = Fstart[d].x
+                   
+        Ux = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
+        for l in self.links.id:
+            for d in demands.id:
+                Ux[l, d] = U[l, d].x
+                  
+        Irex = {} # 
+        for n in self.nodes:
+            for d in demands.id:
+                Irex[n, d] = Ire[n, d].x
+                    
+        IIIx = {} # 
+        for n in self.nodes:
+            for d in demands.id:
+                IIIx[n, d] = III[n, d].x
+                    
+        Ix = {}
+        for n in self.nodes:
+            Ix[n] = I[n].x
+              
+        NNNx = {}
+        for n in self.nodes:
+            NNNx[n] = NNN[n].x
+                
+        Xx = {}
+        for l in self.links.id:
+            for d in demands.id:
+                Xx[l, d] = X[l, d].x
+                  
+        Ynodex = {}
+        for n in self.nodes:
+            for d in demands.id:
+                Ynodex[n, d] = Ynode[n, d].x
+                      
+        Totalx = Total.x
+        
+        cx = c.x
+        
+        solutions = {}
+        solutions['UsageL'] = UsageLx
+        solutions['Fstart'] = Fstartx
+        solutions['Delta'] = Deltax
+        solutions['U'] = Ux
+        solutions['Ire'] = Irex
+        solutions['III'] = IIIx
+        solutions['I'] = Ix
+        solutions['NNN'] = NNNx
+        solutions['X'] = Xx
+        solutions['Ynode'] = Ynodex
+        solutions['Total'] = Totalx
+        solutions['c'] = cx
+        
+        return model, solutions, UsageLx, Deltax
+    
     def scheduler(self, idx, demands, iteration_history, shuffle=False):
         '''Generate demands_fixed and demands_added according to history
             idx is the index of the next step, idx 
@@ -1112,18 +1684,15 @@ class Network(object):
         # mip gaps
         mipgaps = [iteration_history[i]['model'].mipgap 
             for i in range(len(iteration_history))]
-#        print(mipgaps)
+
         if num_iter_solved[-1]==n_iter_per_stage:# or mipgaps[-1]<th_mipgap:
             # a set of demands have been solved 10 times
             # or the mip gap is close to zero
             # then finish this round
             
             # check the left demands 
-#            print(demands.id.as_matrix())
-#            print(np.array(iteration_history[idx-1]['demands_solved']))
             demands_left = np.setdiff1d(demands.id.as_matrix(),
                         np.array(iteration_history[idx-1]['demands_solved']))
-#            print(demands_left)
             num_demands_left = len(demands_left)
             if num_demands_left==0:
                 # all the demands are solved
@@ -1156,100 +1725,125 @@ class Network(object):
             
             return demands_added, demands_fixed, no_demands
         
-    
     def iterate(self, demands, random_state=0, shuffle=False, mipstart=False, **kwargs):
-        '''Iterate 
-        
+        '''Solve TR and GN simultaneously, the best solution from TR and GN
+            is input to the next iteration of solving (either TR or GN) 
+            as the start point
         '''
         tic = time.clock()
         np.random.seed(random_state)
         
         idx = 0
-        iteration_history = {}
-        iteration_history[idx] = {}
-        iteration_history[idx]['step_id'] = idx
-        iteration_history[idx]['demands_fixed'] = None
-        iteration_history[idx]['demands_added'] = None
-        iteration_history[idx]['demands_solved'] = None
-        iteration_history[idx]['solutions'] = None
-        iteration_history[idx]['UsageLx'] = None
-        iteration_history[idx]['Deltax'] = None
+        iteration_history_tr = {}
+        iteration_history_tr[idx] = {}
+        iteration_history_tr[idx]['step_id'] = idx
+        iteration_history_tr[idx]['demands_fixed'] = None
+        iteration_history_tr[idx]['demands_added'] = None
+        iteration_history_tr[idx]['demands_solved'] = None
+        iteration_history_tr[idx]['solutions'] = None
+        iteration_history_tr[idx]['UsageLx'] = None
+        iteration_history_tr[idx]['Deltax'] = None
+
+        iteration_history_gn = {}
+        iteration_history_gn[idx] = {}
+        iteration_history_gn[idx]['step_id'] = idx
+        iteration_history_gn[idx]['demands_fixed'] = None
+        iteration_history_gn[idx]['demands_added'] = None
+        iteration_history_gn[idx]['demands_solved'] = None
+        iteration_history_gn[idx]['solutions'] = None
+        iteration_history_gn[idx]['UsageLx'] = None
+        iteration_history_gn[idx]['Deltax'] = None
         
         # solve the problem for the first time
+        # GN model
         demands_added, demands_fixed, _ = \
-            self.scheduler(idx, demands, iteration_history, shuffle)
+            self.scheduler(idx, demands, iteration_history_gn, shuffle)
         demands_tmp = demands.loc[demands.id.isin(demands_added), :]
-        model, solutions, UsageLx, Deltax = \
-            self.solve_all(demands_tmp, **kwargs)
+        model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
+            self.solve_all_gn(demands_tmp, **kwargs)
         toc_now = time.clock()
-        iteration_history[idx]['elapsed_time'] = toc_now-tic
-        iteration_history[idx]['demands_fixed'] = demands_fixed
-        iteration_history[idx]['demands_added'] = demands_added
-        iteration_history[idx]['demands_solved'] = demands_added
-        iteration_history[idx]['solutions'] = solutions
-        iteration_history[idx]['UsageLx'] = UsageLx
-        iteration_history[idx]['Deltax'] = Deltax
-        iteration_history[idx]['model'] = model
-        idx += 1
+        iteration_history_gn[idx]['elapsed_time'] = toc_now-tic
+        iteration_history_gn[idx]['demands_fixed'] = demands_fixed
+        iteration_history_gn[idx]['demands_added'] = demands_added
+        iteration_history_gn[idx]['demands_solved'] = demands_added
+        iteration_history_gn[idx]['solutions'] = solutions_gn
+        iteration_history_gn[idx]['UsageLx'] = UsageLx_gn
+        iteration_history_gn[idx]['Deltax'] = Deltax_gn
+        iteration_history_gn[idx]['model'] = model_gn
+                  
+        # TR model
+        model_tr, solutions_tr, UsageLx_tr, Deltax_tr = \
+            self.solve_all_tr(demands_tmp, **kwargs)
+        toc_now = time.clock()
+        iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
+        iteration_history_tr[idx]['demands_fixed'] = demands_fixed
+        iteration_history_tr[idx]['demands_added'] = demands_added
+        iteration_history_tr[idx]['demands_solved'] = demands_added
+        iteration_history_tr[idx]['solutions'] = solutions_tr
+        iteration_history_tr[idx]['UsageLx'] = UsageLx_tr
+        iteration_history_tr[idx]['Deltax'] = Deltax_tr
+        iteration_history_tr[idx]['model'] = model_tr
         
-#        print(idx)
-#        print(iteration_history[idx]['solutions']['Total'])
-#        print(iteration_history[idx-1]['solutions']['c'])
-#        print(len(iteration_history[idx-1]['solutions']['demands_fixed']))
-#        print(len(iteration_history[idx-1]['solutions']['demands_added']))
-#        
-#        print('Iteration {}: Total={}, c={}, {} old demands, {} new demands.'.\
-#              format(idx, iteration_history[idx]['solutions']['Total'],
-#                     iteration_history[idx-1]['solutions']['c'],
-#                     len(iteration_history[idx-1]['solutions']['demands_fixed']),
-#                     len(iteration_history[idx-1]['solutions']['demands_added'])
-#                     ))
+        idx += 1
         
         stop_flag = True
         while stop_flag:
             demands_added, demands_fixed, no_demands = \
-                self.scheduler(idx, demands, iteration_history, shuffle)
+                self.scheduler(idx, demands, iteration_history_gn, shuffle)
+            
             previous_solutions = {}
-            previous_solutions['UsageL'] = UsageLx
-            previous_solutions['Delta'] = Deltax
             previous_solutions['demands_added'] = demands_added
             previous_solutions['demands_fixed'] = demands_fixed
-            previous_solutions['Fstart'] = iteration_history[idx-1]['solutions']['Fstart']
-#            if idx%n_iter_per_stage==1:
-#                model, solutions, UsageLx, Deltax = \
-#                    self.solve_partial_tr(demands, previous_solutions, **kwargs)
-#                previous_solutions['UsageL'] = UsageLx
-#                previous_solutions['Delta'] = Deltax
-#                previous_solutions['demands_added'] = demands_added
-#                previous_solutions['demands_fixed'] = demands_fixed
-#                previous_solutions['Fstart'] = iteration_history[idx-1]['solutions']['Fstart']
-            model, solutions, UsageLx, Deltax = \
-                self.solve_partial(demands, previous_solutions, mipstart=mipstart, **kwargs)
+            if model_tr.ObjVal<model_gn.ObjVal:
+                previous_solutions['UsageL'] = UsageLx_tr
+                previous_solutions['Delta'] = Deltax_tr
+                previous_solutions['Fstart'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+            else:
+                previous_solutions['UsageL'] = UsageLx_gn
+                previous_solutions['Delta'] = Deltax_gn
+                previous_solutions['Fstart'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+            
+            model_tr, solutions_tr, UsageLx_tr, Deltax_tr = \
+                self.solve_partial_tr(demands, previous_solutions, mipstart=mipstart, **kwargs)
             toc_now = time.clock()
-            iteration_history[idx] = {}
-            iteration_history[idx]['step_id'] = idx
-            iteration_history[idx]['demands_fixed'] = demands_fixed
-            iteration_history[idx]['demands_added'] = demands_added
-            iteration_history[idx]['demands_solved'] = list(set(demands_fixed).union(set(demands_added)))
-            iteration_history[idx]['solutions'] = solutions
-            iteration_history[idx]['UsageLx'] = UsageLx
-            iteration_history[idx]['Deltax'] = Deltax
-            iteration_history[idx]['model'] = model
-            iteration_history[idx]['elapsed_time'] = toc_now-tic
+            iteration_history_tr[idx] = {}
+            iteration_history_tr[idx]['step_id'] = idx
+            iteration_history_tr[idx]['demands_fixed'] = demands_fixed
+            iteration_history_tr[idx]['demands_added'] = demands_added
+            iteration_history_tr[idx]['demands_solved'] = list(set(demands_fixed).union(set(demands_added)))
+            iteration_history_tr[idx]['solutions'] = solutions_tr
+            iteration_history_tr[idx]['UsageLx'] = UsageLx_tr
+            iteration_history_tr[idx]['Deltax'] = Deltax_tr
+            iteration_history_tr[idx]['model'] = model_tr
+            iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
+            
+            if model_gn.ObjVal<model_tr.ObjVal:
+                previous_solutions['UsageL'] = UsageLx_gn
+                previous_solutions['Delta'] = Deltax_gn
+                previous_solutions['Fstart'] = iteration_history_gn[idx-1]['solutions']['Fstart']
 
-#            print('Iteration {}: Total={}, c={}, {} old demands, {} new demands.'.\
-#                  format(idx, iteration_history[idx]['solutions']['Total'],
-#                         iteration_history[idx]['solutions']['c'],
-#                         len(iteration_history[idx]['solutions']['demands_fixed']),
-#                         len(iteration_history[idx]['solutions']['demands_added'])))
+            model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
+                self.solve_partial_gn(demands, previous_solutions, mipstart=mipstart, **kwargs)
+                
+            toc_now = time.clock()
+            iteration_history_gn[idx] = {}
+            iteration_history_gn[idx]['step_id'] = idx
+            iteration_history_gn[idx]['demands_fixed'] = demands_fixed
+            iteration_history_gn[idx]['demands_added'] = demands_added
+            iteration_history_gn[idx]['demands_solved'] = list(set(demands_fixed).union(set(demands_added)))
+            iteration_history_gn[idx]['solutions'] = solutions_gn
+            iteration_history_gn[idx]['UsageLx'] = UsageLx_gn
+            iteration_history_gn[idx]['Deltax'] = Deltax_gn
+            iteration_history_gn[idx]['model'] = model_gn
+            iteration_history_gn[idx]['elapsed_time'] = toc_now-tic
             
             idx += 1
             stop_flag = not no_demands
-            
+
         toc = time.clock()
         self.total_runtime = toc-tic
         
-        return iteration_history
+        return iteration_history_tr, iteration_history_gn
     
     def extract_history(self, iteration_history, variable_name):
         '''Extract the history of a certain variable in the iteration_history
@@ -1298,28 +1892,3 @@ def read_data(file_name):
         data = pickle.load(f)
         
     return data
-        
-
-if __name__=='__main__':
-#    network_cost = np.array([[INF, 5, INF, INF, INF, 6], 
-#                             [5, INF, 4, INF, 5, 3],
-#                             [INF, 4, INF, 5, 3, INF],
-#                             [INF, INF, 5, INF, 6, INF],
-#                             [INF, 5, 3, 6, INF, 4], 
-#                             [6, 3, INF, INF, 4, INF]])
-    network_cost = pd.read_csv('networkDT.csv', header=None)/100
-    network_cost = network_cost.as_matrix()
-    sn = Network(network_cost)
-    n_demands = 25
-    demands = sn.create_demands(n_demands, modulation='bpsk', low=40, high=100)
-    demands = pd.read_csv('demands25.csv')
-    demands = demands.iloc[:15]
-    demands.drop(['Unnamed: 0'], axis=1, inplace=True)
-
-    iteration_history = sn.iterate(demands, mipfocus=1, timelimit=240, method=2, 
-                                   mipgap=0.001, outputflag=1, 
-                                   FeasibilityTol=1e-9, IntFeasTol=1e-9, 
-                                   OptimalityTol=1e-9)
-    
-#    model, solutions, UsageLx, Deltax = sn.solve_all(demands, mipfocus=1, timelimit=240, method=2, 
-#                                   mipgap=0.01, outputflag=1)
