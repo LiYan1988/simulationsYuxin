@@ -1,0 +1,8 @@
+1. input data: demand and network
+2. python module
+3. python template
+4. batch template
+5. prepare file
+6. run_batch file
+
+Simulation plan:
