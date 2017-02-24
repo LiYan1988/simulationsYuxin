@@ -9,6 +9,9 @@ Prepare files for Hebbe, NSF-24, GN vs. TR, bpsk
 
 import os
 import shutil
+import tempfile
+from subprocess import call
+
 import pandas as pd
 from milp2 import *
 
@@ -24,11 +27,32 @@ def copy_template(src, dst, replace_lines):
             destination.write(line)
     source.close()
     destination.close()
+    
+def change_eol_win2unix(file_path):
+    ftmp, abs_path = tempfile.mkstemp()
+    with open(file_path, 'rb') as old_file, open(abs_path, 'wb') as new_file:
+        for line in old_file:
+            line = line.replace(b'\r\n', b'\n')
+            new_file.write(line)
+#    
+    os.close(ftmp)
+    os.remove(file_path)
+    os.rename(abs_path, file_path)
+    
+    
+# simulation parameters
+num_simulations = 30
+n_demands = 50 
+simulation_name = 'simulation1' 
 
-num_simulations = 2
-n_demands = 5 # for testing 
-simulation_name = 'test_hebbe'
+# resource parameters
+cpu_per_job = 20
+time_days = 2
+time_hours = 0
+time_minutes = 0
+time_seconds = 0
 
+# input file names
 demands_file_template = simulation_name+'_{}.csv'
 python_file_template = simulation_name+'_{}.py'
 bash_file_template = simulation_name+'_{}.sh'
@@ -66,13 +90,27 @@ for batch_id in range(num_simulations):
     # write bash files
     bash_src = "batch_template.sh"
     line3 = "#SBATCH -J test_hebbe_{}\n".format(batch_id)
+    line5 = "#SBATCH -n {}\n".format(cpu_per_job)
+    line6 = "#SBATCH -t {}-{}:{}:{}\n".format(time_days, time_hours, 
+                        time_minutes, time_seconds)
     line7 = "#SBATCH -o test_hebbe_{}.stdout\n".format(batch_id)
     line8 = "#SBATCH -e test_hebbe_{}.stderr\n".format(batch_id)
     line12 = "pdcp {} $TMPDIR\n".format(python_dst)
     line15 = "pdcp {} $TMPDIR\n".format(demands_file)
     line18 = "python {}\n".format(python_dst)
     replace_lines = {3:line3, 7:line7, 8:line8, 12:line12, 
-                     15:line15, 18:line18}
+                     15:line15, 18:line18, 5:line5, 6:line6}
     bash_dst = bash_file_template.format(batch_id)
     copy_template(bash_src, bash_dst, replace_lines)
     
+for file in os.listdir(os.curdir):
+    change_eol_win2unix(file)
+    
+os.remove('python_template.py')
+os.remove('batch_template.sh')
+
+try:
+    os.rename('run_batch_template.py', 'run_batch.py')
+except:
+    pass
+os.remove('run_batch_template.py')

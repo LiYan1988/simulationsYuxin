@@ -33,6 +33,7 @@ th_mipgap = 0.01
 n_demands_increment = 5
 timelimit_baseline = 480
 timelimit0 = 30
+time_factor = 1.3
 
 np.random.seed(0) # set random seed
 
@@ -1675,7 +1676,7 @@ class Network(object):
         '''
         
         # calculate timelimit
-        timelimit = max(timelimit_baseline, timelimit0*2**(np.floor(idx/n_iter_per_stage)/2) )
+        timelimit = max(timelimit_baseline, timelimit0*2**(np.floor(idx/n_iter_per_stage)/time_factor) )
 
         # the first iteration
         if idx==0:

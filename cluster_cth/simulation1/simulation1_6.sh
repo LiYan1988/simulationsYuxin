@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 #SBATCH -A C3SE407-15-3
 #SBATCH -p hebbe
-#SBATCH -J batch_template
+#SBATCH -J test_hebbe_6
 #SBATCH -N 1
 #SBATCH -n 20
-#SBATCH -t 24:00:00
-#SBATCH -o batch_template.stdout
-#SBATCH -e batch_template.stderr
+#SBATCH -t 2-0:0:0
+#SBATCH -o test_hebbe_6.stdout
+#SBATCH -e test_hebbe_6.stderr
 module purge 
 source ~/.usr_path_grb_py35
 
-pdcp python_template.py $TMPDIR
+pdcp simulation1_6.py $TMPDIR
 pdcp milp2.py $TMPDIR
 pdcp nsf-24nodes.csv $TMPDIR
-pdcp demands_template.csv $TMPDIR
+pdcp simulation1_6.csv $TMPDIR
 cd $TMPDIR
 
-python python_template.py
+python simulation1_6.py
 
 cp * $SLURM_SUBMIT_DIR
 
