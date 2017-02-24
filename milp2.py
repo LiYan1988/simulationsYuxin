@@ -31,6 +31,8 @@ n_demands_initial = 5
 n_iter_per_stage = 10
 th_mipgap = 0.01
 n_demands_increment = 5
+timelimit_baseline = 480
+timelimit0 = 60
 
 np.random.seed(0) # set random seed
 
@@ -1185,6 +1187,9 @@ class Network(object):
                 
         model.optimize()
         
+        while model.SolCount<1:
+            model.optimize()
+        
         toc2 = time.clock()
         self.solve_time = toc2-toc
         
@@ -1555,6 +1560,9 @@ class Network(object):
                 
         model.optimize()
         
+        while model.SolCount<1:
+            model.optimize()
+        
         toc2 = time.clock()
         self.solve_time = toc2-toc
         
@@ -1665,6 +1673,9 @@ class Network(object):
                 - no_demands, whether there is no demands left and we should 
                     stop
         '''
+        
+        # calculate timelimit
+        timelimit = max(timelimit_baseline, timelimit0*2**(np.floor(idx/n_iter_per_stage)/2) )
 
         # the first iteration
         if idx==0:
@@ -1675,7 +1686,7 @@ class Network(object):
             demands_fixed = []
             no_demands = False 
             
-            return demands_added, demands_fixed, no_demands
+            return demands_added, demands_fixed, no_demands, timelimit
         
         # how many iterations this set of demands has been solved 
         num_iter_solved = [len(iteration_history[i]['demands_solved']) 
@@ -1700,7 +1711,7 @@ class Network(object):
                 demands_added = []
                 demands_fixed = list(iteration_history[idx-1]['demands_solved'])
                 
-                return demands_added, demands_fixed, no_demands
+                return demands_added, demands_fixed, no_demands, timelimit
 
             else:
                 # there are still some demands left, check the number of left 
@@ -1710,7 +1721,7 @@ class Network(object):
                 demands_fixed = list(iteration_history[idx-1]['demands_solved'])
                 no_demands = False
                 
-                return demands_added, demands_fixed, no_demands
+                return demands_added, demands_fixed, no_demands, timelimit
             
         else:
             # we are in the middle of a stage, not the first one,
@@ -1723,7 +1734,7 @@ class Network(object):
             demands_fixed = list(demands_solved[n_demands_holdout:])
             no_demands = False
             
-            return demands_added, demands_fixed, no_demands
+            return demands_added, demands_fixed, no_demands, timelimit
         
     def iterate(self, demands, random_state=0, shuffle=False, mipstart=False, **kwargs):
         '''Solve TR and GN simultaneously, the best solution from TR and GN
@@ -1756,11 +1767,11 @@ class Network(object):
         
         # solve the problem for the first time
         # GN model
-        demands_added, demands_fixed, _ = \
+        demands_added, demands_fixed, _, timelimit = \
             self.scheduler(idx, demands, iteration_history_gn, shuffle)
         demands_tmp = demands.loc[demands.id.isin(demands_added), :]
         model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
-            self.solve_all_gn(demands_tmp, **kwargs)
+            self.solve_all_gn(demands_tmp, timelimit=timelimit, **kwargs)
         toc_now = time.clock()
         iteration_history_gn[idx]['elapsed_time'] = toc_now-tic
         iteration_history_gn[idx]['demands_fixed'] = demands_fixed
@@ -1773,7 +1784,7 @@ class Network(object):
                   
         # TR model
         model_tr, solutions_tr, UsageLx_tr, Deltax_tr = \
-            self.solve_all_tr(demands_tmp, **kwargs)
+            self.solve_all_tr(demands_tmp, timelimit=timelimit, **kwargs)
         toc_now = time.clock()
         iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
         iteration_history_tr[idx]['demands_fixed'] = demands_fixed
@@ -1788,7 +1799,7 @@ class Network(object):
         
         stop_flag = True
         while stop_flag:
-            demands_added, demands_fixed, no_demands = \
+            demands_added, demands_fixed, no_demands, timelimit = \
                 self.scheduler(idx, demands, iteration_history_gn, shuffle)
             
             previous_solutions = {}
@@ -1804,7 +1815,8 @@ class Network(object):
                 previous_solutions['Fstart'] = iteration_history_gn[idx-1]['solutions']['Fstart']
             
             model_tr, solutions_tr, UsageLx_tr, Deltax_tr = \
-                self.solve_partial_tr(demands, previous_solutions, mipstart=mipstart, **kwargs)
+                self.solve_partial_tr(demands, previous_solutions, mipstart=mipstart, 
+                                      timelimit=timelimit, **kwargs)
             toc_now = time.clock()
             iteration_history_tr[idx] = {}
             iteration_history_tr[idx]['step_id'] = idx
@@ -1823,7 +1835,8 @@ class Network(object):
                 previous_solutions['Fstart'] = iteration_history_gn[idx-1]['solutions']['Fstart']
 
             model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
-                self.solve_partial_gn(demands, previous_solutions, mipstart=mipstart, **kwargs)
+                self.solve_partial_gn(demands, previous_solutions, mipstart=mipstart, 
+                                      timelimit=timelimit, **kwargs)
                 
             toc_now = time.clock()
             iteration_history_gn[idx] = {}
@@ -1882,10 +1895,10 @@ class Network(object):
         return demands
     
 def save_data(file_name, data):
-    """File name must ends with .pkl
+    """File name must ends with .josn
     """
     with open(file_name, 'wb') as f:
-        pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
+        pickle.dump(data, f)
         
 def read_data(file_name):
     with open(file_name, 'rb') as f:
