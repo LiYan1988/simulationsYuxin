@@ -6,3 +6,7 @@
 6. run_batch file
 
 Simulation plan:
+1. test single batch with 5 demands
+2. test multiple batches with 5 demands
+3. create multiple folders, each for a different simulation task
+4. for each simulation task, test the full time simulation

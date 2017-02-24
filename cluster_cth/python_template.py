@@ -14,11 +14,8 @@ batch_id = 0
 network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)
 network_cost = network_cost.as_matrix()
 sn = Network(network_cost)
-#n_demands = 5
-#demands = sn.create_demands(n_demands, modulation='bpsk', low=40, high=100)
-#demands_file = 'nsf24-demand'+batch_id+'.csv'
-#demands.to_csv(demands_file)
-demands = 
+demands_file = 'nsf24-demand-template'+str(batch_id)+'.csv'
+demands = pd.read_csv(demands_file)
 
 iteration_history_tr, iteration_history_gn = \
     sn.iterate(demands, random_state=0, mipstart=True, mipfocus=1, 
@@ -32,5 +29,5 @@ for i in iteration_history_gn.keys():
     models_tr[i] = iteration_history_tr[i].pop('model', None)
     
 iteration_history = (iteration_history_tr, iteration_history_gn)
-output_file = 'nsf24-output-GN-vs-TR-bpsk'+batch_id+'.csv'
+output_file = 'output-GN-vs-TR-bpsk-nsf24'+str(batch_id)+'.pkl'
 save_data(output_file, iteration_history)

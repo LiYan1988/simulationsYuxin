@@ -13,6 +13,7 @@ source ~/.usr_path_grb_py35
 pdcp python_template.py $TMPDIR
 pdcp milp2.py $TMPDIR
 pdcp nsf-24nodes.csv $TMPDIR
+pdcp demands_template.csv $TMPDIR
 cd $TMPDIR
 
 python python_template.py
