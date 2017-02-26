@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb 23 17:35:05 2017
+Created on Sat Feb 25 21:45:33 2017
 
-@author: yx4vf
+@author: misWin
+
+realize Xu's algorithm
+Just change the number of iterations per stage to 1
 """
 
 import numpy as np
@@ -28,7 +31,7 @@ bigM3 = 2*10**6
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 10
+n_iter_per_stage = 1
 th_mipgap = 0.01
 n_demands_increment = 5
 timelimit_baseline = 480
