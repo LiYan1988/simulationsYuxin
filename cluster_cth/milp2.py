@@ -1868,42 +1868,42 @@ class Network(object):
         
         return iteration_history_tr, iteration_history_gn
     
-    def extract_history(self, iteration_history, variable_name):
-        '''Extract the history of a certain variable in the iteration_history
-        '''
-        if variable_name in iteration_history[0]['solutions']:
-            var_history = [iteration_history[i]['solutions'].get(variable_name)
-                for i in range(len(iteration_history))]
-        elif variable_name in iteration_history[0]:
-            var_history = [iteration_history[i].get(variable_name)
-                for i in range(len(iteration_history))]
-        elif hasattr(iteration_history[0]['model'], variable_name):
-            var_history = [getattr(iteration_history[i]['model'], variable_name)
-                for i in range(len(iteration_history))]
-            
-        return var_history
-    
-    def read_demands(self, demands_csv, modulation='bpsk'):
-        '''read demand csv file'''
-        demands = pd.read_csv(demands_csv, header=None)
-        demands.reset_index(drop=False, inplace=True)
-        demands.columns = ['id', 'source', 'destination', 'data_rates']
-        n_demands = demands.shape[0]
-        # choose modulation format
-        if modulation=='qpsk':
-            tr = [(3651-1.25*demands.data_rates[i])/100 for i in range(n_demands)]
-        elif modulation=='bpsk':
-            bpsk_tr = pd.read_csv('bpsk_TR.csv', header=None)
-            bpsk_tr.columns = ['data_rate', 'distance']
-            bpsk_tr.distance = bpsk_tr.distance/100
-            bpsk_tr.set_index('data_rate', inplace=True)
-            tr = [float(bpsk_tr.loc[int(np.round(demands.data_rates[i]))]) 
-                for i in range(n_demands)]
-            
-        demands['TR'] = tr
+def extract_history(iteration_history, variable_name):
+    '''Extract the history of a certain variable in the iteration_history
+    '''
+    if variable_name in iteration_history[0]['solutions']:
+        var_history = [iteration_history[i]['solutions'].get(variable_name)
+            for i in range(len(iteration_history))]
+    elif variable_name in iteration_history[0]:
+        var_history = [iteration_history[i].get(variable_name)
+            for i in range(len(iteration_history))]
+    elif hasattr(iteration_history[0]['model'], variable_name):
+        var_history = [getattr(iteration_history[i]['model'], variable_name)
+            for i in range(len(iteration_history))]
+        
+    return var_history
 
-        return demands
-    
+def read_demands(demands_csv, modulation='bpsk'):
+    '''read demand csv file'''
+    demands = pd.read_csv(demands_csv, header=None)
+    demands.reset_index(drop=False, inplace=True)
+    demands.columns = ['id', 'source', 'destination', 'data_rates']
+    n_demands = demands.shape[0]
+    # choose modulation format
+    if modulation=='qpsk':
+        tr = [(3651-1.25*demands.data_rates[i])/100 for i in range(n_demands)]
+    elif modulation=='bpsk':
+        bpsk_tr = pd.read_csv('bpsk_TR.csv', header=None)
+        bpsk_tr.columns = ['data_rate', 'distance']
+        bpsk_tr.distance = bpsk_tr.distance/100
+        bpsk_tr.set_index('data_rate', inplace=True)
+        tr = [float(bpsk_tr.loc[int(np.round(demands.data_rates[i]))]) 
+            for i in range(n_demands)]
+        
+    demands['TR'] = tr
+
+    return demands
+
 def save_data(file_name, data):
     """File name must ends with .josn
     """
