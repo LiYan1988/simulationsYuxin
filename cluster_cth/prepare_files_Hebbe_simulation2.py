@@ -3,15 +3,17 @@
 Created on Sat Feb 25 19:56:30 2017
 
 @author: misWin
-"""
 
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jan 08 09:20:59 2017
+Prepare files for Hebbe, NSF-24, GN vs. TR, qpsk
 
-@author: celin
-
-Prepare files for Hebbe, NSF-24, GN vs. TR, bpsk
+Note, from bpsk to qpsk, the following should be changed:
+    1. when creating demands, indicate the modulation is qpsk, this is for the 
+        TR models
+    2. when solving milp in python_template_simulation2.py, change the 
+        modulation to qpsk, this is for the GN models
+    3. since the random seed is fixed, the generated demands should be 
+        identical
+    4. change template file names
 """
 
 import os
@@ -70,7 +72,8 @@ if not os.path.exists(simulation_name):
 shutil.copy('milp2.py', simulation_name)
 shutil.copy('nsf-24nodes.csv', simulation_name)
 shutil.copy('bpsk_TR.csv', simulation_name)
-shutil.copy('python_template.py', simulation_name)
+shutil.copy('qpsk_TR.csv', simulation_name)
+shutil.copy('python_template_simulation2.py', simulation_name)
 shutil.copy('batch_template.sh', simulation_name)
 shutil.copy('run_batch_template.py', simulation_name)
 os.chdir(simulation_name)
@@ -79,13 +82,13 @@ for batch_id in range(num_simulations):
     # generate demands
     network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)
     network_cost = network_cost.as_matrix()
-    sn = Network(network_cost)
-    demands = sn.create_demands(n_demands, modulation='bpsk', low=40, high=100)
+    sn = Network(network_cost, modulation='qpsk')
+    demands = sn.create_demands(n_demands, modulation='qpsk', low=40, high=100)
     demands_file = demands_file_template.format(batch_id)
     demands.to_csv(demands_file, index=False)
     
     # write python files
-    python_src = "python_template.py"
+    python_src = "python_template_simulation2.py"
     line12 = "batch_id = {}\n".format(batch_id)
     line16 = "demands_file = '{}'\n".format(demands_file)
     pickle_file = pickle_file_template.format(batch_id)
@@ -113,11 +116,14 @@ for batch_id in range(num_simulations):
 for file in os.listdir(os.curdir):
     change_eol_win2unix(file)
     
-os.remove('python_template.py')
+os.remove('python_template_simulation2.py')
 os.remove('batch_template.sh')
 
 try:
     os.rename('run_batch_template.py', 'run_batch.py')
 except:
     pass
-os.remove('run_batch_template.py')
+try:
+    os.remove('run_batch_template.py')
+except:
+    pass

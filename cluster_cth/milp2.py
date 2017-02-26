@@ -19,7 +19,7 @@ Nmax = 10 # max number of regenerator circuits per regenerator node
 cofase = 23.86 # ASE coefficient
 rou = 2.11*10**-3
 miu = 1.705
-Noise = (10**4)/3.52
+
 
 # modelling parameters
 bigM1 = 10**5 
@@ -41,7 +41,7 @@ class Network(object):
     '''The network 
     '''
     
-    def __init__(self, cost_matrix):
+    def __init__(self, cost_matrix, modulation='bpsk'):
         '''Initialize the network topology'''
         self.cost_matrix = cost_matrix
         self.connectivity_matrix = 1-np.isinf(self.cost_matrix)
@@ -62,6 +62,10 @@ class Network(object):
         self.links = pd.DataFrame({'id': ids, 'source': src, 
                                    'destination': dst, 'length':length})
         self.links = self.links[['id', 'source', 'destination', 'length']]
+        if modulation=='bpsk':
+            self.Noise = (10**4)/3.52 # bpsk
+        elif modulation=='qpsk':
+            self.Noise = (10**4)/7.03 # qpsk
     
     def create_demands(self, n_demands, modulation='bpsk', distribution='uniform', 
                        low=30, high=400):
@@ -88,7 +92,12 @@ class Network(object):
 
         # choose modulation format
         if modulation=='qpsk':
-            tr = [(3651-1.25*data_rates[i])/100 for i in range(n_demands)]
+            qpsk_tr = pd.read_csv('qpsk_TR.csv', header=None)
+            qpsk_tr.columns = ['data_rate', 'distance']
+            qpsk_tr.distance = qpsk_tr.distance/100
+            qpsk_tr.set_index('data_rate', inplace=True)
+            tr = [float(qpsk_tr.loc[int(np.round(data_rates[i]))]) 
+                for i in range(n_demands)]
         elif modulation=='bpsk':
             bpsk_tr = pd.read_csv('bpsk_TR.csv', header=None)
             bpsk_tr.columns = ['data_rate', 'distance']
@@ -340,7 +349,7 @@ class Network(object):
                 
         for n in self.nodes:
             for d in demands.id:
-                model.addConstr(Y[n, d]<=Noise,
+                model.addConstr(Y[n, d]<=self.Noise,
                         name='y_{}_{}'.format(n,d))
                 
         for l in self.links.id:
@@ -1120,7 +1129,7 @@ class Network(object):
                 
         for n in self.nodes:
             for d in demands.id:
-                model.addConstr(Y[n, d]<=Noise,
+                model.addConstr(Y[n, d]<=self.Noise,
                         name='y_{}_{}'.format(n,d))
                 
         for l in self.links.id:

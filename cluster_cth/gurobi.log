@@ -2405,3 +2405,729 @@ Gurobi 7.0.2 (win64, Python) logging started 02/24/17 13:46:47
 
 Gurobi 7.0.2 (win64, Python) logging started 02/24/17 13:46:48
 
+
+Gurobi 7.0.2 (win64, Python) logging started 02/25/17 20:42:26
+
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 20420 rows, 6546 columns and 55873 nonzeros
+Variable types: 3653 continuous, 2893 integer (2869 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Presolve removed 9831 rows and 3256 columns
+Presolve time: 0.17s
+Presolved: 10589 rows, 3290 columns, 37287 nonzeros
+Variable types: 1846 continuous, 1444 integer (1444 binary)
+Found heuristic solution: objective 247.0000000
+
+Root relaxation: objective 9.800000e+01, 274 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   98.00000    0    8  247.00000   98.00000  60.3%     -    0s
+H    0     0                     175.5000000   98.00000  44.2%     -    0s
+     0     0   98.00000    0   13  175.50000   98.00000  44.2%     -    0s
+     0     0   98.00000    0   13  175.50000   98.00000  44.2%     -    0s
+     0     0   98.00000    0   10  175.50000   98.00000  44.2%     -    0s
+     0     0   98.00000    0   11  175.50000   98.00000  44.2%     -    0s
+     0     0   98.00000    0   13  175.50000   98.00000  44.2%     -    0s
+     0     0   98.00000    0   13  175.50000   98.00000  44.2%     -    0s
+     0     0   98.00000    0   15  175.50000   98.00000  44.2%     -    0s
+H    0     0                     100.0000000   98.00000  2.00%     -    0s
+H    0     0                      98.0000000   98.00000  0.00%     -    0s
+
+Cutting planes:
+  Implied bound: 2
+  MIR: 1
+  Flow cover: 3
+
+Explored 0 nodes (2375 simplex iterations) in 0.78 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 4: 98 100 175.5 247 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999997e+01, best bound 9.799999999997e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6884 rows, 1725 columns and 25997 nonzeros
+Variable types: 987 continuous, 738 integer (714 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 197.5
+Presolve removed 595 rows and 155 columns
+Presolve time: 0.02s
+Presolved: 6289 rows, 1570 columns, 25661 nonzeros
+Variable types: 986 continuous, 584 integer (584 binary)
+
+Root relaxation: objective 9.800000e+01, 314 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0      98.0000000   98.00000  0.00%     -    0s
+
+Explored 0 nodes (874 simplex iterations) in 0.09 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 2: 98 197.5 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999997e+01, best bound 9.799999999997e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6884 rows, 1725 columns and 25997 nonzeros
+Variable types: 987 continuous, 738 integer (714 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 103
+Presolve removed 5321 rows and 1071 columns
+Presolve time: 0.02s
+Presolved: 1563 rows, 654 columns, 5371 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 400 continuous, 254 integer (254 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 20420 rows, 6541 columns and 55873 nonzeros
+Variable types: 3653 continuous, 2888 integer (2864 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 102
+Presolve removed 18119 rows and 5640 columns
+Presolve time: 0.03s
+Presolved: 2301 rows, 901 columns, 7273 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 560 continuous, 341 integer (341 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.09 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6884 rows, 1725 columns and 25997 nonzeros
+Variable types: 987 continuous, 738 integer (714 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 103
+Presolve removed 5321 rows and 1071 columns
+Presolve time: 0.00s
+Presolved: 1563 rows, 654 columns, 5371 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 400 continuous, 254 integer (254 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 20420 rows, 6541 columns and 55873 nonzeros
+Variable types: 3653 continuous, 2888 integer (2864 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 102
+Presolve removed 18119 rows and 5640 columns
+Presolve time: 0.05s
+Presolved: 2301 rows, 901 columns, 7273 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 560 continuous, 341 integer (341 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.08 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6884 rows, 1725 columns and 25997 nonzeros
+Variable types: 987 continuous, 738 integer (714 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 114
+Presolve removed 5351 rows and 1076 columns
+Presolve time: 0.02s
+Presolved: 1533 rows, 649 columns, 5250 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 398 continuous, 251 integer (251 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 20420 rows, 6541 columns and 55873 nonzeros
+Variable types: 3653 continuous, 2888 integer (2864 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Presolve removed 18134 rows and 5640 columns
+Presolve time: 0.03s
+Presolved: 2286 rows, 901 columns, 7177 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 563 continuous, 338 integer (338 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.09 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6884 rows, 1725 columns and 25997 nonzeros
+Variable types: 987 continuous, 738 integer (714 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 114
+Presolve removed 5351 rows and 1076 columns
+Presolve time: 0.00s
+Presolved: 1533 rows, 649 columns, 5250 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 398 continuous, 251 integer (251 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 20420 rows, 6541 columns and 55873 nonzeros
+Variable types: 3653 continuous, 2888 integer (2864 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Presolve removed 18134 rows and 5640 columns
+Presolve time: 0.03s
+Presolved: 2286 rows, 901 columns, 7177 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 563 continuous, 338 integer (338 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.08 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6884 rows, 1725 columns and 25997 nonzeros
+Variable types: 987 continuous, 738 integer (714 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 102
+Presolve removed 5313 rows and 1071 columns
+Presolve time: 0.02s
+Presolved: 1571 rows, 654 columns, 5398 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 400 continuous, 254 integer (254 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.03 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 20420 rows, 6541 columns and 55873 nonzeros
+Variable types: 3653 continuous, 2888 integer (2864 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 164.5
+Presolve removed 18114 rows and 5640 columns
+Presolve time: 0.05s
+Presolved: 2306 rows, 901 columns, 7291 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 559 continuous, 342 integer (342 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.08 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6884 rows, 1725 columns and 25997 nonzeros
+Variable types: 987 continuous, 738 integer (714 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 105
+Presolve removed 5343 rows and 1076 columns
+Presolve time: 0.02s
+Presolved: 1541 rows, 649 columns, 5282 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 398 continuous, 251 integer (251 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 20420 rows, 6541 columns and 55873 nonzeros
+Variable types: 3653 continuous, 2888 integer (2864 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 183.5
+Presolve removed 18129 rows and 5640 columns
+Presolve time: 0.05s
+Presolved: 2291 rows, 901 columns, 7205 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 562 continuous, 339 integer (339 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.09 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6884 rows, 1725 columns and 25997 nonzeros
+Variable types: 987 continuous, 738 integer (714 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 102
+Presolve removed 5313 rows and 1071 columns
+Presolve time: 0.02s
+Presolved: 1571 rows, 654 columns, 5398 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 400 continuous, 254 integer (254 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.03 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 20420 rows, 6541 columns and 55873 nonzeros
+Variable types: 3653 continuous, 2888 integer (2864 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 164.5
+Presolve removed 18114 rows and 5640 columns
+Presolve time: 0.05s
+Presolved: 2306 rows, 901 columns, 7291 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 559 continuous, 342 integer (342 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.08 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6884 rows, 1725 columns and 25997 nonzeros
+Variable types: 987 continuous, 738 integer (714 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 114
+Presolve removed 5351 rows and 1076 columns
+Presolve time: 0.02s
+Presolved: 1533 rows, 649 columns, 5250 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 398 continuous, 251 integer (251 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 20420 rows, 6541 columns and 55873 nonzeros
+Variable types: 3653 continuous, 2888 integer (2864 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Presolve removed 18134 rows and 5640 columns
+Presolve time: 0.06s
+Presolved: 2286 rows, 901 columns, 7177 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 563 continuous, 338 integer (338 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.11 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6884 rows, 1725 columns and 25997 nonzeros
+Variable types: 987 continuous, 738 integer (714 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 106
+Presolve removed 5321 rows and 1071 columns
+Presolve time: 0.02s
+Presolved: 1563 rows, 654 columns, 5372 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 400 continuous, 254 integer (254 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 20420 rows, 6541 columns and 55873 nonzeros
+Variable types: 3653 continuous, 2888 integer (2864 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Presolve removed 18119 rows and 5640 columns
+Presolve time: 0.05s
+Presolved: 2301 rows, 901 columns, 7273 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 560 continuous, 341 integer (341 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.09 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6884 rows, 1725 columns and 25997 nonzeros
+Variable types: 987 continuous, 738 integer (714 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 102
+Presolve removed 6878 rows and 1720 columns
+Presolve time: 0.02s
+Presolved: 6 rows, 5 columns, 16 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 2 continuous, 3 integer (3 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.02 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
+Changed value of parameter timelimit to 480.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter mipgap to 0.01
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 20420 rows, 6541 columns and 55873 nonzeros
+Variable types: 3653 continuous, 2888 integer (2864 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+06]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+05]
+  RHS range        [1e+00, 6e+06]
+Found heuristic solution: objective 102
+Presolve removed 20414 rows and 6536 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 5 columns, 16 nonzeros
+
+Loaded MIP start with objective 98
+
+Variable types: 2 continuous, 3 integer (3 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 98 
+Pool objective bound 98
+
+Optimal solution found (tolerance 1.00e-02)
+Best objective 9.799999999994e+01, best bound 9.799999999994e+01, gap 0.0000%
