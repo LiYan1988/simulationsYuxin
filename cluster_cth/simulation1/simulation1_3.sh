@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 #SBATCH -A C3SE407-15-3
 #SBATCH -p hebbe
-#SBATCH -J test_hebbe_3
+#SBATCH -J simulation1_3
 #SBATCH -N 1
-#SBATCH -n 20
-#SBATCH -t 2-0:0:0
-#SBATCH -o test_hebbe_3.stdout
-#SBATCH -e test_hebbe_3.stderr
+#SBATCH -n 10
+#SBATCH -t 4-0:0:0
+#SBATCH -o simulation1_3.stdout
+#SBATCH -e simulation1_3.stderr
 module purge 
 source ~/.usr_path_grb_py35
 

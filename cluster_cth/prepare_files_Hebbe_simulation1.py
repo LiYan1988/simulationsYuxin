@@ -15,7 +15,7 @@ from subprocess import call
 import pandas as pd
 from milp2 import *
 
-np.random.seed(666)
+np.random.seed(6666) # 666
 
 def copy_template(src, dst, replace_lines):
     destination = open(dst, 'w')
@@ -46,8 +46,8 @@ n_demands = 50
 simulation_name = 'simulation1' 
 
 # resource parameters
-cpu_per_job = 20
-time_days = 2
+cpu_per_job = 10
+time_days = 4
 time_hours = 0
 time_minutes = 0
 time_seconds = 0
@@ -63,7 +63,7 @@ if not os.path.exists(simulation_name):
 shutil.copy('milp2.py', simulation_name)
 shutil.copy('nsf-24nodes.csv', simulation_name)
 shutil.copy('bpsk_TR.csv', simulation_name)
-shutil.copy('python_template.py', simulation_name)
+shutil.copy('python_template_simulation1.py', simulation_name)
 shutil.copy('batch_template.sh', simulation_name)
 shutil.copy('run_batch_template.py', simulation_name)
 os.chdir(simulation_name)
@@ -78,7 +78,7 @@ for batch_id in range(num_simulations):
     demands.to_csv(demands_file, index=False)
     
     # write python files
-    python_src = "python_template.py"
+    python_src = "python_template_simulation1.py"
     line12 = "batch_id = {}\n".format(batch_id)
     line16 = "demands_file = '{}'\n".format(demands_file)
     pickle_file = pickle_file_template.format(batch_id)
@@ -89,12 +89,12 @@ for batch_id in range(num_simulations):
     
     # write bash files
     bash_src = "batch_template.sh"
-    line3 = "#SBATCH -J test_hebbe_{}\n".format(batch_id)
+    line3 = "#SBATCH -J {}_{}\n".format(simulation_name, batch_id)
     line5 = "#SBATCH -n {}\n".format(cpu_per_job)
     line6 = "#SBATCH -t {}-{}:{}:{}\n".format(time_days, time_hours, 
                         time_minutes, time_seconds)
-    line7 = "#SBATCH -o test_hebbe_{}.stdout\n".format(batch_id)
-    line8 = "#SBATCH -e test_hebbe_{}.stderr\n".format(batch_id)
+    line7 = "#SBATCH -o {}_{}.stdout\n".format(simulation_name, batch_id)
+    line8 = "#SBATCH -e {}_{}.stderr\n".format(simulation_name, batch_id)
     line12 = "pdcp {} $TMPDIR\n".format(python_dst)
     line15 = "pdcp {} $TMPDIR\n".format(demands_file)
     line18 = "python {}\n".format(python_dst)
@@ -106,7 +106,7 @@ for batch_id in range(num_simulations):
 for file in os.listdir(os.curdir):
     change_eol_win2unix(file)
     
-os.remove('python_template.py')
+os.remove('python_template_simulation1.py')
 os.remove('batch_template.sh')
 
 try:

@@ -1,25 +1,25 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb 23 18:44:46 2017
+Created on Sat Feb 25 20:10:26 2017
 
-@author: yx4vf
+@author: misWin
 
-This is a template for python files on hebbe
+This is a template of python files for simulation 2 on hebbe
 """
 
 from milp2 import *
 np.random.seed(0)
 
-batch_id = 0
+batch_id = 16
 network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)
 network_cost = network_cost.as_matrix()
-sn = Network(network_cost)
-demands_file = 'nsf24-demand-template'+str(batch_id)+'.csv'
+sn = Network(network_cost, modulation='qpsk')
+demands_file = 'simulation2_new_16.csv'
 demands = pd.read_csv(demands_file)
 
 iteration_history_tr, iteration_history_gn = \
     sn.iterate(demands, random_state=0, mipstart=True, mipfocus=1, 
-               method=-1, mipgap=0.01)
+               method=-1, mipgap=0.01, Threads=10)
 
 # gurobi model instances cannot be save by pickle
 models_gn = {}
@@ -29,5 +29,5 @@ for i in iteration_history_gn.keys():
     models_tr[i] = iteration_history_tr[i].pop('model', None)
     
 iteration_history = (iteration_history_tr, iteration_history_gn)
-output_file = 'output-GN-vs-TR-bpsk-nsf24'+str(batch_id)+'.pkl'
+output_file = 'simulation2_new_16.pkl'
 save_data(output_file, iteration_history)

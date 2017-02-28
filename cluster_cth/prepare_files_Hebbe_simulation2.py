@@ -24,7 +24,7 @@ from subprocess import call
 import pandas as pd
 from milp2 import *
 
-np.random.seed(666)
+np.random.seed(6666)
 
 def copy_template(src, dst, replace_lines):
     destination = open(dst, 'w')
@@ -52,11 +52,11 @@ def change_eol_win2unix(file_path):
 # simulation parameters
 num_simulations = 30
 n_demands = 50 
-simulation_name = 'simulation2' 
+simulation_name = 'simulation2_new' 
 
 # resource parameters
-cpu_per_job = 20
-time_days = 2
+cpu_per_job = 10
+time_days = 4
 time_hours = 0
 time_minutes = 0
 time_seconds = 0
@@ -99,12 +99,12 @@ for batch_id in range(num_simulations):
     
     # write bash files
     bash_src = "batch_template.sh"
-    line3 = "#SBATCH -J test_hebbe_{}\n".format(batch_id)
+    line3 = "#SBATCH -J {}_{}\n".format(simulation_name, batch_id)
     line5 = "#SBATCH -n {}\n".format(cpu_per_job)
     line6 = "#SBATCH -t {}-{}:{}:{}\n".format(time_days, time_hours, 
                         time_minutes, time_seconds)
-    line7 = "#SBATCH -o test_hebbe_{}.stdout\n".format(batch_id)
-    line8 = "#SBATCH -e test_hebbe_{}.stderr\n".format(batch_id)
+    line7 = "#SBATCH -o {}_{}.stdout\n".format(simulation_name, batch_id)
+    line8 = "#SBATCH -e {}_{}.stderr\n".format(simulation_name, batch_id)
     line12 = "pdcp {} $TMPDIR\n".format(python_dst)
     line15 = "pdcp {} $TMPDIR\n".format(demands_file)
     line18 = "python {}\n".format(python_dst)

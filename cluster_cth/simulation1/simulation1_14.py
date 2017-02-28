@@ -19,7 +19,7 @@ demands = pd.read_csv(demands_file)
 
 iteration_history_tr, iteration_history_gn = \
     sn.iterate(demands, random_state=0, mipstart=True, mipfocus=1, 
-               method=-1, mipgap=0.01)
+               method=-1, mipgap=0.01, Threads=10)
 
 # gurobi model instances cannot be save by pickle
 models_gn = {}
