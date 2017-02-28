@@ -32,3 +32,17 @@ for i in iteration_history_gn.keys():
     
 iteration_history = (iteration_history_tr, iteration_history_gn)
 save_data('nsf24-test1.pkl', iteration_history)
+
+#%% 
+ctr = extract(iteration_history[0], 'c')
+ttr = extract_history(iteration_history[0], 'Total')
+cgn = extract(iteration_history[1], 'c')
+tgn = extract_history(iteration_history[1], 'Total')
+
+import matplotlit.pyplot as plt
+plt.figure(1)
+plt.plot(ctr, label='TR')
+plt.plot(cgn, label='GN')
+plt.figure(2)
+plt.plot(ttr, label='TR')
+plt.plot(tgn, label='GN')

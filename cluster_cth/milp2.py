@@ -273,6 +273,9 @@ class Network(object):
                 if d1!=d2:
                     model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1,
                                     name='delta_{}_{}'.format(d1, d2))
+                else:
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==0,
+                                    name='delta_{}_{}'.format(d1, d2))
                     
         for d1 in demands.id:
             for d2 in demands.id:
@@ -449,11 +452,10 @@ class Network(object):
             Deltax = {}
             for d1 in demands.id:
                 for d2 in demands.id:
-                    if d1!=d2:
-                        if Delta[d1, d2].x <0.5:
-                            Deltax[d1, d2] = 0
-                        else:
-                            Deltax[d1, d2] = 1
+                    if Delta[d1, d2].x <0.5:
+                        Deltax[d1, d2] = 0
+                    else:
+                        Deltax[d1, d2] = 1
     
             Fstartx = {}
             for d in demands.id:
@@ -607,9 +609,8 @@ class Network(object):
         Delta = {} # order between demands
         for d1 in demands.id:
             for d2 in demands.id:
-                if d1!=d2:
-                    Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
-                         name='Delta_{}_{}'.format(d1, d2))
+                Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
+                     name='Delta_{}_{}'.format(d1, d2))
                     
         U = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
         for l in self.links.id:
@@ -676,6 +677,8 @@ class Network(object):
             for d2 in demands.id:
                 if d1!=d2:
                     model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1)
+                else:
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==0)
                     
         for d1 in demands.id:
             for d2 in demands.id:
@@ -774,11 +777,10 @@ class Network(object):
             Deltax = {}
             for d1 in demands.id:
                 for d2 in demands.id:
-                    if d1!=d2:
-                        if Delta[d1, d2].x <0.5:
-                            Deltax[d1, d2] = 0
-                        else:
-                            Deltax[d1, d2] = 1
+                    if Delta[d1, d2].x <0.5:
+                        Deltax[d1, d2] = 0
+                    else:
+                        Deltax[d1, d2] = 1
     
             Fstartx = {}
             for d in demands.id:
@@ -921,6 +923,9 @@ class Network(object):
                 elif d1!=d2:
                     Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
                          name='Delta_{}_{}'.format(d1, d2))
+                elif d1==d2:
+                    Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
+                         name='Delta_{}_{}'.format(d1, d2), lb=0, ub=0)
                 if mipstart:
                     try:
                         Delta[d1, d2].start = Deltax[d1, d2]
@@ -1053,6 +1058,9 @@ class Network(object):
             for d2 in demands.id:
                 if d1!=d2:
                     model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1,
+                                    name='delta_{}_{}'.format(d1, d2))
+                else:
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==0,
                                     name='delta_{}_{}'.format(d1, d2))
                     
         for d1 in demands.id:
@@ -1239,11 +1247,10 @@ class Network(object):
         Deltax = {}
         for d1 in demands.id:
             for d2 in demands.id:
-                if d1!=d2:
-                    if Delta[d1, d2].x <0.5:
-                        Deltax[d1, d2] = 0
-                    else:
-                        Deltax[d1, d2] = 1
+                if Delta[d1, d2].x <0.5:
+                    Deltax[d1, d2] = 0
+                else:
+                    Deltax[d1, d2] = 1
                           
         Fstartx = {}
         for d in demands.id:
@@ -1441,6 +1448,9 @@ class Network(object):
                 elif d1!=d2:
                     Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
                          name='Delta_{}_{}'.format(d1, d2))
+                elif d1==d2:
+                    Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
+                         name='Delta_{}_{}'.format(d1, d2), ub=0, lb=0)
                 if mipstart:
                     try:
                         Delta[d1, d2].start = Deltax[d1, d2]
@@ -1512,6 +1522,8 @@ class Network(object):
             for d2 in demands.id:
                 if d1!=d2:
                     model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1)
+                elif d1==d2:
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==0)
                     
         for d1 in demands.id:
             for d2 in demands.id:
@@ -1620,11 +1632,10 @@ class Network(object):
         Deltax = {}
         for d1 in demands.id:
             for d2 in demands.id:
-                if d1!=d2:
-                    if Delta[d1, d2].x <0.5:
-                        Deltax[d1, d2] = 0
-                    else:
-                        Deltax[d1, d2] = 1
+                if Delta[d1, d2].x <0.5:
+                    Deltax[d1, d2] = 0
+                else:
+                    Deltax[d1, d2] = 1
                           
         Fstartx = {}
         for d in demands.id:
