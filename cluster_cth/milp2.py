@@ -859,9 +859,12 @@ class Network(object):
         # process input data
         demands_added = previous_solutions['demands_added'] # new demands
         demands_fixed = previous_solutions['demands_fixed'] # old demands
+        UsageLx0 = previous_solutions['UsageL0']
+        Deltax0 = previous_solutions['Delta0']
+        Fstartx0 = previous_solutions['Fstart0']
         UsageLx = previous_solutions['UsageL']
         Deltax = previous_solutions['Delta']
-        Fstartx = previous_solutions['Fstart']
+        ObjVal = previous_solutions['ObjVal']
         demands_all = list(set(demands_added).union(set(demands_fixed)))
 #        print(demands_added)
 #        print(demands_fixed)
@@ -899,7 +902,7 @@ class Network(object):
                         name='UsageL_{}_{}'.format(l, d))
                 if mipstart:
                     try:
-                        UsageL[l, d].start=UsageLx[l, d]
+                        UsageL[l, d].start=UsageLx0[l, d]
                     except:
                         pass
                 
@@ -909,7 +912,7 @@ class Network(object):
                   name='Fstart_{}'.format(d))
             if mipstart:
                 try:
-                    Fstart[d].start = Fstartx[d]
+                    Fstart[d].start = Fstartx0[d]
                 except:
                     pass
             
@@ -929,7 +932,7 @@ class Network(object):
                          name='Delta_{}_{}'.format(d1, d2), lb=0, ub=0)
                 if mipstart:
                     try:
-                        Delta[d1, d2].start = Deltax[d1, d2]
+                        Delta[d1, d2].start = Deltax0[d1, d2]
                     except:
                         pass
 #                    
@@ -1189,6 +1192,9 @@ class Network(object):
                             name='nnn_{}'.format(n))
             model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
             
+        # bound for objective
+        model.addConstr(c+Total<=ObjVal, name='objBound')
+        
         # objective
         model.setObjective(c+Total, GRB.MINIMIZE)
             
@@ -1384,9 +1390,12 @@ class Network(object):
         # process input data
         demands_added = previous_solutions['demands_added'] # new demands
         demands_fixed = previous_solutions['demands_fixed'] # old demands
+        UsageLx0 = previous_solutions['UsageL0']
+        Deltax0 = previous_solutions['Delta0']
+        Fstartx0 = previous_solutions['Fstart0']
         UsageLx = previous_solutions['UsageL']
         Deltax = previous_solutions['Delta']
-        Fstartx = previous_solutions['Fstart']
+        ObjVal = previous_solutions['ObjVal']
         demands_all = list(set(demands_added).union(set(demands_fixed)))
 #        print(demands_added)
 #        print(demands_fixed)
@@ -1424,7 +1433,7 @@ class Network(object):
                         name='UsageL_{}_{}'.format(l, d))
                 if mipstart:
                     try:
-                        UsageL[l, d].start = UsageL[l, d]
+                        UsageL[l, d].start = UsageLx0[l, d]
                     except:
                         pass
                 
@@ -1434,7 +1443,7 @@ class Network(object):
                   name='Fstart_{}'.format(d))
             if mipstart:
                 try:
-                    Fstart[d].start = Fstartx[d]
+                    Fstart[d].start = Fstartx0[d]
                 except:
                     pass
             
@@ -1454,7 +1463,7 @@ class Network(object):
                          name='Delta_{}_{}'.format(d1, d2), ub=0, lb=0)
                 if mipstart:
                     try:
-                        Delta[d1, d2].start = Deltax[d1, d2]
+                        Delta[d1, d2].start = Deltax0[d1, d2]
                     except:
                         pass
                     
@@ -1573,6 +1582,9 @@ class Network(object):
         for n in self.nodes:
             model.addConstr(NNN[n]==quicksum(Ire[n, d] for d in demands.id))
             model.addConstr(I[n]*Nmax>=NNN[n])
+            
+        # bound for objective
+        model.addConstr(c+Total<=ObjVal, name='objBound')
             
         # objective
         model.setObjective(c+Total, GRB.MINIMIZE)
@@ -1847,14 +1859,18 @@ class Network(object):
                 previous_solutions = {}
                 previous_solutions['demands_added'] = demands_added
                 previous_solutions['demands_fixed'] = demands_fixed
+                # MIPstart
                 if model_tr.ObjVal<model_gn.ObjVal:
-                    previous_solutions['UsageL'] = UsageLx_tr
-                    previous_solutions['Delta'] = Deltax_tr
-                    previous_solutions['Fstart'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+                    previous_solutions['UsageL0'] = UsageLx_tr
+                    previous_solutions['Delta0'] = Deltax_tr
+                    previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
                 else:
-                    previous_solutions['UsageL'] = UsageLx_gn
-                    previous_solutions['Delta'] = Deltax_gn
-                    previous_solutions['Fstart'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+                    previous_solutions['UsageL0'] = UsageLx_gn
+                    previous_solutions['Delta0'] = Deltax_gn
+                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+                previous_solutions['UsageL'] = UsageLx_tr
+                previous_solutions['Delta'] = Deltax_tr
+                previous_solutions['ObjVal'] = model_tr.ObjVal
 
                 model_tr, solutions_tr, UsageLx_tr, Deltax_tr = \
                     self.solve_partial_tr(demands, previous_solutions, mipstart=mipstart, 
@@ -1872,13 +1888,16 @@ class Network(object):
                 iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
 
                 if model_gn.ObjVal<model_tr.ObjVal:
-                    previous_solutions['UsageL'] = UsageLx_gn
-                    previous_solutions['Delta'] = Deltax_gn
-                    previous_solutions['Fstart'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+                    previous_solutions['UsageL0'] = UsageLx_gn
+                    previous_solutions['Delta0'] = Deltax_gn
+                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
                 else:
-                    previous_solutions['UsageL'] = iteration_history_tr[idx]['UsageLx']
-                    previous_solutions['Delta'] = iteration_history_tr[idx]['Deltax']
-                    previous_solutions['Fstart'] = iteration_history_tr[idx]['solutions']['Fstart']
+                    previous_solutions['UsageL0'] = iteration_history_tr[idx]['UsageLx']
+                    previous_solutions['Delta0'] = iteration_history_tr[idx]['Deltax']
+                    previous_solutions['Fstart0'] = iteration_history_tr[idx]['solutions']['Fstart']
+                previous_solutions['UsageL'] = UsageLx_gn
+                previous_solutions['Delta'] = Deltax_gn
+                previous_solutions['ObjVal'] = model_gn.ObjVal
 
                 model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
                     self.solve_partial_gn(demands, previous_solutions, mipstart=mipstart, 
