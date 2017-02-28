@@ -1,0 +1,2 @@
+1. TR start is from TR, GN start is from GN
+2. If at the first iteration of the stage, objective bound is infinity. Otherwise, it's from the previous iteration.

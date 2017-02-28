@@ -29,7 +29,7 @@ bigM3 = 2*10**6
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 3 # 10
+n_iter_per_stage = 6 # 10
 th_mipgap = 0.01
 n_demands_increment = 5
 timelimit_baseline = 960
@@ -1193,7 +1193,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
             
         # bound for objective
-        model.addConstr(c+Total<=ObjVal, name='objBound')
+#        model.addConstr(c+Total<=ObjVal+0.5, name='objBound')
         
         # objective
         model.setObjective(c+Total, GRB.MINIMIZE)
@@ -1584,7 +1584,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n])
             
         # bound for objective
-        model.addConstr(c+Total<=ObjVal, name='objBound')
+#        model.addConstr(c+Total<=ObjVal+0.5, name='objBound')
             
         # objective
         model.setObjective(c+Total, GRB.MINIMIZE)
@@ -1735,8 +1735,9 @@ class Network(object):
             demands_added = list(demands_id[:n_demands_initial])
             demands_fixed = []
             no_demands = False
+            stage_start = False
 
-            return demands_added, demands_fixed, no_demands, timelimit
+            return demands_added, demands_fixed, no_demands, timelimit, stage_start
 
         # how many iterations this set of demands has been solved 
         num_iter_solved = [len(iteration_history[i]['demands_solved']) 
@@ -1760,8 +1761,9 @@ class Network(object):
                 no_demands = True # we don't need to solve anymore
                 demands_added = []
                 demands_fixed = list(iteration_history[idx-1]['demands_solved'])
+                stage_start = False
                 
-                return demands_added, demands_fixed, no_demands, timelimit
+                return demands_added, demands_fixed, no_demands, timelimit, stage_start
 
             else:
                 # there are still some demands left, check the number of left 
@@ -1770,8 +1772,9 @@ class Network(object):
                 demands_added = list(demands_left[:num_demands_added])
                 demands_fixed = list(iteration_history[idx-1]['demands_solved'])
                 no_demands = False
+                stage_start = True
 
-                return demands_added, demands_fixed, no_demands, timelimit
+                return demands_added, demands_fixed, no_demands, timelimit, stage_start
 
         else:
             # we are in the middle of a stage, not the first one,
@@ -1783,8 +1786,9 @@ class Network(object):
             demands_added = list(demands_solved[:n_demands_holdout])
             demands_fixed = list(demands_solved[n_demands_holdout:])
             no_demands = False
+            stage_start = False
 
-            return demands_added, demands_fixed, no_demands, timelimit
+            return demands_added, demands_fixed, no_demands, timelimit, stage_start
 
     def iterate(self, demands, random_state=0, shuffle=False, mipstart=False, **kwargs):
         '''Solve TR and GN simultaneously, the best solution from TR and GN
@@ -1817,7 +1821,7 @@ class Network(object):
 
         # solve the problem for the first time
         # GN model
-        demands_added, demands_fixed, _, timelimit = \
+        demands_added, demands_fixed, _, timelimit, _ = \
             self.scheduler(idx, demands, iteration_history_gn, shuffle)
         demands_tmp = demands.loc[demands.id.isin(demands_added), :]
         model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
@@ -1850,7 +1854,7 @@ class Network(object):
         stop_flag = True
         while stop_flag:
             try:
-                demands_added, demands_fixed, no_demands, timelimit = \
+                demands_added, demands_fixed, no_demands, timelimit, stage_start = \
                     self.scheduler(idx, demands, iteration_history_gn, shuffle)
 
                 if no_demands:
@@ -1860,17 +1864,25 @@ class Network(object):
                 previous_solutions['demands_added'] = demands_added
                 previous_solutions['demands_fixed'] = demands_fixed
                 # MIPstart
-                if model_tr.ObjVal<model_gn.ObjVal:
-                    previous_solutions['UsageL0'] = UsageLx_tr
-                    previous_solutions['Delta0'] = Deltax_tr
-                    previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
-                else:
-                    previous_solutions['UsageL0'] = UsageLx_gn
-                    previous_solutions['Delta0'] = Deltax_gn
-                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+#                if model_tr.ObjVal<model_gn.ObjVal:
+#                    previous_solutions['UsageL0'] = UsageLx_tr
+#                    previous_solutions['Delta0'] = Deltax_tr
+#                    previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+#                else:
+#                    previous_solutions['UsageL0'] = UsageLx_gn
+#                    previous_solutions['Delta0'] = Deltax_gn
+#                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+                
+                previous_solutions['UsageL0'] = UsageLx_tr
+                previous_solutions['Delta0'] = Deltax_tr
+                previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+                
                 previous_solutions['UsageL'] = UsageLx_tr
                 previous_solutions['Delta'] = Deltax_tr
-                previous_solutions['ObjVal'] = model_tr.ObjVal
+                if stage_start:
+                    previous_solutions['ObjVal'] = INF
+                else:
+                    previous_solutions['ObjVal'] = model_tr.ObjVal
 
                 model_tr, solutions_tr, UsageLx_tr, Deltax_tr = \
                     self.solve_partial_tr(demands, previous_solutions, mipstart=mipstart, 
@@ -1887,17 +1899,25 @@ class Network(object):
                 iteration_history_tr[idx]['model'] = model_tr
                 iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
 
-                if model_gn.ObjVal<model_tr.ObjVal:
-                    previous_solutions['UsageL0'] = UsageLx_gn
-                    previous_solutions['Delta0'] = Deltax_gn
-                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
-                else:
-                    previous_solutions['UsageL0'] = iteration_history_tr[idx]['UsageLx']
-                    previous_solutions['Delta0'] = iteration_history_tr[idx]['Deltax']
-                    previous_solutions['Fstart0'] = iteration_history_tr[idx]['solutions']['Fstart']
+#                if model_gn.ObjVal<model_tr.ObjVal:
+#                    previous_solutions['UsageL0'] = UsageLx_gn
+#                    previous_solutions['Delta0'] = Deltax_gn
+#                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+#                else:
+#                    previous_solutions['UsageL0'] = iteration_history_tr[idx]['UsageLx']
+#                    previous_solutions['Delta0'] = iteration_history_tr[idx]['Deltax']
+#                    previous_solutions['Fstart0'] = iteration_history_tr[idx]['solutions']['Fstart']
+                
+                previous_solutions['UsageL0'] = UsageLx_gn
+                previous_solutions['Delta0'] = Deltax_gn
+                previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+
                 previous_solutions['UsageL'] = UsageLx_gn
                 previous_solutions['Delta'] = Deltax_gn
-                previous_solutions['ObjVal'] = model_gn.ObjVal
+                if stage_start:
+                    previous_solutions['ObjVal'] = INF
+                else:
+                    previous_solutions['ObjVal'] = model_gn.ObjVal
 
                 model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
                     self.solve_partial_gn(demands, previous_solutions, mipstart=mipstart, 
@@ -1919,7 +1939,18 @@ class Network(object):
                 stop_flag = not no_demands
 
             except:
-                del previous_solutions, iteration_history_tr[idx], iteration_history_gn[idx]
+                try:
+                    del previous_solutions
+                except:
+                    pass
+                try:
+                    del iteration_history_tr[idx]
+                except:
+                    pass
+                try:
+                    del iteration_history_gn[idx]
+                except:
+                    pass
                 gc.collect()
 
         toc = time.clock()
