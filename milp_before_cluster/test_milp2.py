@@ -11,7 +11,7 @@ from milp2 import *
 np.random.seed(0)
 
 #network_cost = pd.read_csv('networkDT.csv', header=None)/100
-network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)
+network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)*3
 network_cost = network_cost.as_matrix()
 sn = Network(network_cost)
 n_demands = 20
@@ -34,12 +34,12 @@ iteration_history = (iteration_history_tr, iteration_history_gn)
 save_data('nsf24-test1.pkl', iteration_history)
 
 #%% 
-ctr = extract(iteration_history[0], 'c')
+ctr = extract_history(iteration_history[0], 'c')
 ttr = extract_history(iteration_history[0], 'Total')
-cgn = extract(iteration_history[1], 'c')
+cgn = extract_history(iteration_history[1], 'c')
 tgn = extract_history(iteration_history[1], 'Total')
 
-import matplotlit.pyplot as plt
+import matplotlib.pyplot as plt
 plt.figure(1)
 plt.plot(ctr, label='TR')
 plt.plot(cgn, label='GN')

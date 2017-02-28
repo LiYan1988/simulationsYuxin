@@ -11,6 +11,7 @@ from gurobipy import *
 import time
 import copy
 import pickle
+import gc
 
 # fiber parameters
 INF = np.inf # infinity
@@ -28,7 +29,7 @@ bigM3 = 2*10**6
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 10
+n_iter_per_stage = 3 # 10
 th_mipgap = 0.01
 n_demands_increment = 5
 timelimit_baseline = 960
@@ -1721,10 +1722,10 @@ class Network(object):
                 np.random.shuffle(demands_id)
             demands_added = list(demands_id[:n_demands_initial])
             demands_fixed = []
-            no_demands = False 
-            
+            no_demands = False
+
             return demands_added, demands_fixed, no_demands, timelimit
-        
+
         # how many iterations this set of demands has been solved 
         num_iter_solved = [len(iteration_history[i]['demands_solved']) 
             for i in range(len(iteration_history))]
@@ -1757,9 +1758,9 @@ class Network(object):
                 demands_added = list(demands_left[:num_demands_added])
                 demands_fixed = list(iteration_history[idx-1]['demands_solved'])
                 no_demands = False
-                
+
                 return demands_added, demands_fixed, no_demands, timelimit
-            
+
         else:
             # we are in the middle of a stage, not the first one,
             # so holdout n_demands_holdout demands, add them into the network
@@ -1770,9 +1771,9 @@ class Network(object):
             demands_added = list(demands_solved[:n_demands_holdout])
             demands_fixed = list(demands_solved[n_demands_holdout:])
             no_demands = False
-            
+
             return demands_added, demands_fixed, no_demands, timelimit
-        
+
     def iterate(self, demands, random_state=0, shuffle=False, mipstart=False, **kwargs):
         '''Solve TR and GN simultaneously, the best solution from TR and GN
             is input to the next iteration of solving (either TR or GN) 
@@ -1801,7 +1802,7 @@ class Network(object):
         iteration_history_gn[idx]['solutions'] = None
         iteration_history_gn[idx]['UsageLx'] = None
         iteration_history_gn[idx]['Deltax'] = None
-        
+
         # solve the problem for the first time
         # GN model
         demands_added, demands_fixed, _, timelimit = \
@@ -1840,6 +1841,9 @@ class Network(object):
                 demands_added, demands_fixed, no_demands, timelimit = \
                     self.scheduler(idx, demands, iteration_history_gn, shuffle)
 
+                if no_demands:
+                    break
+
                 previous_solutions = {}
                 previous_solutions['demands_added'] = demands_added
                 previous_solutions['demands_fixed'] = demands_fixed
@@ -1871,6 +1875,10 @@ class Network(object):
                     previous_solutions['UsageL'] = UsageLx_gn
                     previous_solutions['Delta'] = Deltax_gn
                     previous_solutions['Fstart'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+                else:
+                    previous_solutions['UsageL'] = iteration_history_tr[idx]['UsageLx']
+                    previous_solutions['Delta'] = iteration_history_tr[idx]['Deltax']
+                    previous_solutions['Fstart'] = iteration_history_tr[idx]['solutions']['Fstart']
 
                 model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
                     self.solve_partial_gn(demands, previous_solutions, mipstart=mipstart, 
@@ -1892,13 +1900,14 @@ class Network(object):
                 stop_flag = not no_demands
 
             except:
-                pass
+                del previous_solutions, iteration_history_tr[idx], iteration_history_gn[idx]
+                gc.collect()
 
         toc = time.clock()
         self.total_runtime = toc-tic
-        
+
         return iteration_history_tr, iteration_history_gn
-    
+
 def extract_history(iteration_history, variable_name):
     '''Extract the history of a certain variable in the iteration_history
     '''
@@ -1911,7 +1920,7 @@ def extract_history(iteration_history, variable_name):
     elif hasattr(iteration_history[0]['model'], variable_name):
         var_history = [getattr(iteration_history[i]['model'], variable_name)
             for i in range(len(iteration_history))]
-        
+
     return var_history
 
 def read_demands(demands_csv, modulation='bpsk'):
