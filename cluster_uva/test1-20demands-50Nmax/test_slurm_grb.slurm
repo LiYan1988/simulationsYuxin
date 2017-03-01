@@ -5,7 +5,7 @@
 #SBATCH --output=test.stdout
 #SBATCH --error=test.stderr
 #SBATCH --partition=economy 
-#SBATCH --account=optinetly6j
+#SBATCH --account=maite_group
 
 source ~/.bashrc_grb
 

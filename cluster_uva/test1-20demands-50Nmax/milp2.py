@@ -16,7 +16,7 @@ import gc
 # fiber parameters
 INF = np.inf # infinity
 G = 12.5 # guardband
-Nmax = 10 # max number of regenerator circuits per regenerator node
+Nmax = 50 # max number of regenerator circuits per regenerator node
 cofase = 23.86 # ASE coefficient
 rou = 2.11*10**-3
 miu = 1.705
@@ -32,7 +32,7 @@ bigM3 = 2*10**6
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 10 # 10
+n_iter_per_stage = 5 # 10
 th_mipgap = 0.01
 n_demands_increment = 5
 timelimit_baseline = 1200 # 960

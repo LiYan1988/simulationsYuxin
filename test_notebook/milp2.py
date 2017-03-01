@@ -16,11 +16,14 @@ import gc
 # fiber parameters
 INF = np.inf # infinity
 G = 12.5 # guardband
-Nmax = 50 # max number of regenerator circuits per regenerator node
+Nmax = 10 # max number of regenerator circuits per regenerator node
 cofase = 23.86 # ASE coefficient
 rou = 2.11*10**-3
 miu = 1.705
 
+# objective weight
+epsilon_total = 1
+epsilon_nnn = 1/(Nmax*10)
 
 # modelling parameters
 bigM1 = 10**5 
@@ -29,11 +32,11 @@ bigM3 = 2*10**6
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 6 # 10
+n_iter_per_stage = 10 # 10
 th_mipgap = 0.01
 n_demands_increment = 5
-timelimit_baseline = 960
-timelimit0 = 60
+timelimit_baseline = 1200 # 960
+timelimit0 = 120 # 60
 time_factor = 1.3
 
 np.random.seed(0) # set random seed
@@ -156,7 +159,7 @@ class Network(object):
                 
         NNN = {}
         for n in self.nodes:
-            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=10, 
+            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=Nmax, 
                name='NNN_{}'.format(n))
             
         X = {}
@@ -405,7 +408,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
             
         # objective
-        model.setObjective(c+Total, GRB.MINIMIZE)
+        model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
             
         # set gurobi parameters
         if len(kwargs):
@@ -637,7 +640,7 @@ class Network(object):
                 
         NNN = {}
         for n in self.nodes:
-            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=10, 
+            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=Nmax, 
                name='NNN_{}'.format(n))
             
         X = {}
@@ -730,7 +733,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n])
             
         # objective
-        model.setObjective(c+Total, GRB.MINIMIZE)
+        model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
             
         # set gurobi parameters
         if len(kwargs):
@@ -962,7 +965,7 @@ class Network(object):
                 
         NNN = {}
         for n in self.nodes:
-            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=10, 
+            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=Nmax, 
                name='NNN_{}'.format(n))
             
         X = {}
@@ -1196,7 +1199,7 @@ class Network(object):
 #        model.addConstr(c+Total<=ObjVal+0.5, name='objBound')
         
         # objective
-        model.setObjective(c+Total, GRB.MINIMIZE)
+        model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
             
         # set gurobi parameters
         if len(kwargs):
@@ -1491,7 +1494,7 @@ class Network(object):
                 
         NNN = {}
         for n in self.nodes:
-            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=10, 
+            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=Nmax, 
                name='NNN_{}'.format(n))
             
         X = {}
@@ -1587,7 +1590,7 @@ class Network(object):
 #        model.addConstr(c+Total<=ObjVal+0.5, name='objBound')
             
         # objective
-        model.setObjective(c+Total, GRB.MINIMIZE)
+        model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
             
         # set gurobi parameters
         if len(kwargs):
