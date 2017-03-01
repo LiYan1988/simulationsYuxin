@@ -29,7 +29,7 @@ models_tr = {}
 for i in iteration_history_gn.keys():
     models_gn[i] = iteration_history_gn[i].pop('model', None)
     models_tr[i] = iteration_history_tr[i].pop('model', None)
-    
+
 iteration_history = (iteration_history_tr, iteration_history_gn)
 save_data('nsf24-test1.pkl', iteration_history)
 
