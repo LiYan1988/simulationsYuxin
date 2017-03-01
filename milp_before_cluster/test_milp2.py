@@ -53,3 +53,12 @@ objtr = [models_tr[i].ObjVal for i in models_tr.keys()]
 plt.figure(3)
 plt.plot(objtr)
 plt.plot(objgn)
+
+nnntr = extract_history(iteration_history_tr, 'NNN')
+nnngn = extract_history(iteration_history_gn, 'NNN')
+nnntr = [sum(i.values()) for i in nnntr]
+nnngn = [sum(i.values()) for i in nnngn]
+
+plt.figure(4)
+plt.plot(nnntr)
+plt.plot(nnngn)
