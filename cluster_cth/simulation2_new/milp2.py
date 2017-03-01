@@ -11,6 +11,7 @@ from gurobipy import *
 import time
 import copy
 import pickle
+import gc
 
 # fiber parameters
 INF = np.inf # infinity
@@ -20,6 +21,9 @@ cofase = 23.86 # ASE coefficient
 rou = 2.11*10**-3
 miu = 1.705
 
+# objective weight
+epsilon_total = 1
+epsilon_nnn = 1/(Nmax*10)
 
 # modelling parameters
 bigM1 = 10**5 
@@ -28,11 +32,11 @@ bigM3 = 2*10**6
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 10
+n_iter_per_stage = 5 # 10
 th_mipgap = 0.01
 n_demands_increment = 5
-timelimit_baseline = 960
-timelimit0 = 60
+timelimit_baseline = 1200 # 960
+timelimit0 = 120 # 60
 time_factor = 1.3
 
 np.random.seed(0) # set random seed
@@ -155,7 +159,7 @@ class Network(object):
                 
         NNN = {}
         for n in self.nodes:
-            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=10, 
+            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=Nmax, 
                name='NNN_{}'.format(n))
             
         X = {}
@@ -272,6 +276,9 @@ class Network(object):
             for d2 in demands.id:
                 if d1!=d2:
                     model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1,
+                                    name='delta_{}_{}'.format(d1, d2))
+                else:
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==0,
                                     name='delta_{}_{}'.format(d1, d2))
                     
         for d1 in demands.id:
@@ -401,7 +408,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
             
         # objective
-        model.setObjective(c+Total, GRB.MINIMIZE)
+        model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
             
         # set gurobi parameters
         if len(kwargs):
@@ -449,11 +456,10 @@ class Network(object):
             Deltax = {}
             for d1 in demands.id:
                 for d2 in demands.id:
-                    if d1!=d2:
-                        if Delta[d1, d2].x <0.5:
-                            Deltax[d1, d2] = 0
-                        else:
-                            Deltax[d1, d2] = 1
+                    if Delta[d1, d2].x <0.5:
+                        Deltax[d1, d2] = 0
+                    else:
+                        Deltax[d1, d2] = 1
     
             Fstartx = {}
             for d in demands.id:
@@ -607,9 +613,8 @@ class Network(object):
         Delta = {} # order between demands
         for d1 in demands.id:
             for d2 in demands.id:
-                if d1!=d2:
-                    Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
-                         name='Delta_{}_{}'.format(d1, d2))
+                Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
+                     name='Delta_{}_{}'.format(d1, d2))
                     
         U = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
         for l in self.links.id:
@@ -635,7 +640,7 @@ class Network(object):
                 
         NNN = {}
         for n in self.nodes:
-            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=10, 
+            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=Nmax, 
                name='NNN_{}'.format(n))
             
         X = {}
@@ -676,6 +681,8 @@ class Network(object):
             for d2 in demands.id:
                 if d1!=d2:
                     model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1)
+                else:
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==0)
                     
         for d1 in demands.id:
             for d2 in demands.id:
@@ -726,7 +733,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n])
             
         # objective
-        model.setObjective(c+Total, GRB.MINIMIZE)
+        model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
             
         # set gurobi parameters
         if len(kwargs):
@@ -774,11 +781,10 @@ class Network(object):
             Deltax = {}
             for d1 in demands.id:
                 for d2 in demands.id:
-                    if d1!=d2:
-                        if Delta[d1, d2].x <0.5:
-                            Deltax[d1, d2] = 0
-                        else:
-                            Deltax[d1, d2] = 1
+                    if Delta[d1, d2].x <0.5:
+                        Deltax[d1, d2] = 0
+                    else:
+                        Deltax[d1, d2] = 1
     
             Fstartx = {}
             for d in demands.id:
@@ -856,9 +862,12 @@ class Network(object):
         # process input data
         demands_added = previous_solutions['demands_added'] # new demands
         demands_fixed = previous_solutions['demands_fixed'] # old demands
+        UsageLx0 = previous_solutions['UsageL0']
+        Deltax0 = previous_solutions['Delta0']
+        Fstartx0 = previous_solutions['Fstart0']
         UsageLx = previous_solutions['UsageL']
         Deltax = previous_solutions['Delta']
-        Fstartx = previous_solutions['Fstart']
+        ObjVal = previous_solutions['ObjVal']
         demands_all = list(set(demands_added).union(set(demands_fixed)))
 #        print(demands_added)
 #        print(demands_fixed)
@@ -896,7 +905,7 @@ class Network(object):
                         name='UsageL_{}_{}'.format(l, d))
                 if mipstart:
                     try:
-                        UsageL[l, d].start=UsageLx[l, d]
+                        UsageL[l, d].start=UsageLx0[l, d]
                     except:
                         pass
                 
@@ -906,7 +915,7 @@ class Network(object):
                   name='Fstart_{}'.format(d))
             if mipstart:
                 try:
-                    Fstart[d].start = Fstartx[d]
+                    Fstart[d].start = Fstartx0[d]
                 except:
                     pass
             
@@ -921,9 +930,12 @@ class Network(object):
                 elif d1!=d2:
                     Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
                          name='Delta_{}_{}'.format(d1, d2))
+                elif d1==d2:
+                    Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
+                         name='Delta_{}_{}'.format(d1, d2), lb=0, ub=0)
                 if mipstart:
                     try:
-                        Delta[d1, d2].start = Deltax[d1, d2]
+                        Delta[d1, d2].start = Deltax0[d1, d2]
                     except:
                         pass
 #                    
@@ -953,7 +965,7 @@ class Network(object):
                 
         NNN = {}
         for n in self.nodes:
-            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=10, 
+            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=Nmax, 
                name='NNN_{}'.format(n))
             
         X = {}
@@ -1053,6 +1065,9 @@ class Network(object):
             for d2 in demands.id:
                 if d1!=d2:
                     model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1,
+                                    name='delta_{}_{}'.format(d1, d2))
+                else:
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==0,
                                     name='delta_{}_{}'.format(d1, d2))
                     
         for d1 in demands.id:
@@ -1180,8 +1195,11 @@ class Network(object):
                             name='nnn_{}'.format(n))
             model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
             
+        # bound for objective
+#        model.addConstr(c+Total<=ObjVal+0.5, name='objBound')
+        
         # objective
-        model.setObjective(c+Total, GRB.MINIMIZE)
+        model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
             
         # set gurobi parameters
         if len(kwargs):
@@ -1239,11 +1257,10 @@ class Network(object):
         Deltax = {}
         for d1 in demands.id:
             for d2 in demands.id:
-                if d1!=d2:
-                    if Delta[d1, d2].x <0.5:
-                        Deltax[d1, d2] = 0
-                    else:
-                        Deltax[d1, d2] = 1
+                if Delta[d1, d2].x <0.5:
+                    Deltax[d1, d2] = 0
+                else:
+                    Deltax[d1, d2] = 1
                           
         Fstartx = {}
         for d in demands.id:
@@ -1376,9 +1393,12 @@ class Network(object):
         # process input data
         demands_added = previous_solutions['demands_added'] # new demands
         demands_fixed = previous_solutions['demands_fixed'] # old demands
+        UsageLx0 = previous_solutions['UsageL0']
+        Deltax0 = previous_solutions['Delta0']
+        Fstartx0 = previous_solutions['Fstart0']
         UsageLx = previous_solutions['UsageL']
         Deltax = previous_solutions['Delta']
-        Fstartx = previous_solutions['Fstart']
+        ObjVal = previous_solutions['ObjVal']
         demands_all = list(set(demands_added).union(set(demands_fixed)))
 #        print(demands_added)
 #        print(demands_fixed)
@@ -1416,7 +1436,7 @@ class Network(object):
                         name='UsageL_{}_{}'.format(l, d))
                 if mipstart:
                     try:
-                        UsageL[l, d].start = UsageL[l, d]
+                        UsageL[l, d].start = UsageLx0[l, d]
                     except:
                         pass
                 
@@ -1426,7 +1446,7 @@ class Network(object):
                   name='Fstart_{}'.format(d))
             if mipstart:
                 try:
-                    Fstart[d].start = Fstartx[d]
+                    Fstart[d].start = Fstartx0[d]
                 except:
                     pass
             
@@ -1441,9 +1461,12 @@ class Network(object):
                 elif d1!=d2:
                     Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
                          name='Delta_{}_{}'.format(d1, d2))
+                elif d1==d2:
+                    Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
+                         name='Delta_{}_{}'.format(d1, d2), ub=0, lb=0)
                 if mipstart:
                     try:
-                        Delta[d1, d2].start = Deltax[d1, d2]
+                        Delta[d1, d2].start = Deltax0[d1, d2]
                     except:
                         pass
                     
@@ -1471,7 +1494,7 @@ class Network(object):
                 
         NNN = {}
         for n in self.nodes:
-            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=10, 
+            NNN[n] = model.addVar(vtype=GRB.INTEGER, lb=0, ub=Nmax, 
                name='NNN_{}'.format(n))
             
         X = {}
@@ -1512,6 +1535,8 @@ class Network(object):
             for d2 in demands.id:
                 if d1!=d2:
                     model.addConstr(Delta[d1, d2]+Delta[d2, d1]==1)
+                elif d1==d2:
+                    model.addConstr(Delta[d1, d2]+Delta[d2, d1]==0)
                     
         for d1 in demands.id:
             for d2 in demands.id:
@@ -1561,8 +1586,11 @@ class Network(object):
             model.addConstr(NNN[n]==quicksum(Ire[n, d] for d in demands.id))
             model.addConstr(I[n]*Nmax>=NNN[n])
             
+        # bound for objective
+#        model.addConstr(c+Total<=ObjVal+0.5, name='objBound')
+            
         # objective
-        model.setObjective(c+Total, GRB.MINIMIZE)
+        model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
             
         # set gurobi parameters
         if len(kwargs):
@@ -1620,11 +1648,10 @@ class Network(object):
         Deltax = {}
         for d1 in demands.id:
             for d2 in demands.id:
-                if d1!=d2:
-                    if Delta[d1, d2].x <0.5:
-                        Deltax[d1, d2] = 0
-                    else:
-                        Deltax[d1, d2] = 1
+                if Delta[d1, d2].x <0.5:
+                    Deltax[d1, d2] = 0
+                else:
+                    Deltax[d1, d2] = 1
                           
         Fstartx = {}
         for d in demands.id:
@@ -1710,10 +1737,11 @@ class Network(object):
                 np.random.shuffle(demands_id)
             demands_added = list(demands_id[:n_demands_initial])
             demands_fixed = []
-            no_demands = False 
-            
-            return demands_added, demands_fixed, no_demands, timelimit
-        
+            no_demands = False
+            stage_start = False
+
+            return demands_added, demands_fixed, no_demands, timelimit, stage_start
+
         # how many iterations this set of demands has been solved 
         num_iter_solved = [len(iteration_history[i]['demands_solved']) 
             for i in range(len(iteration_history))]
@@ -1736,8 +1764,9 @@ class Network(object):
                 no_demands = True # we don't need to solve anymore
                 demands_added = []
                 demands_fixed = list(iteration_history[idx-1]['demands_solved'])
+                stage_start = False
                 
-                return demands_added, demands_fixed, no_demands, timelimit
+                return demands_added, demands_fixed, no_demands, timelimit, stage_start
 
             else:
                 # there are still some demands left, check the number of left 
@@ -1746,9 +1775,10 @@ class Network(object):
                 demands_added = list(demands_left[:num_demands_added])
                 demands_fixed = list(iteration_history[idx-1]['demands_solved'])
                 no_demands = False
-                
-                return demands_added, demands_fixed, no_demands, timelimit
-            
+                stage_start = True
+
+                return demands_added, demands_fixed, no_demands, timelimit, stage_start
+
         else:
             # we are in the middle of a stage, not the first one,
             # so holdout n_demands_holdout demands, add them into the network
@@ -1759,9 +1789,10 @@ class Network(object):
             demands_added = list(demands_solved[:n_demands_holdout])
             demands_fixed = list(demands_solved[n_demands_holdout:])
             no_demands = False
-            
-            return demands_added, demands_fixed, no_demands, timelimit
-        
+            stage_start = False
+
+            return demands_added, demands_fixed, no_demands, timelimit, stage_start
+
     def iterate(self, demands, random_state=0, shuffle=False, mipstart=False, **kwargs):
         '''Solve TR and GN simultaneously, the best solution from TR and GN
             is input to the next iteration of solving (either TR or GN) 
@@ -1790,10 +1821,10 @@ class Network(object):
         iteration_history_gn[idx]['solutions'] = None
         iteration_history_gn[idx]['UsageLx'] = None
         iteration_history_gn[idx]['Deltax'] = None
-        
+
         # solve the problem for the first time
         # GN model
-        demands_added, demands_fixed, _, timelimit = \
+        demands_added, demands_fixed, _, timelimit, _ = \
             self.scheduler(idx, demands, iteration_history_gn, shuffle)
         demands_tmp = demands.loc[demands.id.isin(demands_added), :]
         model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
@@ -1826,20 +1857,35 @@ class Network(object):
         stop_flag = True
         while stop_flag:
             try:
-                demands_added, demands_fixed, no_demands, timelimit = \
+                demands_added, demands_fixed, no_demands, timelimit, stage_start = \
                     self.scheduler(idx, demands, iteration_history_gn, shuffle)
+
+                if no_demands:
+                    break
 
                 previous_solutions = {}
                 previous_solutions['demands_added'] = demands_added
                 previous_solutions['demands_fixed'] = demands_fixed
-                if model_tr.ObjVal<model_gn.ObjVal:
-                    previous_solutions['UsageL'] = UsageLx_tr
-                    previous_solutions['Delta'] = Deltax_tr
-                    previous_solutions['Fstart'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+                # MIPstart
+#                if model_tr.ObjVal<model_gn.ObjVal:
+#                    previous_solutions['UsageL0'] = UsageLx_tr
+#                    previous_solutions['Delta0'] = Deltax_tr
+#                    previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+#                else:
+#                    previous_solutions['UsageL0'] = UsageLx_gn
+#                    previous_solutions['Delta0'] = Deltax_gn
+#                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+                
+                previous_solutions['UsageL0'] = UsageLx_tr
+                previous_solutions['Delta0'] = Deltax_tr
+                previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+                
+                previous_solutions['UsageL'] = UsageLx_tr
+                previous_solutions['Delta'] = Deltax_tr
+                if stage_start:
+                    previous_solutions['ObjVal'] = INF
                 else:
-                    previous_solutions['UsageL'] = UsageLx_gn
-                    previous_solutions['Delta'] = Deltax_gn
-                    previous_solutions['Fstart'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+                    previous_solutions['ObjVal'] = model_tr.ObjVal
 
                 model_tr, solutions_tr, UsageLx_tr, Deltax_tr = \
                     self.solve_partial_tr(demands, previous_solutions, mipstart=mipstart, 
@@ -1856,10 +1902,25 @@ class Network(object):
                 iteration_history_tr[idx]['model'] = model_tr
                 iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
 
-                if model_gn.ObjVal<model_tr.ObjVal:
-                    previous_solutions['UsageL'] = UsageLx_gn
-                    previous_solutions['Delta'] = Deltax_gn
-                    previous_solutions['Fstart'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+#                if model_gn.ObjVal<model_tr.ObjVal:
+#                    previous_solutions['UsageL0'] = UsageLx_gn
+#                    previous_solutions['Delta0'] = Deltax_gn
+#                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+#                else:
+#                    previous_solutions['UsageL0'] = iteration_history_tr[idx]['UsageLx']
+#                    previous_solutions['Delta0'] = iteration_history_tr[idx]['Deltax']
+#                    previous_solutions['Fstart0'] = iteration_history_tr[idx]['solutions']['Fstart']
+                
+                previous_solutions['UsageL0'] = UsageLx_gn
+                previous_solutions['Delta0'] = Deltax_gn
+                previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+
+                previous_solutions['UsageL'] = UsageLx_gn
+                previous_solutions['Delta'] = Deltax_gn
+                if stage_start:
+                    previous_solutions['ObjVal'] = INF
+                else:
+                    previous_solutions['ObjVal'] = model_gn.ObjVal
 
                 model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
                     self.solve_partial_gn(demands, previous_solutions, mipstart=mipstart, 
@@ -1881,13 +1942,25 @@ class Network(object):
                 stop_flag = not no_demands
 
             except:
-                pass
+                try:
+                    del previous_solutions
+                except:
+                    pass
+                try:
+                    del iteration_history_tr[idx]
+                except:
+                    pass
+                try:
+                    del iteration_history_gn[idx]
+                except:
+                    pass
+                gc.collect()
 
         toc = time.clock()
         self.total_runtime = toc-tic
-        
+
         return iteration_history_tr, iteration_history_gn
-    
+
 def extract_history(iteration_history, variable_name):
     '''Extract the history of a certain variable in the iteration_history
     '''
@@ -1900,7 +1973,7 @@ def extract_history(iteration_history, variable_name):
     elif hasattr(iteration_history[0]['model'], variable_name):
         var_history = [getattr(iteration_history[i]['model'], variable_name)
             for i in range(len(iteration_history))]
-        
+
     return var_history
 
 def read_demands(demands_csv, modulation='bpsk'):

@@ -16,7 +16,7 @@ import gc
 # fiber parameters
 INF = np.inf # infinity
 G = 12.5 # guardband
-Nmax = 50 # max number of regenerator circuits per regenerator node
+Nmax = 10 # max number of regenerator circuits per regenerator node
 cofase = 23.86 # ASE coefficient
 rou = 2.11*10**-3
 miu = 1.705
@@ -1867,18 +1867,18 @@ class Network(object):
                 previous_solutions['demands_added'] = demands_added
                 previous_solutions['demands_fixed'] = demands_fixed
                 # MIPstart
-                if model_tr.ObjVal<model_gn.ObjVal:
-                    previous_solutions['UsageL0'] = UsageLx_tr
-                    previous_solutions['Delta0'] = Deltax_tr
-                    previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
-                else:
-                    previous_solutions['UsageL0'] = UsageLx_gn
-                    previous_solutions['Delta0'] = Deltax_gn
-                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+#                if model_tr.ObjVal<model_gn.ObjVal:
+#                    previous_solutions['UsageL0'] = UsageLx_tr
+#                    previous_solutions['Delta0'] = Deltax_tr
+#                    previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+#                else:
+#                    previous_solutions['UsageL0'] = UsageLx_gn
+#                    previous_solutions['Delta0'] = Deltax_gn
+#                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
                 
-#                previous_solutions['UsageL0'] = UsageLx_tr
-#                previous_solutions['Delta0'] = Deltax_tr
-#                previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+                previous_solutions['UsageL0'] = UsageLx_tr
+                previous_solutions['Delta0'] = Deltax_tr
+                previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
                 
                 previous_solutions['UsageL'] = UsageLx_tr
                 previous_solutions['Delta'] = Deltax_tr
@@ -1902,18 +1902,18 @@ class Network(object):
                 iteration_history_tr[idx]['model'] = model_tr
                 iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
 
-                if model_gn.ObjVal<model_tr.ObjVal:
-                    previous_solutions['UsageL0'] = UsageLx_gn
-                    previous_solutions['Delta0'] = Deltax_gn
-                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
-                else:
-                    previous_solutions['UsageL0'] = iteration_history_tr[idx]['UsageLx']
-                    previous_solutions['Delta0'] = iteration_history_tr[idx]['Deltax']
-                    previous_solutions['Fstart0'] = iteration_history_tr[idx]['solutions']['Fstart']
+#                if model_gn.ObjVal<model_tr.ObjVal:
+#                    previous_solutions['UsageL0'] = UsageLx_gn
+#                    previous_solutions['Delta0'] = Deltax_gn
+#                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+#                else:
+#                    previous_solutions['UsageL0'] = iteration_history_tr[idx]['UsageLx']
+#                    previous_solutions['Delta0'] = iteration_history_tr[idx]['Deltax']
+#                    previous_solutions['Fstart0'] = iteration_history_tr[idx]['solutions']['Fstart']
                 
-#                previous_solutions['UsageL0'] = UsageLx_gn
-#                previous_solutions['Delta0'] = Deltax_gn
-#                previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+                previous_solutions['UsageL0'] = UsageLx_gn
+                previous_solutions['Delta0'] = Deltax_gn
+                previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
 
                 previous_solutions['UsageL'] = UsageLx_gn
                 previous_solutions['Delta'] = Deltax_gn
