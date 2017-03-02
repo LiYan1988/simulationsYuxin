@@ -35,9 +35,10 @@ n_demands_initial = 5
 n_iter_per_stage = 10 # 10
 th_mipgap = 0.01
 n_demands_increment = 5
-timelimit_baseline = 1800 # 960
+timelimit_baseline = 600 # 960
 timelimit0 = 120 # 60
 time_factor = 1.5
+num_solve = 1
 
 np.random.seed(0) # set random seed
 
@@ -847,8 +848,8 @@ class Network(object):
             return model
         
     def solve_partial_gn(self, demands, previous_solutions, mipstart=False, 
-                      num_solve=2, FeasibilityTol=1e-9, IntFeasTol=1e-9, 
-                      OptimalityTol=1e-9, **kwargs):
+                      FeasibilityTol=1e-9, IntFeasTol=1e-9, OptimalityTol=1e-9,
+                      **kwargs):
         '''Formulate and solve iteratively
         previous_solutions is dict, contains:
             - UsageL from the previous solve, dict
@@ -1378,8 +1379,8 @@ class Network(object):
         return model, solutions, UsageLx, Deltax
     
     def solve_partial_tr(self, demands, previous_solutions, mipstart=False,
-                      num_solve=2, FeasibilityTol=1e-9, IntFeasTol=1e-9, 
-                      OptimalityTol=1e-9, **kwargs):
+                      FeasibilityTol=1e-9, IntFeasTol=1e-9, OptimalityTol=1e-9,
+                      **kwargs):
         '''Formulate and solve iteratively
         previous_solutions is dict, contains:
             - UsageL from the previous solve, dict
