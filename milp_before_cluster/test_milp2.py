@@ -47,12 +47,12 @@ plt.figure(2)
 plt.plot(ttr, label='TR')
 plt.plot(tgn, label='GN')
 
-objgn = [models_gn[i].ObjVal for i in models_gn.keys()]
-objtr = [models_tr[i].ObjVal for i in models_tr.keys()]
-
-plt.figure(3)
-plt.plot(objtr)
-plt.plot(objgn)
+#objgn = [models_gn[i].ObjVal for i in models_gn.keys()]
+#objtr = [models_tr[i].ObjVal for i in models_tr.keys()]
+#
+#plt.figure(3)
+#plt.plot(objtr)
+#plt.plot(objgn)
 
 nnntr = extract_history(iteration_history_tr, 'NNN')
 nnngn = extract_history(iteration_history_gn, 'NNN')

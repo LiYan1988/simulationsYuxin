@@ -22,11 +22,11 @@ iteration_history_tr, iteration_history_gn = \
                method=-1, mipgap=0.001, Threads=20)
 
 # gurobi model instances cannot be save by pickle
-models_gn = {}
-models_tr = {}
-for i in iteration_history_gn.keys():
-    models_gn[i] = iteration_history_gn[i].pop('model', None)
-    models_tr[i] = iteration_history_tr[i].pop('model', None)
+#models_gn = {}
+#models_tr = {}
+#for i in iteration_history_gn.keys():
+#    models_gn[i] = iteration_history_gn[i].pop('model', None)
+#    models_tr[i] = iteration_history_tr[i].pop('model', None)
     
 iteration_history = (iteration_history_tr, iteration_history_gn)
 output_file = 'output-GN-vs-TR-bpsk-nsf24'+str(batch_id)+'.pkl'

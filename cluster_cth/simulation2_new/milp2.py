@@ -1835,7 +1835,7 @@ class Network(object):
         iteration_history_gn[idx]['solutions'] = solutions_gn
         iteration_history_gn[idx]['UsageLx'] = UsageLx_gn
         iteration_history_gn[idx]['Deltax'] = Deltax_gn
-        iteration_history_gn[idx]['model'] = model_gn
+#        iteration_history_gn[idx]['model'] = model_gn
 
         # TR model
         model_tr, solutions_tr, UsageLx_tr, Deltax_tr = \
@@ -1848,7 +1848,7 @@ class Network(object):
         iteration_history_tr[idx]['solutions'] = solutions_tr
         iteration_history_tr[idx]['UsageLx'] = UsageLx_tr
         iteration_history_tr[idx]['Deltax'] = Deltax_tr
-        iteration_history_tr[idx]['model'] = model_tr
+#        iteration_history_tr[idx]['model'] = model_tr
 
         idx += 1
 
@@ -1897,7 +1897,7 @@ class Network(object):
                 iteration_history_tr[idx]['solutions'] = solutions_tr
                 iteration_history_tr[idx]['UsageLx'] = UsageLx_tr
                 iteration_history_tr[idx]['Deltax'] = Deltax_tr
-                iteration_history_tr[idx]['model'] = model_tr
+#                iteration_history_tr[idx]['model'] = model_tr
                 iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
 
                 if model_gn.ObjVal<=model_tr.ObjVal:
@@ -1933,7 +1933,7 @@ class Network(object):
                 iteration_history_gn[idx]['solutions'] = solutions_gn
                 iteration_history_gn[idx]['UsageLx'] = UsageLx_gn
                 iteration_history_gn[idx]['Deltax'] = Deltax_gn
-                iteration_history_gn[idx]['model'] = model_gn
+#                iteration_history_gn[idx]['model'] = model_gn
                 iteration_history_gn[idx]['elapsed_time'] = toc_now-tic
 
                 idx += 1
@@ -1968,9 +1968,9 @@ def extract_history(iteration_history, variable_name):
     elif variable_name in iteration_history[0]:
         var_history = [iteration_history[i].get(variable_name)
             for i in range(len(iteration_history))]
-    elif hasattr(iteration_history[0]['model'], variable_name):
-        var_history = [getattr(iteration_history[i]['model'], variable_name)
-            for i in range(len(iteration_history))]
+#    elif hasattr(iteration_history[0]['model'], variable_name):
+#        var_history = [getattr(iteration_history[i]['model'], variable_name)
+#            for i in range(len(iteration_history))]
 
     return var_history
 

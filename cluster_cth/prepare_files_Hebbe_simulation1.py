@@ -43,7 +43,7 @@ def change_eol_win2unix(file_path):
 # simulation parameters
 num_simulations = 30
 n_demands = 50 
-simulation_name = 'simulation1_new2' 
+simulation_name = 'simulation1_new3' 
 
 # resource parameters
 cpu_per_job = 20
