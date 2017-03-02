@@ -16,7 +16,7 @@ import gc
 # fiber parameters
 INF = np.inf # infinity
 G = 12.5 # guardband
-Nmax = 10 # max number of regenerator circuits per regenerator node
+Nmax = 5 # max number of regenerator circuits per regenerator node
 cofase = 23.86 # ASE coefficient
 rou = 2.11*10**-3
 miu = 1.705
@@ -32,7 +32,7 @@ bigM3 = 2*10**6
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 5 # 10
+n_iter_per_stage = 10 # 10
 th_mipgap = 0.01
 n_demands_increment = 5
 timelimit_baseline = 1200 # 960
@@ -1196,7 +1196,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
             
         # bound for objective
-#        model.addConstr(c+Total<=ObjVal+0.5, name='objBound')
+        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal, name='objBound')
         
         # objective
         model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
@@ -1587,7 +1587,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n])
             
         # bound for objective
-#        model.addConstr(c+Total<=ObjVal+0.5, name='objBound')
+        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal, name='objBound')
             
         # objective
         model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)

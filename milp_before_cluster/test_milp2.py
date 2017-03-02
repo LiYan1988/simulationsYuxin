@@ -11,10 +11,10 @@ from milp2 import *
 np.random.seed(0)
 
 #network_cost = pd.read_csv('networkDT.csv', header=None)/100
-network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)*3
+network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)
 network_cost = network_cost.as_matrix()
 sn = Network(network_cost)
-n_demands = 15
+n_demands = 25
 demands = sn.create_demands(n_demands, modulation='bpsk', low=40, high=100)
 demands.to_csv('nsf24-demand1.csv')
 #demands = demands.iloc[:5]
