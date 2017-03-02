@@ -52,11 +52,11 @@ def change_eol_win2unix(file_path):
 # simulation parameters
 num_simulations = 30
 n_demands = 50 
-simulation_name = 'simulation2_new' 
+simulation_name = 'simulation2_new2' 
 
 # resource parameters
-cpu_per_job = 10
-time_days = 4
+cpu_per_job = 20
+time_days = 5
 time_hours = 0
 time_minutes = 0
 time_seconds = 0

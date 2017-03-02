@@ -32,7 +32,7 @@ bigM3 = 2*10**6
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 10 # 10
+n_iter_per_stage = 15 # 10
 th_mipgap = 0.01
 n_demands_increment = 5
 timelimit_baseline = 600 # 960
@@ -1747,11 +1747,8 @@ class Network(object):
         num_iter_solved = [len(iteration_history[i]['demands_solved']) 
             for i in range(len(iteration_history))]
         num_iter_solved = np.bincount(num_iter_solved)
-        # mip gaps
-        mipgaps = [iteration_history[i]['model'].mipgap 
-            for i in range(len(iteration_history))]
 
-        if num_iter_solved[-1]==n_iter_per_stage:# or mipgaps[-1]<th_mipgap:
+        if num_iter_solved[-1]==n_iter_per_stage:
             # a set of demands have been solved 10 times
             # or the mip gap is close to zero
             # then finish this round
@@ -1868,7 +1865,7 @@ class Network(object):
                 previous_solutions['demands_added'] = demands_added
                 previous_solutions['demands_fixed'] = demands_fixed
                 # MIPstart
-                if model_tr.ObjVal<model_gn.ObjVal:
+                if model_tr.ObjVal<=model_gn.ObjVal:
                     previous_solutions['UsageL0'] = UsageLx_tr
                     previous_solutions['Delta0'] = Deltax_tr
                     previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
@@ -1903,7 +1900,7 @@ class Network(object):
                 iteration_history_tr[idx]['model'] = model_tr
                 iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
 
-                if model_gn.ObjVal<model_tr.ObjVal:
+                if model_gn.ObjVal<=model_tr.ObjVal:
                     previous_solutions['UsageL0'] = UsageLx_gn
                     previous_solutions['Delta0'] = Deltax_gn
                     previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
