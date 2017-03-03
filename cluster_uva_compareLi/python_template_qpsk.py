@@ -4,30 +4,30 @@ Created on Sat Feb 25 22:06:02 2017
 
 @author: misWin
 
-This is a template of python files for simulation 4 and 6 with Xu's algorithem on hebbe
+This is a template of python files for simulation 3 and 5 with Xu's algorithem on hebbe
 """
 
-from milp2_xu import *
+from milp3 import *
 np.random.seed(0)
 
+hostname = socket.gethostname()
+memory = psutil.virtual_memory()
+cpus = psutil.cpu_count()
+node_info = (hostname, memory, cpus)
+print('hostname: {}'.format(hostname))
+print('memory: {}'.format(memory))
+print('cpus: {}'.format(cpus))
+
 batch_id = 0
-network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)
+network_cost = pd.read_csv('dt-14nodes.csv', header=None, index_col=None)
 network_cost = network_cost.as_matrix()
 sn = Network(network_cost, modulation='qpsk')
-demands_file = 'demands_template_'+str(batch_id)+'.csv'
-demands = pd.read_csv(demands_file)
+demands_file = '../demands/demands_14nodes_matlab_'+str(batch_id)+'.csv'
+demands = pd.read_csv(demands_file).iloc[:10]
 
-iteration_history_tr, iteration_history_gn = \
+iteration_history_gn = \
     sn.iterate(demands, random_state=0, mipstart=True, mipfocus=1, 
-               method=-1, mipgap=0.001)
+               method=-1, mipgap=0.001)    
 
-# gurobi model instances cannot be save by pickle
-#models_gn = {}
-#models_tr = {}
-#for i in iteration_history_gn.keys():
-#    models_gn[i] = iteration_history_gn[i].pop('model', None)
-#    models_tr[i] = iteration_history_tr[i].pop('model', None)
-    
-iteration_history = (iteration_history_tr, iteration_history_gn)
 output_file = 'output-GN-vs-TR-qpsk-nsf24'+str(batch_id)+'.pkl'
-save_data(output_file, iteration_history)
+save_data(output_file, (iteration_history_gn, node_info))
