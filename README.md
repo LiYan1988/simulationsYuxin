@@ -19,3 +19,7 @@
 	c. write a prepare file that produces all simulation files and a python/bash
 		that run all these files at once, if necessary
 	d. finally test the run_batch file
+8. To control the memory of the allocated nodes, use --mem in sbatch, for example,
+	--mem=64G. This will allocate a node with memory larger than the specified 
+	value.
+	
