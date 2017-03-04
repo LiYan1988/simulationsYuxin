@@ -22,4 +22,6 @@
 8. To control the memory of the allocated nodes, use --mem in sbatch, for example,
 	--mem=64G. This will allocate a node with memory larger than the specified 
 	value.
-	
+9. To compare with Li's algorithm, only one modulation format is needed. And we 
+	should set Nmax=0 in the CLGN. This is because Li's MILP does not consider 
+	regenerater.

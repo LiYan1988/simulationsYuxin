@@ -29,5 +29,5 @@ iteration_history_gn = \
     sn.iterate(demands, random_state=0, mipstart=True, mipfocus=1, 
                method=-1, mipgap=0.001)    
 
-output_file = 'li_qpsk_0.pkl'
+output_file = 'new_bpsk_0.pkl'
 save_data(output_file, (iteration_history_gn, node_info))

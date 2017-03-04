@@ -43,7 +43,7 @@ def change_eol_win2unix(file_path):
 # simulation parameters
 num_simulations = 2
 n_demands = 50
-simulation_name = 'li_bpsk'
+simulation_name = 'new_bpsk'
 partition = 'economy'
 group = 'maite_group'
 mem = 64 # GB

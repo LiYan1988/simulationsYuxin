@@ -19,14 +19,14 @@ import socket
 # fiber parameters
 INF = np.inf # infinity
 G = 12.5 # guardband
-Nmax = 10 # max number of regenerator circuits per regenerator node
+Nmax = 0 # max number of regenerator circuits per regenerator node
 cofase = 23.86 # ASE coefficient
 rou = 2.11*10**-3
 miu = 1.705
 
 # objective weight
 epsilon_total = 1
-epsilon_nnn = 0/(Nmax*10)
+epsilon_nnn = 0/10
 
 # modelling parameters
 bigM1 = 10**5 
