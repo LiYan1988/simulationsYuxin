@@ -25,3 +25,7 @@
 9. To compare with Li's algorithm, only one modulation format is needed. And we 
 	should set Nmax=0 in the CLGN. This is because Li's MILP does not consider 
 	regenerater.
+10. How to check actual CPUTime on Rivanna?
+	- sacct -S <starttime> -E <endtime> --format=CPUTimeRAW > cputime.txt
+	- then download cputime.txt, and use matlab to calculate the amount of time 
+	- it seems that the economy discount rate is 0.125
