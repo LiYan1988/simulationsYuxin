@@ -29,3 +29,13 @@
 	- sacct -S <starttime> -E <endtime> --format=CPUTimeRAW > cputime.txt
 	- then download cputime.txt, and use matlab to calculate the amount of time 
 	- it seems that the economy discount rate is 0.125
+11. slurm sbatch parameters:
+	- --cpus-per-task and --ntasks-per-node together control how many cpus are 
+		allocated. In default, --cpus-per-task is 1, so --ntasks-per-node will control
+		the number of cpus allocated. Otherwise, the number of allocated cpu equals to
+		the product of --cpus-per-task and --ntasks-per-node.
+	- --mem-per-cpu and --mem control the memory allocated. But they are mutual 
+		exclusive
+	- Rivanna charges according to max{cpus, memory/6G}. So it's impossible to
+		fool the system to charge less than what you use
+		

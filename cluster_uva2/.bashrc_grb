@@ -1,0 +1,3 @@
+export PATH="/scratch/ly6j/miniconda3/bin:$PATH"
+
+module load gurobi/6.5.1

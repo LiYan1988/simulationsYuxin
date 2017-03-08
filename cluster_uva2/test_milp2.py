@@ -11,13 +11,13 @@ from milp2 import *
 np.random.seed(0)
 
 #network_cost = pd.read_csv('networkDT.csv', header=None)/100
-network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)
+network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)*3
 network_cost = network_cost.as_matrix()
 sn = Network(network_cost)
-n_demands = 25
+n_demands = 30
 demands = sn.create_demands(n_demands, modulation='bpsk', low=40, high=100)
 demands.to_csv('nsf24-demand1.csv')
-#demands = demands.iloc[:5]
+
 
 iteration_history_tr, iteration_history_gn = \
     sn.iterate(demands, random_state=0, mipstart=True, mipfocus=1, 
@@ -46,19 +46,3 @@ plt.plot(cgn, label='GN')
 plt.figure(2)
 plt.plot(ttr, label='TR')
 plt.plot(tgn, label='GN')
-
-#objgn = [models_gn[i].ObjVal for i in models_gn.keys()]
-#objtr = [models_tr[i].ObjVal for i in models_tr.keys()]
-#
-#plt.figure(3)
-#plt.plot(objtr)
-#plt.plot(objgn)
-
-nnntr = extract_history(iteration_history_tr, 'NNN')
-nnngn = extract_history(iteration_history_gn, 'NNN')
-nnntr = [sum(i.values()) for i in nnntr]
-nnngn = [sum(i.values()) for i in nnngn]
-
-plt.figure(3)
-plt.plot(nnntr)
-plt.plot(nnngn)

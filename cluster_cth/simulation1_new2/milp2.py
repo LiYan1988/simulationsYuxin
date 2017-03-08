@@ -32,13 +32,12 @@ bigM3 = 2*10**6
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 15 # 10
+n_iter_per_stage = 10 # 10
 th_mipgap = 0.01
 n_demands_increment = 5
 timelimit_baseline = 600 # 960
 timelimit0 = 120 # 60
 time_factor = 1.5
-num_solve = 1
 
 np.random.seed(0) # set random seed
 
@@ -1197,7 +1196,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
             
         # bound for objective
-        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal, name='objBound')
+        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal+1, name='objBound')
         
         # objective
         model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
@@ -1588,7 +1587,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n])
             
         # bound for objective
-        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal, name='objBound')
+        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal+1, name='objBound')
             
         # objective
         model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
@@ -1835,7 +1834,7 @@ class Network(object):
         iteration_history_gn[idx]['solutions'] = solutions_gn
         iteration_history_gn[idx]['UsageLx'] = UsageLx_gn
         iteration_history_gn[idx]['Deltax'] = Deltax_gn
-        iteration_history_gn[idx]['model'] = model_gn
+#        iteration_history_gn[idx]['model'] = model_gn
 
         # TR model
         model_tr, solutions_tr, UsageLx_tr, Deltax_tr = \
@@ -1848,7 +1847,7 @@ class Network(object):
         iteration_history_tr[idx]['solutions'] = solutions_tr
         iteration_history_tr[idx]['UsageLx'] = UsageLx_tr
         iteration_history_tr[idx]['Deltax'] = Deltax_tr
-        iteration_history_tr[idx]['model'] = model_tr
+#        iteration_history_tr[idx]['model'] = model_tr
 
         idx += 1
 
@@ -1897,9 +1896,20 @@ class Network(object):
                 iteration_history_tr[idx]['solutions'] = solutions_tr
                 iteration_history_tr[idx]['UsageLx'] = UsageLx_tr
                 iteration_history_tr[idx]['Deltax'] = Deltax_tr
-                iteration_history_tr[idx]['model'] = model_tr
+#                iteration_history_tr[idx]['model'] = model_tr
+                iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
+            except:
+                iteration_history_tr[idx] = {}
+                iteration_history_tr[idx]['step_id'] = idx
+                iteration_history_tr[idx]['demands_fixed'] = iteration_history_tr[idx-1]['demands_fixed']
+                iteration_history_tr[idx]['demands_added'] = iteration_history_tr[idx-1]['demands_added']
+                iteration_history_tr[idx]['demands_solved'] = iteration_history_tr[idx-1]['demands_solved']
+                iteration_history_tr[idx]['solutions'] = iteration_history_tr[idx-1]['solutions']
+                iteration_history_tr[idx]['UsageLx'] = iteration_history_tr[idx-1]['UsageLx']
+                iteration_history_tr[idx]['Deltax'] = iteration_history_tr[idx-1]['Deltax']
                 iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
 
+            try:
                 if model_gn.ObjVal<=model_tr.ObjVal:
                     previous_solutions['UsageL0'] = UsageLx_gn
                     previous_solutions['Delta0'] = Deltax_gn
@@ -1908,10 +1918,6 @@ class Network(object):
                     previous_solutions['UsageL0'] = iteration_history_tr[idx]['UsageLx']
                     previous_solutions['Delta0'] = iteration_history_tr[idx]['Deltax']
                     previous_solutions['Fstart0'] = iteration_history_tr[idx]['solutions']['Fstart']
-
-#                previous_solutions['UsageL0'] = UsageLx_gn
-#                previous_solutions['Delta0'] = Deltax_gn
-#                previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
 
                 previous_solutions['UsageL'] = UsageLx_gn
                 previous_solutions['Delta'] = Deltax_gn
@@ -1933,26 +1939,23 @@ class Network(object):
                 iteration_history_gn[idx]['solutions'] = solutions_gn
                 iteration_history_gn[idx]['UsageLx'] = UsageLx_gn
                 iteration_history_gn[idx]['Deltax'] = Deltax_gn
-                iteration_history_gn[idx]['model'] = model_gn
+#                iteration_history_gn[idx]['model'] = model_gn
                 iteration_history_gn[idx]['elapsed_time'] = toc_now-tic
 
-                idx += 1
-                stop_flag = not no_demands
-
             except:
-                try:
-                    del previous_solutions
-                except:
-                    pass
-                try:
-                    del iteration_history_tr[idx]
-                except:
-                    pass
-                try:
-                    del iteration_history_gn[idx]
-                except:
-                    pass
-                gc.collect()
+                toc_now = time.clock()
+                iteration_history_gn[idx] = {}
+                iteration_history_gn[idx]['step_id'] = idx
+                iteration_history_gn[idx]['demands_fixed'] = iteration_history_gn[idx-1]['demands_fixed']
+                iteration_history_gn[idx]['demands_added'] = iteration_history_gn[idx-1]['demands_added']
+                iteration_history_gn[idx]['demands_solved'] = iteration_history_gn[idx-1]['demands_solved']
+                iteration_history_gn[idx]['solutions'] = iteration_history_gn[idx-1]['solutions']
+                iteration_history_gn[idx]['UsageLx'] = iteration_history_gn[idx-1]['UsageLx']
+                iteration_history_gn[idx]['Deltax'] = iteration_history_gn[idx-1]['Deltax']
+#                iteration_history_gn[idx]['model'] = model_gn
+                iteration_history_gn[idx]['elapsed_time'] = toc_now-tic
+            
+            idx += 1
 
         toc = time.clock()
         self.total_runtime = toc-tic
@@ -1968,9 +1971,9 @@ def extract_history(iteration_history, variable_name):
     elif variable_name in iteration_history[0]:
         var_history = [iteration_history[i].get(variable_name)
             for i in range(len(iteration_history))]
-    elif hasattr(iteration_history[0]['model'], variable_name):
-        var_history = [getattr(iteration_history[i]['model'], variable_name)
-            for i in range(len(iteration_history))]
+#    elif hasattr(iteration_history[0]['model'], variable_name):
+#        var_history = [getattr(iteration_history[i]['model'], variable_name)
+#            for i in range(len(iteration_history))]
 
     return var_history
 
@@ -1982,7 +1985,12 @@ def read_demands(demands_csv, modulation='bpsk'):
     n_demands = demands.shape[0]
     # choose modulation format
     if modulation=='qpsk':
-        tr = [(3651-1.25*demands.data_rates[i])/100 for i in range(n_demands)]
+        bpsk_tr = pd.read_csv('qpsk_TR.csv', header=None)
+        bpsk_tr.columns = ['data_rate', 'distance']
+        bpsk_tr.distance = bpsk_tr.distance/100
+        bpsk_tr.set_index('data_rate', inplace=True)
+        tr = [float(bpsk_tr.loc[int(np.round(demands.data_rates[i]))]) 
+            for i in range(n_demands)]
     elif modulation=='bpsk':
         bpsk_tr = pd.read_csv('bpsk_TR.csv', header=None)
         bpsk_tr.columns = ['data_rate', 'distance']
