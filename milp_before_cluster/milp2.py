@@ -846,7 +846,7 @@ class Network(object):
         except:
             return model
         
-    def solve_partial_gn(self, demands, previous_solutions, mipstart=False, 
+    def solve_partial_gn(self, demands, previous_solutions, num_solve=1, mipstart=False, 
                       FeasibilityTol=1e-9, IntFeasTol=1e-9, OptimalityTol=1e-9,
                       **kwargs):
         '''Formulate and solve iteratively
@@ -1377,7 +1377,7 @@ class Network(object):
         
         return model, solutions, UsageLx, Deltax
     
-    def solve_partial_tr(self, demands, previous_solutions, mipstart=False,
+    def solve_partial_tr(self, demands, previous_solutions, num_solve=1, mipstart=False,
                       FeasibilityTol=1e-9, IntFeasTol=1e-9, OptimalityTol=1e-9,
                       **kwargs):
         '''Formulate and solve iteratively
