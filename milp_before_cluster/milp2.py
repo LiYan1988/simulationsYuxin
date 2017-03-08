@@ -1197,7 +1197,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
             
         # bound for objective
-        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal, name='objBound')
+#        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal, name='objBound')
         
         # objective
         model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)
@@ -1588,7 +1588,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n])
             
         # bound for objective
-        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal, name='objBound')
+#        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal, name='objBound')
             
         # objective
         model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)

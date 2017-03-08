@@ -25,9 +25,9 @@ sn = Network(network_cost, modulation='bpsk')
 demands_file = '../demands/demands_14nodes_matlab_'+str(batch_id)+'.csv'
 demands = pd.read_csv(demands_file).iloc[:10]
 
-iteration_history_gn = \
+iteration_history = \
     sn.iterate(demands, random_state=0, mipstart=True, mipfocus=1, 
                method=-1, mipgap=0.001)    
 
 output_file = 'output-GN-vs-TR-bpsk-nsf24'+str(batch_id)+'.pkl'
-save_data(output_file, (iteration_history_gn, node_info))
+save_data(output_file, (iteration_history, node_info))

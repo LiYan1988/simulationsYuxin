@@ -19,4 +19,12 @@ for i in range(1, 101):
     dt.reset_index(inplace=True)
     dt = dt[['index', 'source', 'destination', 'data_rates']]
     dt.columns = ['id', 'source', 'destination', 'data_rates']
+    bpsk_tr = pd.read_csv('bpsk_TR.csv', header=None)
+    bpsk_tr.columns = ['data_rate', 'distance']
+    bpsk_tr.distance = bpsk_tr.distance/100
+    bpsk_tr.set_index('data_rate', inplace=True)
+    tr = [float(bpsk_tr.loc[int(np.round(dt.data_rates[i]))]) 
+        for i in dt.id]
+    dt['TR'] = tr
     dt.to_csv('demands/demands_14nodes_matlab_{}.csv'.format(i-1))
+    

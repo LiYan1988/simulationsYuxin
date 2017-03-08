@@ -35,11 +35,11 @@ bigM3 = 2*10**6
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 15 # 15
+n_iter_per_stage = 10 # 15
 th_mipgap = 0.01
 n_demands_increment = 5
-timelimit_baseline = 600 # 600
-timelimit0 = 120 # 120
+timelimit_baseline = 900 # 600
+timelimit0 = 60 # 120
 time_factor = 1.5
 num_solve = 1
 
@@ -932,7 +932,7 @@ class Network(object):
             model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
             
         # bound for objective
-        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal, name='objBound')
+#        model.addConstr(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes)<=ObjVal, name='objBound')
         
         # objective
         model.setObjective(c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n] for n in self.nodes), GRB.MINIMIZE)

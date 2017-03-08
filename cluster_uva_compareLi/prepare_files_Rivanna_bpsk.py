@@ -43,7 +43,7 @@ def change_eol_win2unix(file_path):
 # simulation parameters
 num_simulations = 2
 n_demands = 50
-simulation_name = 'new_bpsk'
+simulation_name = 'new2_bpsk'
 partition = 'economy'
 group = 'maite_group'
 mem = 64 # GB
@@ -55,6 +55,10 @@ time_hours = 0
 time_minutes = 0
 time_seconds = 0
 
+# which method
+lib_file = 'milp3.py'
+Nmax = 0
+
 # input file names
 python_file_template = simulation_name+'_{}.py'
 slurm_file_template = simulation_name+'_{}.slurm'
@@ -62,7 +66,7 @@ pickle_file_template = simulation_name+'_{}.pkl'
 
 if not os.path.exists(simulation_name):
     os.makedirs(simulation_name)
-shutil.copy('milp3.py', simulation_name)
+shutil.copy(lib_file, simulation_name)
 shutil.copy('dt-14nodes.csv', simulation_name)
 shutil.copy('python_template_bpsk.py', simulation_name)
 shutil.copy('batch_template.slurm', simulation_name)
@@ -96,6 +100,13 @@ for batch_id in range(num_simulations):
                      11:line11, 8:line8}
     slurm_dst = slurm_file_template.format(batch_id)
     copy_template(slurm_src, slurm_dst, replace_lines)
+    
+    # write milp2.py
+#    line20 = "Nmax = {}\n".format(Nmax)
+#    line1201 = "\n"
+#    line1592 = "\n"
+#    copy_template('../milp2.py', lib_file, {20:line20,1201:line1201,
+#                                            1592:line1592})
     
 for file in os.listdir(os.curdir):
     change_eol_win2unix(file)
