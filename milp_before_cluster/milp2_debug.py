@@ -550,7 +550,7 @@ class Network(object):
             G1x={}# intermedia variables for product
             for l in self.links.id:
                 for d in demands.id:
-                    G1x[l,d]=G1[l, d].x
+                    G1x[l,d] = G1[l, d].x
             
             solutions = {}
             solutions['UsageL'] = UsageLx
@@ -846,7 +846,7 @@ class Network(object):
         except:
             return model
         
-    def solve_partial_gn(self, demands, previous_solutions, num_resolve=1, mipstart=False, 
+    def solve_partial_gn(self, demands, previous_solutions, num_resolve=1, miphint=True, 
                       FeasibilityTol=1e-9, IntFeasTol=1e-9, OptimalityTol=1e-9,
                       **kwargs):
         '''Formulate and solve iteratively
@@ -891,6 +891,7 @@ class Network(object):
         
         tic = time.clock()
         model = Model('TR')
+        model.Params.updatemode = 1
         
         # define variables
         UsageL = {} # if demand d uses link l
@@ -903,20 +904,22 @@ class Network(object):
                 elif d in demands_added:
                     UsageL[l, d] = model.addVar(vtype=GRB.BINARY, 
                         name='UsageL_{}_{}'.format(l, d))
-                if mipstart:
+                if miphint:
                     try:
-                        UsageL[l, d].start=UsageLx0[l, d]
-                    except:
+                        UsageL[l, d].VarHintVal=UsageLx0[l, d]
+                    except m:
+                        print(m)
                         pass
                 
         Fstart = {} # the start frequency of demand d
         for d in demands.id:
             Fstart[d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM1, 
                   name='Fstart_{}'.format(d))
-            if mipstart:
+            if miphint:
                 try:
-                    Fstart[d].start = Fstartx0[d]
-                except:
+                    Fstart[d].VarHintVal = Fstartx0[d]
+                except m:
+                    print(m)
                     pass
             
         Delta = {} # order between demands
@@ -933,10 +936,11 @@ class Network(object):
                 elif d1==d2:
                     Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
                          name='Delta_{}_{}'.format(d1, d2), lb=0, ub=0)
-                if mipstart:
+                if miphint:
                     try:
-                        Delta[d1, d2].start = Deltax0[d1, d2]
-                    except:
+                        Delta[d1, d2].VarHintVal = Deltax0[d1, d2]
+                    except m:
+                        print(m)
                         pass
 #                    
                     
@@ -1377,7 +1381,7 @@ class Network(object):
         
         return model, solutions, UsageLx, Deltax
     
-    def solve_partial_tr(self, demands, previous_solutions, num_resolve=1, mipstart=False,
+    def solve_partial_tr(self, demands, previous_solutions, num_resolve=1, miphint=True,
                       FeasibilityTol=1e-9, IntFeasTol=1e-9, OptimalityTol=1e-9,
                       **kwargs):
         '''Formulate and solve iteratively
@@ -1422,6 +1426,7 @@ class Network(object):
         
         tic = time.clock()
         model = Model('TR')
+        model.Params.updatemode = 1
         
         # define variables
         UsageL = {} # if demand d uses link l
@@ -1434,9 +1439,9 @@ class Network(object):
                 elif d in demands_added:
                     UsageL[l, d] = model.addVar(vtype=GRB.BINARY, 
                         name='UsageL_{}_{}'.format(l, d))
-                if mipstart:
+                if miphint:
                     try:
-                        UsageL[l, d].start = UsageLx0[l, d]
+                        UsageL[l, d].VarHintVal = UsageLx0[l, d]
                     except:
                         pass
                 
@@ -1444,11 +1449,8 @@ class Network(object):
         for d in demands.id:
             Fstart[d] = model.addVar(vtype=GRB.CONTINUOUS, lb=0, ub=bigM1, 
                   name='Fstart_{}'.format(d))
-            if mipstart:
-                try:
-                    Fstart[d].start = Fstartx0[d]
-                except:
-                    pass
+            if miphint:
+                Fstart[d].VarHintVal = Fstartx0[d]
             
         Delta = {} # order between demands
         for d1 in demands.id:
@@ -1464,11 +1466,10 @@ class Network(object):
                 elif d1==d2:
                     Delta[d1, d2] = model.addVar(vtype=GRB.BINARY, 
                          name='Delta_{}_{}'.format(d1, d2), ub=0, lb=0)
-                if mipstart:
-                    try:
-                        Delta[d1, d2].start = Deltax0[d1, d2]
-                    except:
-                        pass
+                if miphint:
+                    Delta[d1, d2].VarHintVal = Deltax0[d1, d2]
+                    
+                    
                     
         U = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
         for l in self.links.id:
@@ -1794,7 +1795,7 @@ class Network(object):
 
             return demands_added, demands_fixed, no_demands, timelimit, stage_start
 
-    def iterate(self, demands, random_state=0, shuffle=False, mipstart=False, num_resolve=[1, 1], **kwargs):
+    def iterate(self, demands, random_state=0, shuffle=False, miphint=True, num_resolve=[1, 1], **kwargs):
         '''Solve TR and GN simultaneously, the best solution from TR and GN
             is input to the next iteration of solving (either TR or GN) 
             as the start point
@@ -1863,11 +1864,10 @@ class Network(object):
             if no_demands:
                 break
             
-            try:
-                previous_solutions = {}
-                previous_solutions['demands_added'] = demands_added
-                previous_solutions['demands_fixed'] = demands_fixed
-                # MIPstart
+            previous_solutions = {}
+            previous_solutions['demands_added'] = demands_added
+            previous_solutions['demands_fixed'] = demands_fixed
+            # miphint
 #                if model_tr.ObjVal<=model_gn.ObjVal:
 #                    previous_solutions['UsageL0'] = UsageLx_tr
 #                    previous_solutions['Delta0'] = Deltax_tr
@@ -1877,49 +1877,38 @@ class Network(object):
 #                    previous_solutions['Delta0'] = Deltax_gn
 #                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
 
-                previous_solutions['UsageL0'] = UsageLx_tr
-                previous_solutions['Delta0'] = Deltax_tr
-                previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+            previous_solutions['UsageL0'] = UsageLx_tr
+            previous_solutions['Delta0'] = Deltax_tr
+            previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
 
-                previous_solutions['UsageL'] = UsageLx_tr
-                previous_solutions['Delta'] = Deltax_tr
-                if stage_start:
-                    previous_solutions['ObjVal'] = INF
-                else:
-                    previous_solutions['ObjVal'] = model_tr.ObjVal
+            previous_solutions['UsageL'] = UsageLx_tr
+            previous_solutions['Delta'] = Deltax_tr
+            if stage_start:
+                previous_solutions['ObjVal'] = INF
+            else:
+                previous_solutions['ObjVal'] = model_tr.ObjVal
 
-                print('\nTR: Solving iteration {}\n'.format(idx))
-                print('Demands added: {}\n'.format(len(demands_added)))
-                print('Demands fixed: {}\n'.format(len(demands_fixed)))
-                model_tr, solutions_tr, UsageLx_tr, Deltax_tr = \
-                    self.solve_partial_tr(demands, previous_solutions, mipstart=mipstart, 
-                                          timelimit=timelimit, num_resolve=num_resolve_tr, **kwargs)
-                toc_now = time.clock()
-                iteration_history_tr[idx] = {}
-                iteration_history_tr[idx]['step_id'] = idx
-                iteration_history_tr[idx]['demands_fixed'] = demands_fixed
-                iteration_history_tr[idx]['demands_added'] = demands_added
-                iteration_history_tr[idx]['demands_solved'] = list(set(demands_fixed).union(set(demands_added)))
-                iteration_history_tr[idx]['solutions'] = solutions_tr
-                iteration_history_tr[idx]['UsageLx'] = UsageLx_tr
-                iteration_history_tr[idx]['Deltax'] = Deltax_tr
+            print('\nTR: Solving iteration {}\n'.format(idx))
+            print('Demands added: {}\n'.format(len(demands_added)))
+            print('Demands fixed: {}\n'.format(len(demands_fixed)))
+            model_tr, solutions_tr, UsageLx_tr, Deltax_tr = \
+                self.solve_partial_tr(demands, previous_solutions, miphint=miphint, 
+                                      timelimit=timelimit, num_resolve=num_resolve_tr, **kwargs)
+            toc_now = time.clock()
+            iteration_history_tr[idx] = {}
+            iteration_history_tr[idx]['step_id'] = idx
+            iteration_history_tr[idx]['demands_fixed'] = demands_fixed
+            iteration_history_tr[idx]['demands_added'] = demands_added
+            iteration_history_tr[idx]['demands_solved'] = list(set(demands_fixed).union(set(demands_added)))
+            iteration_history_tr[idx]['solutions'] = solutions_tr
+            iteration_history_tr[idx]['UsageLx'] = UsageLx_tr
+            iteration_history_tr[idx]['Deltax'] = Deltax_tr
 #                iteration_history_tr[idx]['model'] = model_tr
-                iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
-            except:
-                iteration_history_tr[idx] = {}
-                iteration_history_tr[idx]['step_id'] = idx
-                iteration_history_tr[idx]['demands_fixed'] = iteration_history_tr[idx-1]['demands_fixed']
-                iteration_history_tr[idx]['demands_added'] = iteration_history_tr[idx-1]['demands_added']
-                iteration_history_tr[idx]['demands_solved'] = iteration_history_tr[idx-1]['demands_solved']
-                iteration_history_tr[idx]['solutions'] = iteration_history_tr[idx-1]['solutions']
-                iteration_history_tr[idx]['UsageLx'] = iteration_history_tr[idx-1]['UsageLx']
-                iteration_history_tr[idx]['Deltax'] = iteration_history_tr[idx-1]['Deltax']
-                iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
+            iteration_history_tr[idx]['elapsed_time'] = toc_now-tic
 
-            try:
-                previous_solutions = {}
-                previous_solutions['demands_added'] = demands_added
-                previous_solutions['demands_fixed'] = demands_fixed
+            previous_solutions = {}
+            previous_solutions['demands_added'] = demands_added
+            previous_solutions['demands_fixed'] = demands_fixed
 #                if model_gn.ObjVal<=model_tr.ObjVal:
 #                    previous_solutions['UsageL0'] = UsageLx_gn
 #                    previous_solutions['Delta0'] = Deltax_gn
@@ -1928,49 +1917,36 @@ class Network(object):
 #                    previous_solutions['UsageL0'] = iteration_history_tr[idx]['UsageLx']
 #                    previous_solutions['Delta0'] = iteration_history_tr[idx]['Deltax']
 #                    previous_solutions['Fstart0'] = iteration_history_tr[idx]['solutions']['Fstart']
-                    
-                previous_solutions['UsageL0'] = UsageLx_gn
-                previous_solutions['Delta0'] = Deltax_gn
-                previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+                
+            previous_solutions['UsageL0'] = UsageLx_gn
+            previous_solutions['Delta0'] = Deltax_gn
+            previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
 
-                previous_solutions['UsageL'] = UsageLx_gn
-                previous_solutions['Delta'] = Deltax_gn
-                if stage_start:
-                    previous_solutions['ObjVal'] = INF
-                else:
-                    previous_solutions['ObjVal'] = model_gn.ObjVal
+            previous_solutions['UsageL'] = UsageLx_gn
+            previous_solutions['Delta'] = Deltax_gn
+            if stage_start:
+                previous_solutions['ObjVal'] = INF
+            else:
+                previous_solutions['ObjVal'] = model_gn.ObjVal
 
-                print('\nGN: Solving iteration {}\n'.format(idx))
-                print('Demands added: {}\n'.format(len(demands_added)))
-                print('Demands fixed: {}\n'.format(len(demands_fixed)))
-                model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
-                    self.solve_partial_gn(demands, previous_solutions, mipstart=mipstart, 
-                                          timelimit=timelimit, num_resolve=num_resolve_gn, **kwargs)
+            print('\nGN: Solving iteration {}\n'.format(idx))
+            print('Demands added: {}\n'.format(len(demands_added)))
+            print('Demands fixed: {}\n'.format(len(demands_fixed)))
+            model_gn, solutions_gn, UsageLx_gn, Deltax_gn = \
+                self.solve_partial_gn(demands, previous_solutions, miphint=miphint, 
+                                      timelimit=timelimit, num_resolve=num_resolve_gn, **kwargs)
 
-                toc_now = time.clock()
-                iteration_history_gn[idx] = {}
-                iteration_history_gn[idx]['step_id'] = idx
-                iteration_history_gn[idx]['demands_fixed'] = demands_fixed
-                iteration_history_gn[idx]['demands_added'] = demands_added
-                iteration_history_gn[idx]['demands_solved'] = list(set(demands_fixed).union(set(demands_added)))
-                iteration_history_gn[idx]['solutions'] = solutions_gn
-                iteration_history_gn[idx]['UsageLx'] = UsageLx_gn
-                iteration_history_gn[idx]['Deltax'] = Deltax_gn
+            toc_now = time.clock()
+            iteration_history_gn[idx] = {}
+            iteration_history_gn[idx]['step_id'] = idx
+            iteration_history_gn[idx]['demands_fixed'] = demands_fixed
+            iteration_history_gn[idx]['demands_added'] = demands_added
+            iteration_history_gn[idx]['demands_solved'] = list(set(demands_fixed).union(set(demands_added)))
+            iteration_history_gn[idx]['solutions'] = solutions_gn
+            iteration_history_gn[idx]['UsageLx'] = UsageLx_gn
+            iteration_history_gn[idx]['Deltax'] = Deltax_gn
 #                iteration_history_gn[idx]['model'] = model_gn
-                iteration_history_gn[idx]['elapsed_time'] = toc_now-tic
-
-            except:
-                toc_now = time.clock()
-                iteration_history_gn[idx] = {}
-                iteration_history_gn[idx]['step_id'] = idx
-                iteration_history_gn[idx]['demands_fixed'] = iteration_history_gn[idx-1]['demands_fixed']
-                iteration_history_gn[idx]['demands_added'] = iteration_history_gn[idx-1]['demands_added']
-                iteration_history_gn[idx]['demands_solved'] = iteration_history_gn[idx-1]['demands_solved']
-                iteration_history_gn[idx]['solutions'] = iteration_history_gn[idx-1]['solutions']
-                iteration_history_gn[idx]['UsageLx'] = iteration_history_gn[idx-1]['UsageLx']
-                iteration_history_gn[idx]['Deltax'] = iteration_history_gn[idx-1]['Deltax']
-#                iteration_history_gn[idx]['model'] = model_gn
-                iteration_history_gn[idx]['elapsed_time'] = toc_now-tic
+            iteration_history_gn[idx]['elapsed_time'] = toc_now-tic
             
             idx += 1
 

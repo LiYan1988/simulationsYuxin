@@ -46,15 +46,15 @@ def change_eol_win2unix(file_path):
 # simulation parameters
 num_simulations = 2
 n_demands = 40
-simulation_name = 'bpsk2'
-partition = 'economy'
+simulation_name = 'bpsk-serial2'
+partition = 'serial'
 group = 'maite_group'
 
 # resource parameters
 ntasks_per_node = 1
-cpus_per_task = 1
-mem = 45
-time_days = 1
+cpus_per_task = 10
+mem_per_cpu = 6
+time_days = 2
 time_hours = 0
 time_minutes = 0
 time_seconds = 0
@@ -98,7 +98,7 @@ for batch_id in range(num_simulations):
     slurm_src = "batch_template.slurm"
     line2 = "#SBATCH --ntasks-per-node={}\n".format(ntasks_per_node)
     line3 = "#SBATCH --cpus-per-task={}\n".format(cpus_per_task)
-    line4 = "#SBATCH --mem={}G\n".format(mem)
+    line4 = "#SBATCH --mem-per-cpu={}G\n".format(mem_per_cpu)
     line5 = "#SBATCH --time={}-{}:{}:{}\n".format(time_days, time_hours, time_minutes, time_seconds)
     line6 = "#SBATCH --job-name={}_{}\n".format(simulation_name, batch_id)
     line7 = "#SBATCH --output={}_{}.stdout\n".format(simulation_name, batch_id)

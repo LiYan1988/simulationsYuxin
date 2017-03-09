@@ -18,9 +18,9 @@ demands_file = 'demands_template_'+str(batch_id)+'.csv'
 demands = pd.read_csv(demands_file)
 
 iteration_history_tr, iteration_history_gn = \
-    sn.iterate(demands, random_state=0, mipstart=True, mipfocus=1, 
-               method=-1, mipgap=0.001)
-    
+    sn.iterate(demands, random_state=0, miphint=True, mipfocus=1, 
+               method=-1, mipgap=0.001, presolve=2)
+
 iteration_history = (iteration_history_tr, iteration_history_gn)
 output_file = 'output-GN-vs-TR-bpsk-nsf24'+str(batch_id)+'.pkl'
 save_data(output_file, iteration_history)

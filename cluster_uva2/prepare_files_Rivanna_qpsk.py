@@ -45,15 +45,15 @@ def change_eol_win2unix(file_path):
     
 # simulation parameters
 num_simulations = 2
-n_demands = 20
+n_demands = 40
 simulation_name = 'qpsk'
 partition = 'economy'
 group = 'maite_group'
 
 # resource parameters
 ntasks_per_node = 1
-cpus_per_task = 1
-mem = 64
+cpus_per_task = 12
+mem = 45
 time_days = 1
 time_hours = 0
 time_minutes = 0
