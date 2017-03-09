@@ -32,7 +32,7 @@ bigM3 = 2*10**4
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 10 # 10
+n_iter_per_stage = 5 # 10
 th_mipgap = 0.01
 n_demands_increment = 5
 timelimit_baseline = 150 # 960

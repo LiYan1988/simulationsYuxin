@@ -46,7 +46,7 @@ def change_eol_win2unix(file_path):
 # simulation parameters
 num_simulations = 2
 n_demands = 40
-simulation_name = 'bpsk-serial2'
+simulation_name = 'b3'
 partition = 'serial'
 group = 'maite_group'
 
