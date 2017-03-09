@@ -32,11 +32,11 @@ bigM3 = 2*10**4
 
 # scheduler parameters
 n_demands_initial = 5
-n_iter_per_stage = 5 # 10
+n_iter_per_stage = 10 # 10
 th_mipgap = 0.01
 n_demands_increment = 5
-timelimit_baseline = 600 # 960
-timelimit0 = 120 # 60
+timelimit_baseline = 150 # 960
+timelimit0 = 20 # 60
 time_factor = 1.5
 
 np.random.seed(0) # set random seed
@@ -132,7 +132,7 @@ class Network(object):
                     supply[n, d] = 1
         
         tic = time.clock()
-        model = Model('TR')
+        model = Model('GN')
         
         # define variables
         U = {} # U[a, b] = UsageL[a,b]*Ynode[a,b]
@@ -890,7 +890,7 @@ class Network(object):
                           
         
         tic = time.clock()
-        model = Model('TR')
+        model = Model('GN')
         model.Params.updatemode = 1
         
         # define variables
@@ -1876,18 +1876,18 @@ class Network(object):
                 previous_solutions['demands_added'] = demands_added
                 previous_solutions['demands_fixed'] = demands_fixed
                 # miphint
-#                if model_tr.ObjVal<=model_gn.ObjVal:
-#                    previous_solutions['UsageL0'] = UsageLx_tr
-#                    previous_solutions['Delta0'] = Deltax_tr
-#                    previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
-#                else:
-#                    previous_solutions['UsageL0'] = UsageLx_gn
-#                    previous_solutions['Delta0'] = Deltax_gn
-#                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+                if model_tr.ObjVal<=model_gn.ObjVal:
+                    previous_solutions['UsageL0'] = UsageLx_tr
+                    previous_solutions['Delta0'] = Deltax_tr
+                    previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+                else:
+                    previous_solutions['UsageL0'] = UsageLx_gn
+                    previous_solutions['Delta0'] = Deltax_gn
+                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
 
-                previous_solutions['UsageL0'] = UsageLx_tr
-                previous_solutions['Delta0'] = Deltax_tr
-                previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
+#                previous_solutions['UsageL0'] = UsageLx_tr
+#                previous_solutions['Delta0'] = Deltax_tr
+#                previous_solutions['Fstart0'] = iteration_history_tr[idx-1]['solutions']['Fstart']
 
                 previous_solutions['UsageL'] = UsageLx_tr
                 previous_solutions['Delta'] = Deltax_tr
@@ -1928,18 +1928,19 @@ class Network(object):
                 previous_solutions = {}
                 previous_solutions['demands_added'] = demands_added
                 previous_solutions['demands_fixed'] = demands_fixed
-#                if model_gn.ObjVal<=model_tr.ObjVal:
-#                    previous_solutions['UsageL0'] = UsageLx_gn
-#                    previous_solutions['Delta0'] = Deltax_gn
-#                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
-#                else:
-#                    previous_solutions['UsageL0'] = iteration_history_tr[idx]['UsageLx']
-#                    previous_solutions['Delta0'] = iteration_history_tr[idx]['Deltax']
-#                    previous_solutions['Fstart0'] = iteration_history_tr[idx]['solutions']['Fstart']
+                # miphint
+                if model_gn.ObjVal<=model_tr.ObjVal:
+                    previous_solutions['UsageL0'] = UsageLx_gn
+                    previous_solutions['Delta0'] = Deltax_gn
+                    previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+                else:
+                    previous_solutions['UsageL0'] = iteration_history_tr[idx]['UsageLx']
+                    previous_solutions['Delta0'] = iteration_history_tr[idx]['Deltax']
+                    previous_solutions['Fstart0'] = iteration_history_tr[idx]['solutions']['Fstart']
                     
-                previous_solutions['UsageL0'] = UsageLx_gn
-                previous_solutions['Delta0'] = Deltax_gn
-                previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
+#                previous_solutions['UsageL0'] = UsageLx_gn
+#                previous_solutions['Delta0'] = Deltax_gn
+#                previous_solutions['Fstart0'] = iteration_history_gn[idx-1]['solutions']['Fstart']
 
                 previous_solutions['UsageL'] = UsageLx_gn
                 previous_solutions['Delta'] = Deltax_gn
