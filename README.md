@@ -38,4 +38,12 @@
 		exclusive
 	- Rivanna charges according to max{cpus, memory/6G}. So it's impossible to
 		fool the system to charge less than what you use
-		
+12. It is possible to directly modify the model to change the bounds of variables,
+	  and thus update demands_added and demands_fixed without rewrite the model again.
+	  Modifying the model can also automatically provide the solution from the previous
+	  solving as the MIP start, which can avoid bugs (if numerical stability is not a 
+	  problem).
+13. In the gurobi.log file, I found that when GN is severely worse than TR, the GN does 
+	  not accept the MIP start given by TR. So change MIP start so that TR gives TR and 
+	  GN gives GN.
+14. Set presolve to 2?

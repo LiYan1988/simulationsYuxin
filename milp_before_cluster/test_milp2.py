@@ -21,7 +21,7 @@ demands.to_csv('nsf24-demand1.csv')
 
 iteration_history_tr, iteration_history_gn = \
     sn.iterate(demands, random_state=0, mipstart=True, mipfocus=1, 
-               method=-1, mipgap=0.001)
+               method=-1, mipgap=0.001, presolve=2)
 
 # gurobi model cannot be save by pickle
 models_gn = {}

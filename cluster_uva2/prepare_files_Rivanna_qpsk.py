@@ -51,7 +51,8 @@ partition = 'economy'
 group = 'maite_group'
 
 # resource parameters
-cpu_per_job = 1
+ntasks_per_node = 1
+cpus_per_task = 1
 mem = 64
 time_days = 1
 time_hours = 0
@@ -95,18 +96,18 @@ for batch_id in range(num_simulations):
     
     # write slurm files
     slurm_src = "batch_template.slurm"
-    line2 = "#SBATCH --ntasks={}\n".format(cpu_per_job)
-    line3 = "#SBATCH --mem={}G\n".format(mem)
-    line4 = "#SBATCH --time={}-{}:{}:{}\n".format(time_days, time_hours, 
-                        time_minutes, time_seconds)
-    line5 = "#SBATCH --job-name={}_{}\n".format(simulation_name, batch_id)
-    line6 = "#SBATCH --output={}_{}.stdout\n".format(simulation_name, batch_id)
-    line7 = "#SBATCH --error={}_{}.stderr\n".format(simulation_name, batch_id)
-    line8 = "#SBATCH --partition={}\n".format(partition)
-    line9 = "#SBATCH --account=maite_group\n".format(group)
-    line13 = "python {}\n".format(python_dst)
+    line2 = "#SBATCH --ntasks-per-node={}\n".format(ntasks_per_node)
+    line3 = "#SBATCH --cpus-per-task={}\n".format(cpus_per_task)
+    line4 = "#SBATCH --mem={}G\n".format(mem)
+    line5 = "#SBATCH --time={}-{}:{}:{}\n".format(time_days, time_hours, time_minutes, time_seconds)
+    line6 = "#SBATCH --job-name={}_{}\n".format(simulation_name, batch_id)
+    line7 = "#SBATCH --output={}_{}.stdout\n".format(simulation_name, batch_id)
+    line8 = "#SBATCH --error={}_{}.stderr\n".format(simulation_name, batch_id)
+    line9 = "#SBATCH --partition={}\n".format(partition)
+    line10 = "#SBATCH --account=maite_group\n".format(group)
+    line14 = "python {}\n".format(python_dst)
     replace_lines = {2:line2, 3:line3, 4:line4, 5:line5, 6:line6, 7:line7, 
-                     8:line8, 9:line9, 13:line13}
+                     8:line8, 9:line9, 10:line10, 14:line14}
     slurm_dst = slurm_file_template.format(batch_id)
     copy_template(slurm_src, slurm_dst, replace_lines)
     

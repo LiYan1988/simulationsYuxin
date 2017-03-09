@@ -14,7 +14,7 @@ batch_id = 1
 network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)
 network_cost = network_cost.as_matrix()
 sn = Network(network_cost, modulation='bpsk')
-demands_file = 'bpsk_1.csv'
+demands_file = 'bpsk2_1.csv'
 demands = pd.read_csv(demands_file)
 
 iteration_history_tr, iteration_history_gn = \
@@ -22,5 +22,5 @@ iteration_history_tr, iteration_history_gn = \
                method=-1, mipgap=0.001)
     
 iteration_history = (iteration_history_tr, iteration_history_gn)
-output_file = 'bpsk_1.pkl'
+output_file = 'bpsk2_1.pkl'
 save_data(output_file, iteration_history)
