@@ -1047,6 +1047,9 @@ class Network(object):
             # cheating...
             if (iteration_history_gn[idx-1]['ObjVal']>
                 iteration_history_tr[idx-1]['ObjVal']):
+                with open(logfile, 'a') as f:
+                    f.write('\n#######################################\n')
+                    f.write('CHEATING!!! at stage {}\n'.format(idx_stage))
                 previous_solutions_gn['demands_added'] = []
                 previous_solutions_gn['demands_fixed'] = \
                     list(set(demands_fixed).union(set(demands_added)))
