@@ -824,7 +824,7 @@ class Network(object):
         return model, solutions
     
     def scheduler(self, demands, idx_iter, idx_stage, n_demands_initial, 
-                  max_added):
+                  max_added, previous=None):
         '''Randomly hold out some demands for re-optimization
         '''
         if (idx_iter==0) and (idx_stage==0):
@@ -840,11 +840,18 @@ class Network(object):
             demands_fixed = demands.iloc[:n_demands_pre].id.values.tolist()
         elif idx_iter>=1:
             # the non-first iteration of a stage
-            n_added = np.random.randint(1, max_added+1)
             n_demands_all = n_demands_initial+idx_stage*n_demands_per_stage
-            n_demands_pre = n_demands_all-n_added
             demands_all_id = demands.iloc[:n_demands_all].id.values.tolist()
             np.random.shuffle(demands_all_id)
+            if previous is None:
+                n_added = np.random.randint(1, max_added+1)
+            elif previous['better']:
+                n_added = np.random.randint(previous['n_added'], 
+                    previous['n_added']+3)
+            else:
+                n_added = np.random.randint(previous['n_added']-2, 
+                    previous['n_added']+1)
+            n_demands_pre = n_demands_all-n_added
             demands_fixed = demands_all_id[:n_demands_pre]
             demands_added = demands_all_id[n_demands_pre:n_demands_all]
         
@@ -889,9 +896,22 @@ class Network(object):
                     max_added_ = max_added(n_demands_in_stage)
                 else:
                     max_added_ = max_added
+
+                if idx<2:
+                    previous = None
+                else:
+                    previous = {}
+                    previous['n_added'] = len(iteration_history_gn[idx-1][
+                        'demands_added'])
+                    if (iteration_history_gn[idx-1]['ObjVal']<=
+                        iteration_history_gn[idx-2]['ObjVal']):
+                        previous['better'] = True
+                    else:
+                        previous['better'] = False
+
                 demands_added, demands_fixed, timelimit = \
                     self.scheduler(demands, idx_iter, idx_stage, 
-                    n_demands_initial, max_added_)
+                    n_demands_initial, max_added_, previous=previous)
 
                 if (idx_iter==0) and (idx_stage==0):
                     # the first iteration in the first stage
