@@ -914,14 +914,16 @@ class Network(object):
                     iteration_history_tr[idx]['demands_solved'] = \
                         demands_in_stage.id.values.tolist()
                     iteration_history_tr[idx]['solutions'] = solutions_tr
-                    iteration_history_tr[idx]['ObjVal'] = model_tr.ObjVal
+                    iteration_history_tr[idx]['ObjVal'] = \
+                        round(model_tr.ObjVal*100, 2)/100
                     iteration_history_tr[idx]['flag_success'] = \
                         solutions_tr['flag_success']
                         
                     # solve GN
                     with open(logfile, 'a') as f:
                         f.write('\n#######################################\n')
-                        f.write('GN: iteration {} at stage {}\n'.format(idx_iter, idx_stage))
+                        f.write('GN: iteration {} at stage {}\n'.format(
+                            idx_iter, idx_stage))
                         f.write('Added demands: {}\n'.format(demands_added))
                         f.write('Fixed demands: {}\n'.format(demands_fixed))
                     
@@ -937,7 +939,8 @@ class Network(object):
                     iteration_history_gn[idx]['demands_solved'] = \
                         demands_in_stage.id.values.tolist()
                     iteration_history_gn[idx]['solutions'] = solutions_gn
-                    iteration_history_gn[idx]['ObjVal'] = model_gn.ObjVal
+                    iteration_history_gn[idx]['ObjVal'] = \
+                        round(model_gn.ObjVal*100, 2)/100
                     iteration_history_gn[idx]['flag_success'] = \
                         solutions_gn['flag_success']
                                         
@@ -948,7 +951,8 @@ class Network(object):
                 # solve TR
                 with open(logfile, 'a') as f:
                     f.write('\n#######################################\n')
-                    f.write('TR: iteration {} at stage {}\n'.format(idx_iter, idx_stage))
+                    f.write('TR: iteration {} at stage {}\n'.format(
+                        idx_iter, idx_stage))
                     f.write('Added demands: {}\n'.format(demands_added))
                     f.write('Fixed demands: {}\n'.format(demands_fixed))
                 
@@ -992,12 +996,14 @@ class Network(object):
                 iteration_history_tr[idx]['demands_solved'] = \
                     list(set(demands_fixed).union(set(demands_added)))
                 iteration_history_tr[idx]['solutions'] = solutions_tr
-                iteration_history_tr[idx]['ObjVal'] = model_tr.ObjVal
+                iteration_history_tr[idx]['ObjVal'] = \
+                    round(model_tr.ObjVal*100, 2)/100
                     
                 # solve GN
                 with open(logfile, 'a') as f:
                     f.write('\n#######################################\n')
-                    f.write('GN: iteration {} at stage {}\n'.format(idx_iter, idx_stage))
+                    f.write('GN: iteration {} at stage {}\n'.format(
+                            idx_iter, idx_stage))
                     f.write('Added demands: {}\n'.format(demands_added))
                     f.write('Fixed demands: {}\n'.format(demands_fixed))
                 
@@ -1041,16 +1047,18 @@ class Network(object):
                 iteration_history_gn[idx]['demands_solved'] = \
                     list(set(demands_fixed).union(set(demands_added)))
                 iteration_history_gn[idx]['solutions'] = solutions_gn
-                iteration_history_gn[idx]['ObjVal'] = model_gn.ObjVal
+                iteration_history_gn[idx]['ObjVal'] = \
+                    round(model_gn.ObjVal*100, 2)/100
                 
                 idx += 1
                 
                 # cheating...
                 if (iteration_history_gn[idx-1]['ObjVal']>
-                    iteration_history_tr[idx-1]['ObjVal']):
+                    iteration_history_tr[idx-1]['ObjVal']+0.5):
                     with open(logfile, 'a') as f:
                         f.write('\n#######################################\n')
-                        f.write('I AM CHEATING!!! at stage {}\n'.format(idx_stage))
+                        f.write('I AM CHEATING!!! at stage {}\n'.format(
+                            idx_stage))
                     previous_solutions_gn['demands_added'] = []
                     previous_solutions_gn['demands_fixed'] = \
                         list(set(demands_fixed).union(set(demands_added)))
@@ -1061,7 +1069,8 @@ class Network(object):
                     previous_solutions_gn['ObjVal'] = \
                         iteration_history_tr[idx-1]['ObjVal']
                     previous_solutions_gn['flag_success'] = \
-                        iteration_history_tr[idx-1]['solutions']['flag_success']
+                        iteration_history_tr[idx-1]['solutions'][
+                        'flag_success']
                     previous_solutions_gn['UsageL0'] = \
                         iteration_history_tr[idx-1]['solutions']['UsageL']
                     previous_solutions_gn['Delta0'] = \
@@ -1073,7 +1082,8 @@ class Network(object):
                         timelimit *= idx_stage+1
                         
                     model_gn, solutions_gn = self.modify_model(model_gn, 
-                        demands, previous_solutions_gn, num_resolve=num_resolve_gn,
+                        demands, previous_solutions_gn, 
+                        num_resolve=num_resolve_gn,
                         miphint=miphint, timelimit=timelimit, **kwargs)
                     toc_now = time.clock()
                     iteration_history_gn[idx] = {}
