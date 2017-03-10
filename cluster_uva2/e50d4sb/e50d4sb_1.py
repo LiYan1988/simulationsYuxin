@@ -8,19 +8,19 @@ This is a template of python files for simulation algorithem on Rivanna
 """
 
 from milp4 import *
-seed = 0
+seed = 952822
 np.random.seed(seed)
-kwargs = {'miphint':True, 'mipfocus':1, 'mipgap':0.001, 'presolve':2, 'logfile':'log_bpsk.log'}
+kwargs = {'logfile': 'e50d4sb_1.log', 'miphint': True, 'presolve': 2, 'threads': 4, 'mipfocus': 1, 'mipgap': 0.001}
 
-batch_id = 0
+batch_id = 1
 network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)
 network_cost = network_cost.as_matrix()
 sn = Network(network_cost, modulation='bpsk')
-demands_file = 'demands_template_'+str(batch_id)+'.csv'
+demands_file = 'e50d4sb_1.csv'
 demands = pd.read_csv(demands_file)
 
 iteration_history_tr, iteration_history_gn = sn.iterate(demands, **kwargs)
 
 iteration_history = (iteration_history_tr, iteration_history_gn)
-output_file = 'output-GN-vs-TR-bpsk-nsf24'+str(batch_id)+'.pkl'
+output_file = 'e50d4sb_1.pkl'
 save_data(output_file, (sn, iteration_history))

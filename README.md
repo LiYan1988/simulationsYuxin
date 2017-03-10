@@ -47,3 +47,6 @@
 	  not accept the MIP start given by TR. So change MIP start so that TR gives TR and 
 	  GN gives GN.
 14. Set presolve to 2?
+	  Yes
+15. squeue commonly used command:
+	  squeue -u ly6j --Format=jobid:.7,name:.14,partition:.11,state:.8,starttime:.20,timeused:.12,endtime:.20,reasonlist:.17,numcpus:.3,minmemory:.11

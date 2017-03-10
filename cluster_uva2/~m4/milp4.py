@@ -22,20 +22,20 @@ rou = 2.11*10**-3
 miu = 1.705
 
 # objective weight
-Nmax = 10 # max number of regenerator circuits per regenerator node
+Nmax = 10
 epsilon_total = 1
-epsilon_nnn = 0/(Nmax*10)
+epsilon_nnn = 0.0
 
 # modelling parameters
-bigM1 = 10**4
-bigM2 = 10**4
-bigM3 = 2*10**4
+bigM1 = 10000
+bigM2 = 10000
+bigM3 = 20000
 
 # scheduler parameters
 n_demands_per_stage = 5
-n_iter_per_stage = 5 # 10
-timelimit_baseline = 150 # 960
-timelimit0 = 20 # 60
+n_iter_per_stage = 10
+timelimit_baseline = 150
+timelimit0 = 20
 time_factor = 1.5
 ##############################################################################
 
