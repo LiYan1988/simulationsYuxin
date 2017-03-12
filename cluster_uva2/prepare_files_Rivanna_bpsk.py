@@ -56,9 +56,9 @@ def change_file(file_path, replace_lines):
     os.rename(abs_path, file_path)
 
 # simulation parameters
-num_simulations = 4
+num_simulations = 5
 n_demands = 50
-simulation_name = 'e50d4sb' #economy 50 demands 30 samples
+simulation_name = 'e{}d{}sb'.format(n_demands, num_simulations) #economy 50 demands 30 samples
 partition = 'economy'
 group = 'maite_group' # or optinetly6j
 
