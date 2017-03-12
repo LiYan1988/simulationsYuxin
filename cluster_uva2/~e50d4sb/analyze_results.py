@@ -45,7 +45,7 @@ n_demands_initial = n_demands-(n_stages-1)*n_demands_per_stage
 n_demands_in_stage = [n_demands_initial+idx_stage*n_demands_per_stage
                       for idx_stage in range(n_stages)]
 
-for i in range(4):
+for i in range(5):
     sn, iteration_history = read_data('e50d4sb_{}.pkl'.format(i))
     demands_solved[i] = np.array([len(iteration_history[0][i]['demands_solved'])
         for i in iteration_history[0].keys()])
