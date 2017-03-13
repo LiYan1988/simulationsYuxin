@@ -56,9 +56,9 @@ def change_file(file_path, replace_lines):
     os.rename(abs_path, file_path)
 
 # simulation parameters
-num_simulations = 5
+num_simulations = 30
 n_demands = 50
-simulation_name = 'e50d4sq'
+simulation_name = 'e50d30sq'
 partition = 'economy'
 group = 'maite_group'
 
