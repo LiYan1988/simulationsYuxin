@@ -8,7 +8,7 @@ This is a template of python files for simulation algorithem on Rivanna
 """
 
 from milp4 import *
-seed = 224190
+seed = 1245132
 np.random.seed(seed)
 kwargs = {'threads': 4, 'presolve': 2, 'mipfocus': 1, 'mipgap': 0.001, 'miphint': True, 'logfile': 'e50d5sb_0.log'}
 

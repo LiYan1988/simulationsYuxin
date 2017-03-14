@@ -1,0 +1,53 @@
+
+#######################################
+TR: iteration 0 at stage 0
+Added demands: [0, 1, 2, 3, 4]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/14/17 11:55:34
+
+Changed value of parameter logfile to e50d30sb2_7.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter threads to 4
+   Prev: 0  Min: 0  Max: 1024  Default: 0
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter timelimit to 600.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 6889 rows, 1730 columns and 26002 nonzeros
+Variable types: 987 continuous, 743 integer (719 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 161.5
+Presolve removed 600 rows and 160 columns
+Presolve time: 0.03s
+Presolved: 6289 rows, 1570 columns, 25661 nonzeros
+Variable types: 986 continuous, 584 integer (584 binary)
+Presolve removed 10 rows and 2 columns
+Presolved: 6279 rows, 1568 columns, 25630 nonzeros
+
+
+Root relaxation: objective 8.000000e+01, 432 iterations, 0.03 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   80.00000    0    2  161.50000   80.00000  50.5%     -    0s
+H    0     0                     131.5000000   80.00000  39.2%     -    0s
+     0     0   80.00000    0   14  131.50000   80.00000  39.2%     -    0s
+H    0     0                     129.5000000   80.00000  38.2%     -    0s
+H    0     0                     110.5000000   80.00000  27.6%     -    0s
+     0     0   80.00000    0   14  110.50000   80.00000  27.6%     -    0s
+     0     0   80.00000    0   26  110.50000   80.00000  27.6%     -    0s
+     0     0   80.00000    0   29  110.50000   80.00000  27.6%     -    0s
+     0     0   80.00000    0   42  110.50000   80.00000  27.6%     -    0s
+     0     0   80.00000    0   43  110.50000   80.00000  27.6%     -    0s
+     0     0   80.00000    0   53  110.50000   80.00000  27.6%     -    0s
+     0     0   80.00000    0   53  110.50000   80.00000  27.6%     -    0s
+     0     0   80.00000    0   10  110.50000   80.00000  27.6%     -    0s
+     0     2   80.00000    0    8  110.50000   80.00000  27.6%     -    0s

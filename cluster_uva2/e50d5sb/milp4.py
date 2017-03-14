@@ -34,7 +34,7 @@ bigM3 = 20000
 # scheduler parameters
 n_demands_per_stage = 5
 n_iter_per_stage = 10
-timelimit_baseline = 150
+timelimit_baseline = 600
 timelimit0 = 20
 time_factor = 1.5
 ##############################################################################
@@ -835,9 +835,11 @@ class Network(object):
             # the first iteration of a non-first stage
             n_demands_pre = n_demands_initial+(idx_stage-1)*n_demands_per_stage
             n_demands_all = n_demands_initial+idx_stage*n_demands_per_stage
-            demands_added = demands.iloc[n_demands_pre:
+#            n_hold_stay = n_demands_pre
+            n_hold_stay = int(np.ceil(n_demands_all/2))
+            demands_added = demands.iloc[n_hold_stay:
                 n_demands_all].id.values.tolist()
-            demands_fixed = demands.iloc[:n_demands_pre].id.values.tolist()
+            demands_fixed = demands.iloc[:n_hold_stay].id.values.tolist()
         elif idx_iter>=1:
             # the non-first iteration of a stage
             n_demands_all = n_demands_initial+idx_stage*n_demands_per_stage

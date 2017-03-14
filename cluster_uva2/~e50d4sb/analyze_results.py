@@ -11,7 +11,7 @@ analyze results from Rivanna
 from milp4 import *
 import matplotlib.pyplot as plt
 
-N = 1
+N = 7
 M=N-1
 
 #%% running time
@@ -77,44 +77,48 @@ for i in range(0, N):
 
 #ctr = np.array([ctr[i] for i in ctr.keys()]).mean(axis=0)
 #cgn = np.array([cgn[i] for i in cgn.keys()]).mean(axis=0)
-plt.figure(1)
-h1, = plt.plot(ctr[N-1], label='TR spectrum', color=colors[0], linestyle='-.')
-h2, = plt.plot(cgn[N-1], label='GN spectrum', color=colors[1], linestyle='--')
-plt.legend(handles=[h1, h2])
-
-#ttr = np.array([ttr[i] for i in ttr.keys()]).mean(axis=0)
-#tgn = np.array([tgn[i] for i in tgn.keys()]).mean(axis=0)
-plt.figure(2)
-h1, = plt.plot(ttr[N-1], label='TR Total', color=colors[0], linestyle='-.')
-h2, = plt.plot(tgn[N-1], label='GN Total', color=colors[1], linestyle='--')
-plt.legend(handles=[h1, h2])
-
-#nnntr = np.array([nnntr[i] for i in nnntr.keys()]).mean(axis=0)
-#nnngn = np.array([nnngn[i] for i in nnngn.keys()]).mean(axis=0)
-plt.figure(3)
-h1, = plt.plot(nnntr[N-1], label='TR NNN', color=colors[0], linestyle='-.')
-h2, = plt.plot(nnngn[N-1], label='GN NNN', color=colors[1], linestyle='--')
-plt.legend(handles=[h1, h2])
+#plt.figure(1)
+#h1, = plt.plot(ctr[N-1], label='TR spectrum', color=colors[0], linestyle='-.')
+#h2, = plt.plot(cgn[N-1], label='GN spectrum', color=colors[1], linestyle='--')
+#plt.legend(handles=[h1, h2])
+#
+##ttr = np.array([ttr[i] for i in ttr.keys()]).mean(axis=0)
+##tgn = np.array([tgn[i] for i in tgn.keys()]).mean(axis=0)
+#plt.figure(2)
+#h1, = plt.plot(ttr[N-1], label='TR Total', color=colors[0], linestyle='-.')
+#h2, = plt.plot(tgn[N-1], label='GN Total', color=colors[1], linestyle='--')
+#plt.legend(handles=[h1, h2])
+#
+##nnntr = np.array([nnntr[i] for i in nnntr.keys()]).mean(axis=0)
+##nnngn = np.array([nnngn[i] for i in nnngn.keys()]).mean(axis=0)
+#plt.figure(3)
+#h1, = plt.plot(nnntr[N-1], label='TR NNN', color=colors[0], linestyle='-.')
+#h2, = plt.plot(nnngn[N-1], label='GN NNN', color=colors[1], linestyle='--')
+#plt.legend(handles=[h1, h2])
 
 #%%
 ctr = np.array([ctr[i] for i in ctr.keys()]).mean(axis=0)
 cgn = np.array([cgn[i] for i in cgn.keys()]).mean(axis=0)
+ttr = np.array([ttr[i] for i in ttr.keys()]).mean(axis=0)
+tgn = np.array([tgn[i] for i in tgn.keys()]).mean(axis=0)
+
+ctr = np.array(ctr)
+cgn = np.array(cgn)
+ttr = np.array(ttr)
+tgn = np.array(tgn)
+
 plt.figure(4)
 h1, = plt.plot(ctr, label='TR spectrum', color=colors[0], linestyle='-.')
 h2, = plt.plot(cgn, label='GN spectrum', color=colors[1], linestyle='--')
 plt.legend(handles=[h1, h2])
 
-ttr = np.array([ttr[i] for i in ttr.keys()]).mean(axis=0)
-tgn = np.array([tgn[i] for i in tgn.keys()]).mean(axis=0)
 plt.figure(5)
 h1, = plt.plot(ttr, label='TR Total', color=colors[0], linestyle='-.')
 h2, = plt.plot(tgn, label='GN Total', color=colors[1], linestyle='--')
 plt.legend(handles=[h1, h2])
 
-nnntr = np.array([nnntr[i] for i in nnntr.keys()]).mean(axis=0)
-nnngn = np.array([nnngn[i] for i in nnngn.keys()]).mean(axis=0)
 plt.figure(6)
-h1, = plt.plot(nnntr, label='TR NNN', color=colors[0], linestyle='-.')
-h2, = plt.plot(nnngn, label='GN NNN', color=colors[1], linestyle='--')
+h1, = plt.plot(ctr+ttr, label='TR Obj', color=colors[0], linestyle='-.')
+h2, = plt.plot(cgn+tgn, label='GN Obj', color=colors[1], linestyle='--')
 plt.legend(handles=[h1, h2])
 

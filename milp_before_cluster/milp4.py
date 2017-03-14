@@ -22,20 +22,20 @@ rou = 2.11*10**-3
 miu = 1.705
 
 # objective weight
-Nmax = 10 # max number of regenerator circuits per regenerator node
+Nmax = 10
 epsilon_total = 1
-epsilon_nnn = 0/(Nmax*10)
+epsilon_nnn = 0.0
 
 # modelling parameters
-bigM1 = 10**4
-bigM2 = 10**4
-bigM3 = 2*10**4
+bigM1 = 10000
+bigM2 = 10000
+bigM3 = 20000
 
 # scheduler parameters
 n_demands_per_stage = 5
-n_iter_per_stage = 5 # 10
-timelimit_baseline = 150 # 960
-timelimit0 = 20 # 60
+n_iter_per_stage = 10
+timelimit_baseline = 600
+timelimit0 = 20
 time_factor = 1.5
 ##############################################################################
 
@@ -835,9 +835,11 @@ class Network(object):
             # the first iteration of a non-first stage
             n_demands_pre = n_demands_initial+(idx_stage-1)*n_demands_per_stage
             n_demands_all = n_demands_initial+idx_stage*n_demands_per_stage
-            demands_added = demands.iloc[n_demands_pre:
+#            n_hold_stay = n_demands_pre
+            n_hold_stay = int(np.ceil(n_demands_all/2))
+            demands_added = demands.iloc[n_hold_stay:
                 n_demands_all].id.values.tolist()
-            demands_fixed = demands.iloc[:n_demands_pre].id.values.tolist()
+            demands_fixed = demands.iloc[:n_hold_stay].id.values.tolist()
         elif idx_iter>=1:
             # the non-first iteration of a stage
             n_demands_all = n_demands_initial+idx_stage*n_demands_per_stage
@@ -846,8 +848,8 @@ class Network(object):
             if previous is None:
                 n_added = np.random.randint(1, max_added+1)
             elif previous['better']:
-                n_added = np.random.randint(previous['n_added'],
-                    previous['n_added']+3)
+                n_added = np.random.randint(max(1, previous['n_added']),
+                    min(n_demands_all, previous['n_added']+3))
             else:
                 n_added = np.random.randint(previous['n_added']-2,
                     previous['n_added']+1)
@@ -1135,30 +1137,6 @@ class Network(object):
         self.total_runtime = toc-tic
 
         return iteration_history_tr, iteration_history_gn
-
-#    def correct_Total(self, demands, iteration_history_tr,
-#                      iteration_history_gn):
-#        '''Resolve the problem with spectrum usage fixed, only minimize total,
-#        prevent jitters in the Total curve.
-#        '''
-#
-#        n_demands = demands.shape[0]
-#        n_stages = int(np.ceil(n_demands/n_demands_per_stage))
-#        n_demands_initial = n_demands-(n_stages-1)*n_demands_per_stage
-#        n_demands_in_stage = [n_demands_initial+idx_stage*n_demands_per_stage
-#                              for idx_stage in range(n_stages)]
-#        demands_solved = np.array(
-#            [len(iteration_history_gn[i]['demands_solved'])
-#            for i in iteration_history_gn.keys()])
-#        stage_end = [np.max(np.where(demands_solved==j)[0])
-#            for j in n_demands_in_stage]
-#
-#        total_tr = extract_history(iteration_history_tr, 'Total')
-#        total_gn = extract_history(iteration_history_gn, 'Total')
-#        total_tr = [total_tr[i] for i in stage_end]
-#        total_gn = [total_gn[i] for i in stage_end]
-#
-#        for i in range(n_stages, -1)
 
 def extract_history(iteration_history, variable_name):
     '''Extract the history of a certain variable in the iteration_history
