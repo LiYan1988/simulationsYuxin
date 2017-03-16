@@ -1,0 +1,1710 @@
+
+#######################################
+TR: iteration 0 at stage 0
+Added demands: [0, 1, 2, 3, 4]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:20
+
+Changed value of parameter logfile to log_qpsk.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter timelimit to 150.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 6889 rows, 1730 columns and 26002 nonzeros
+Variable types: 987 continuous, 743 integer (719 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 23
+Presolve removed 605 rows and 161 columns
+Presolve time: 0.05s
+Presolved: 6284 rows, 1569 columns, 25651 nonzeros
+Variable types: 985 continuous, 584 integer (584 binary)
+Presolve removed 10 rows and 2 columns
+Presolved: 6274 rows, 1567 columns, 25620 nonzeros
+
+
+Root relaxation: objective 0.000000e+00, 309 iterations, 0.05 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       0.0000000    0.00000  0.00%     -    0s
+
+Explored 0 nodes (1163 simplex iterations) in 0.16 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 2: 0 23 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 0 at stage 0
+Added demands: [0, 1, 2, 3, 4]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:20
+
+Changed value of parameter logfile to log_qpsk.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter timelimit to 150.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 20425 rows, 6546 columns and 55878 nonzeros
+Variable types: 3653 continuous, 2893 integer (2869 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 9841 rows and 3257 columns
+Presolve time: 0.22s
+Presolved: 10584 rows, 3289 columns, 37277 nonzeros
+Variable types: 1845 continuous, 1444 integer (1444 binary)
+Found heuristic solution: objective 19.0000000
+Presolve removed 890 rows and 454 columns
+Presolved: 9694 rows, 2835 columns, 34962 nonzeros
+
+
+Root relaxation: objective 0.000000e+00, 166 iterations, 0.05 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0   10   19.00000    0.00000   100%     -    0s
+H    0     0                       1.0000000    0.00000   100%     -    0s
+     0     0    0.00000    0   10    1.00000    0.00000   100%     -    0s
+     0     0    0.00000    0   10    1.00000    0.00000   100%     -    0s
+     0     0    0.00000    0    6    1.00000    0.00000   100%     -    0s
+     0     2    0.00000    0    4    1.00000    0.00000   100%     -    0s
+H    3     3                       0.0000000    0.00000  0.00%   246    1s
+
+Explored 3 nodes (3188 simplex iterations) in 1.27 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 3: 0 1 19 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 1 at stage 0
+Added demands: [0, 1, 3, 4]
+Fixed demands: [2]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:21
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 6889 rows, 1730 columns and 26002 nonzeros
+Variable types: 987 continuous, 743 integer (719 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 13
+Presolve removed 2537 rows and 467 columns
+Presolve time: 0.02s
+Presolved: 4352 rows, 1263 columns, 17119 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 789 continuous, 474 integer (474 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 1 at stage 0
+Added demands: [0, 1, 3, 4]
+Fixed demands: [2]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:21
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 20425 rows, 6546 columns and 55878 nonzeros
+Variable types: 3653 continuous, 2893 integer (2869 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 13489 rows and 4419 columns
+Presolve time: 0.16s
+Presolved: 6936 rows, 2127 columns, 24871 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1137 continuous, 990 integer (990 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.22 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 2 at stage 0
+Added demands: [2, 1, 4, 3]
+Fixed demands: [0]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:21
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 6889 rows, 1730 columns and 26002 nonzeros
+Variable types: 987 continuous, 743 integer (719 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 19
+Presolve removed 2529 rows and 467 columns
+Presolve time: 0.03s
+Presolved: 4360 rows, 1263 columns, 17145 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 789 continuous, 474 integer (474 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 2 at stage 0
+Added demands: [2, 1, 4, 3]
+Fixed demands: [0]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:22
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 20425 rows, 6546 columns and 55878 nonzeros
+Variable types: 3653 continuous, 2893 integer (2869 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 13473 rows and 4412 columns
+Presolve time: 0.14s
+Presolved: 6952 rows, 2134 columns, 24912 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1143 continuous, 991 integer (991 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.22 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 3 at stage 0
+Added demands: [3, 4, 0, 2]
+Fixed demands: [1]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:22
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 6889 rows, 1730 columns and 26002 nonzeros
+Variable types: 987 continuous, 743 integer (719 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 8
+Presolve removed 2529 rows and 467 columns
+Presolve time: 0.02s
+Presolved: 4360 rows, 1263 columns, 17151 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 789 continuous, 474 integer (474 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.06 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 3 at stage 0
+Added demands: [3, 4, 0, 2]
+Fixed demands: [1]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:22
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 20425 rows, 6546 columns and 55878 nonzeros
+Variable types: 3653 continuous, 2893 integer (2869 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 13473 rows and 4412 columns
+Presolve time: 0.16s
+Presolved: 6952 rows, 2134 columns, 24922 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1143 continuous, 991 integer (991 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.22 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 4 at stage 0
+Added demands: [1, 2, 4, 0]
+Fixed demands: [3]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:22
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 6889 rows, 1730 columns and 26002 nonzeros
+Variable types: 987 continuous, 743 integer (719 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 6
+Presolve removed 2485 rows and 458 columns
+Presolve time: 0.03s
+Presolved: 4404 rows, 1272 columns, 17316 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 793 continuous, 479 integer (479 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 4 at stage 0
+Added demands: [1, 2, 4, 0]
+Fixed demands: [3]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:22
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 20425 rows, 6546 columns and 55878 nonzeros
+Variable types: 3653 continuous, 2893 integer (2869 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 16
+Presolve removed 13441 rows and 4398 columns
+Presolve time: 0.16s
+Presolved: 6984 rows, 2148 columns, 25024 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1155 continuous, 993 integer (993 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.22 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 5 at stage 0
+Added demands: [2, 3, 1, 0]
+Fixed demands: [4]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:23
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 6889 rows, 1730 columns and 26002 nonzeros
+Variable types: 987 continuous, 743 integer (719 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 15
+Presolve removed 2537 rows and 467 columns
+Presolve time: 0.02s
+Presolved: 4352 rows, 1263 columns, 17118 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 789 continuous, 474 integer (474 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.06 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 5 at stage 0
+Added demands: [2, 3, 1, 0]
+Fixed demands: [4]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:23
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 20425 rows, 6546 columns and 55878 nonzeros
+Variable types: 3653 continuous, 2893 integer (2869 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 11
+Presolve removed 13489 rows and 4419 columns
+Presolve time: 0.14s
+Presolved: 6936 rows, 2127 columns, 24871 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1137 continuous, 990 integer (990 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.20 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 6 at stage 0
+Added demands: [3, 4, 1, 0]
+Fixed demands: [2]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:23
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 6889 rows, 1730 columns and 26002 nonzeros
+Variable types: 987 continuous, 743 integer (719 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 13
+Presolve removed 2537 rows and 467 columns
+Presolve time: 0.02s
+Presolved: 4352 rows, 1263 columns, 17119 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 789 continuous, 474 integer (474 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 6 at stage 0
+Added demands: [3, 4, 1, 0]
+Fixed demands: [2]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:23
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 20425 rows, 6546 columns and 55878 nonzeros
+Variable types: 3653 continuous, 2893 integer (2869 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 13489 rows and 4419 columns
+Presolve time: 0.18s
+Presolved: 6936 rows, 2127 columns, 24871 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1137 continuous, 990 integer (990 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.27 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 7 at stage 0
+Added demands: [4, 1, 3, 0]
+Fixed demands: [2]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:23
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 6889 rows, 1730 columns and 26002 nonzeros
+Variable types: 987 continuous, 743 integer (719 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 13
+Presolve removed 2537 rows and 467 columns
+Presolve time: 0.03s
+Presolved: 4352 rows, 1263 columns, 17119 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 789 continuous, 474 integer (474 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.07 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 7 at stage 0
+Added demands: [4, 1, 3, 0]
+Fixed demands: [2]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:23
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 20425 rows, 6546 columns and 55878 nonzeros
+Variable types: 3653 continuous, 2893 integer (2869 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 13489 rows and 4419 columns
+Presolve time: 0.14s
+Presolved: 6936 rows, 2127 columns, 24871 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1137 continuous, 990 integer (990 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.22 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 8 at stage 0
+Added demands: [1, 4, 2, 0]
+Fixed demands: [3]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:24
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 6889 rows, 1730 columns and 26002 nonzeros
+Variable types: 987 continuous, 743 integer (719 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 6
+Presolve removed 2485 rows and 458 columns
+Presolve time: 0.03s
+Presolved: 4404 rows, 1272 columns, 17316 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 793 continuous, 479 integer (479 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.06 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 8 at stage 0
+Added demands: [1, 4, 2, 0]
+Fixed demands: [3]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:24
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 20425 rows, 6546 columns and 55878 nonzeros
+Variable types: 3653 continuous, 2893 integer (2869 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 16
+Presolve removed 13441 rows and 4398 columns
+Presolve time: 0.15s
+Presolved: 6984 rows, 2148 columns, 25024 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1155 continuous, 993 integer (993 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.21 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 9 at stage 0
+Added demands: [4, 2, 1, 3]
+Fixed demands: [0]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:24
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 6889 rows, 1730 columns and 26002 nonzeros
+Variable types: 987 continuous, 743 integer (719 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 19
+Presolve removed 2529 rows and 467 columns
+Presolve time: 0.02s
+Presolved: 4360 rows, 1263 columns, 17145 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 789 continuous, 474 integer (474 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 9 at stage 0
+Added demands: [4, 2, 1, 3]
+Fixed demands: [0]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:24
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 20425 rows, 6546 columns and 55878 nonzeros
+Variable types: 3653 continuous, 2893 integer (2869 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 13473 rows and 4412 columns
+Presolve time: 0.16s
+Presolved: 6952 rows, 2134 columns, 24912 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1143 continuous, 991 integer (991 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.22 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 0 at stage 1
+Added demands: [5, 6, 7, 8, 9]
+Fixed demands: [0, 1, 2, 3, 4]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:34
+
+Changed value of parameter logfile to log_qpsk.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter timelimit to 150.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 22379 rows, 3460 columns and 95007 nonzeros
+Variable types: 1972 continuous, 1488 integer (1464 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 23
+Presolve removed 15963 rows and 1852 columns
+Presolve time: 0.05s
+Presolved: 6416 rows, 1608 columns, 26168 nonzeros
+Variable types: 994 continuous, 614 integer (614 binary)
+Presolve removed 10 rows and 2 columns
+Presolved: 6406 rows, 1606 columns, 26137 nonzeros
+
+
+Root relaxation: objective 0.000000e+00, 359 iterations, 0.03 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0   13   23.00000    0.00000   100%     -    0s
+H    0     0                       1.0000000    0.00000   100%     -    0s
+H    0     0                       0.0000000    0.00000  0.00%     -    0s
+
+Explored 0 nodes (1626 simplex iterations) in 0.19 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 3: 0 1 23 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 0 at stage 1
+Added demands: [5, 6, 7, 8, 9]
+Fixed demands: [0, 1, 2, 3, 4]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:34
+
+Changed value of parameter logfile to log_qpsk.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter timelimit to 150.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 62265 rows, 17306 columns and 189073 nonzeros
+Variable types: 7218 continuous, 10088 integer (10064 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 53280 rows and 13972 columns
+Presolve time: 0.28s
+Presolved: 8985 rows, 3334 columns, 29211 nonzeros
+Variable types: 1860 continuous, 1474 integer (1474 binary)
+Found heuristic solution: objective 18.0000000
+Presolve removed 890 rows and 454 columns
+Presolved: 8095 rows, 2880 columns, 26841 nonzeros
+
+
+Root relaxation: objective 0.000000e+00, 162 iterations, 0.03 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0   10   18.00000    0.00000   100%     -    0s
+H    0     0                       6.0000000    0.00000   100%     -    0s
+H    0     0                       2.0000000    0.00000   100%     -    0s
+     0     0    0.00000    0   14    2.00000    0.00000   100%     -    0s
+H    0     0                       1.0000000    0.00000   100%     -    0s
+     0     0    0.00000    0   17    1.00000    0.00000   100%     -    0s
+     0     0    0.00000    0   16    1.00000    0.00000   100%     -    0s
+     0     0    0.00000    0   16    1.00000    0.00000   100%     -    0s
+     0     0    0.00000    0   10    1.00000    0.00000   100%     -    0s
+     0     0    0.00000    0    8    1.00000    0.00000   100%     -    0s
+     0     2    0.00000    0    8    1.00000    0.00000   100%     -    1s
+H  173     5                       0.0000000    0.00000  0.00%   136    4s
+
+Cutting planes:
+  Gomory: 1
+  MIR: 4
+  Flow cover: 10
+
+Explored 192 nodes (26804 simplex iterations) in 4.61 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 5: 0 1 2 ... 18
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 1 at stage 1
+Added demands: [5, 2, 9, 7, 8, 1, 0]
+Fixed demands: [3, 6, 4]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:39
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 22379 rows, 3460 columns and 95007 nonzeros
+Variable types: 1972 continuous, 1488 integer (1464 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 21
+Presolve removed 11028 rows and 1230 columns
+Presolve time: 0.08s
+Presolved: 11351 rows, 2230 columns, 48552 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1386 continuous, 844 integer (843 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.16 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 1 at stage 1
+Added demands: [5, 2, 9, 7, 8, 1, 0]
+Fixed demands: [3, 6, 4]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:39
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 62265 rows, 17306 columns and 189073 nonzeros
+Variable types: 7218 continuous, 10088 integer (10064 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 46740 rows and 12066 columns
+Presolve time: 0.55s
+Presolved: 15525 rows, 5240 columns, 52112 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 2594 continuous, 2646 integer (2646 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.70 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 2 at stage 1
+Added demands: [5, 6, 4, 9, 0, 2, 7]
+Fixed demands: [3, 8, 1]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:40
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 22379 rows, 3460 columns and 95007 nonzeros
+Variable types: 1972 continuous, 1488 integer (1464 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 18
+Presolve removed 10996 rows and 1228 columns
+Presolve time: 0.08s
+Presolved: 11383 rows, 2232 columns, 48676 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1388 continuous, 844 integer (844 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.16 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 2 at stage 1
+Added demands: [5, 6, 4, 9, 0, 2, 7]
+Fixed demands: [3, 8, 1]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:40
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 62265 rows, 17306 columns and 189073 nonzeros
+Variable types: 7218 continuous, 10088 integer (10064 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 46684 rows and 12057 columns
+Presolve time: 0.71s
+Presolved: 15581 rows, 5249 columns, 52352 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 2600 continuous, 2649 integer (2649 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.91 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 3 at stage 1
+Added demands: [4, 2, 3, 5, 6, 7, 1, 8, 9]
+Fixed demands: [0]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:41
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 22379 rows, 3460 columns and 95007 nonzeros
+Variable types: 1972 continuous, 1488 integer (1464 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 16
+Presolve removed 4859 rows and 627 columns
+Presolve time: 0.13s
+Presolved: 17520 rows, 2833 columns, 77252 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1774 continuous, 1059 integer (1059 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.23 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 3 at stage 1
+Added demands: [4, 2, 3, 5, 6, 7, 1, 8, 9]
+Fixed demands: [0]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:41
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 62265 rows, 17306 columns and 189073 nonzeros
+Variable types: 7218 continuous, 10088 integer (10064 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 23
+Presolve removed 38549 rows and 9826 columns
+Presolve time: 1.00s
+Presolved: 23716 rows, 7480 columns, 81180 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 3324 continuous, 4156 integer (4156 binary)
+
+Explored 0 nodes (0 simplex iterations) in 1.19 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 4 at stage 1
+Added demands: [8, 9, 1, 4, 5, 3, 6, 0, 2]
+Fixed demands: [7]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:42
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 22379 rows, 3460 columns and 95007 nonzeros
+Variable types: 1972 continuous, 1488 integer (1464 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 23
+Presolve removed 4877 rows and 627 columns
+Presolve time: 0.11s
+Presolved: 17502 rows, 2833 columns, 77186 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1774 continuous, 1059 integer (1059 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.19 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 4 at stage 1
+Added demands: [8, 9, 1, 4, 5, 3, 6, 0, 2]
+Fixed demands: [7]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:43
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 62265 rows, 17306 columns and 189073 nonzeros
+Variable types: 7218 continuous, 10088 integer (10064 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 38571 rows and 9829 columns
+Presolve time: 0.89s
+Presolved: 23694 rows, 7477 columns, 81101 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 3322 continuous, 4155 integer (4155 binary)
+
+Explored 0 nodes (0 simplex iterations) in 1.08 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 5 at stage 1
+Added demands: [2, 5, 0, 8, 3, 7, 9, 6, 4]
+Fixed demands: [1]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:44
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 22379 rows, 3460 columns and 95007 nonzeros
+Variable types: 1972 continuous, 1488 integer (1464 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 19
+Presolve removed 4859 rows and 627 columns
+Presolve time: 0.11s
+Presolved: 17520 rows, 2833 columns, 77258 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1774 continuous, 1059 integer (1059 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.19 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 5 at stage 1
+Added demands: [2, 5, 0, 8, 3, 7, 9, 6, 4]
+Fixed demands: [1]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:44
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 62265 rows, 17306 columns and 189073 nonzeros
+Variable types: 7218 continuous, 10088 integer (10064 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 38549 rows and 9826 columns
+Presolve time: 0.91s
+Presolved: 23716 rows, 7480 columns, 81202 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 3324 continuous, 4156 integer (4156 binary)
+
+Explored 0 nodes (0 simplex iterations) in 1.10 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 6 at stage 1
+Added demands: [7, 8, 1, 0, 6, 5, 2, 3, 4]
+Fixed demands: [9]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:45
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 22379 rows, 3460 columns and 95007 nonzeros
+Variable types: 1972 continuous, 1488 integer (1464 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 15
+Presolve removed 4877 rows and 627 columns
+Presolve time: 0.09s
+Presolved: 17502 rows, 2833 columns, 77185 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1774 continuous, 1059 integer (1059 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.17 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 6 at stage 1
+Added demands: [7, 8, 1, 0, 6, 5, 2, 3, 4]
+Fixed demands: [9]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:45
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 62265 rows, 17306 columns and 189073 nonzeros
+Variable types: 7218 continuous, 10088 integer (10064 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 38571 rows and 9829 columns
+Presolve time: 0.91s
+Presolved: 23694 rows, 7477 columns, 81101 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 3322 continuous, 4155 integer (4155 binary)
+
+Explored 0 nodes (0 simplex iterations) in 1.08 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 7 at stage 1
+Added demands: [9, 6, 2, 1, 8, 5, 7, 0, 3]
+Fixed demands: [4]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:46
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 22379 rows, 3460 columns and 95007 nonzeros
+Variable types: 1972 continuous, 1488 integer (1464 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 15
+Presolve removed 4877 rows and 627 columns
+Presolve time: 0.11s
+Presolved: 17502 rows, 2833 columns, 77185 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1774 continuous, 1059 integer (1059 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.19 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 7 at stage 1
+Added demands: [9, 6, 2, 1, 8, 5, 7, 0, 3]
+Fixed demands: [4]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:47
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 62265 rows, 17306 columns and 189073 nonzeros
+Variable types: 7218 continuous, 10088 integer (10064 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 38571 rows and 9829 columns
+Presolve time: 0.92s
+Presolved: 23694 rows, 7477 columns, 81101 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 3322 continuous, 4155 integer (4155 binary)
+
+Explored 0 nodes (0 simplex iterations) in 1.14 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 8 at stage 1
+Added demands: [6, 1, 8, 9, 5, 7, 2, 3, 0]
+Fixed demands: [4]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:48
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 22379 rows, 3460 columns and 95007 nonzeros
+Variable types: 1972 continuous, 1488 integer (1464 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 15
+Presolve removed 4877 rows and 627 columns
+Presolve time: 0.11s
+Presolved: 17502 rows, 2833 columns, 77185 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1774 continuous, 1059 integer (1059 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.19 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 8 at stage 1
+Added demands: [6, 1, 8, 9, 5, 7, 2, 3, 0]
+Fixed demands: [4]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:48
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 62265 rows, 17306 columns and 189073 nonzeros
+Variable types: 7218 continuous, 10088 integer (10064 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 38571 rows and 9829 columns
+Presolve time: 0.89s
+Presolved: 23694 rows, 7477 columns, 81101 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 3322 continuous, 4155 integer (4155 binary)
+
+Explored 0 nodes (0 simplex iterations) in 1.08 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+TR: iteration 9 at stage 1
+Added demands: [9, 4, 1, 6, 7, 8, 3, 2, 0]
+Fixed demands: [5]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:49
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 22379 rows, 3460 columns and 95007 nonzeros
+Variable types: 1972 continuous, 1488 integer (1464 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 23
+Presolve removed 4859 rows and 627 columns
+Presolve time: 0.13s
+Presolved: 17520 rows, 2833 columns, 77252 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 1774 continuous, 1059 integer (1059 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.20 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+#######################################
+GN: iteration 9 at stage 1
+Added demands: [9, 4, 1, 6, 7, 8, 3, 2, 0]
+Fixed demands: [5]
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 17:25:50
+
+Parameter logfile unchanged
+   Value: log_qpsk.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter timelimit unchanged
+   Value: 150.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Optimize a model with 62265 rows, 17306 columns and 189073 nonzeros
+Variable types: 7218 continuous, 10088 integer (10064 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 38526 rows and 9823 columns
+Presolve time: 0.94s
+Presolved: 23739 rows, 7483 columns, 81292 nonzeros
+
+Loaded MIP start with objective 0
+
+Variable types: 3326 continuous, 4157 integer (4157 binary)
+
+Explored 0 nodes (0 simplex iterations) in 1.13 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 0 
+Pool objective bound 0
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
