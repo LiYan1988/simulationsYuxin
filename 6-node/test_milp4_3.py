@@ -31,24 +31,24 @@ for k in range(20):
     save_data('test_6node_opt{}.pkl'.format(k), iteration_history)
 
 #%%
-ctr = extract_history(iteration_history[0], 'c')
-ttr = extract_history(iteration_history[0], 'Total')
-cgn = extract_history(iteration_history[1], 'c')
-tgn = extract_history(iteration_history[1], 'Total')
-
-import matplotlib.pyplot as plt
-plt.figure(1)
-plt.plot(ctr, label='TR')
-plt.plot(cgn, label='GN')
-plt.figure(2)
-plt.plot(ttr, label='TR')
-plt.plot(tgn, label='GN')
-
-nnntr = extract_history(iteration_history_tr, 'NNN')
-nnngn = extract_history(iteration_history_gn, 'NNN')
-nnntr = [sum(i.values()) for i in nnntr]
-nnngn = [sum(i.values()) for i in nnngn]
-
-plt.figure(3)
-plt.plot(nnntr)
-plt.plot(nnngn)
+#ctr = extract_history(iteration_history[0], 'c')
+#ttr = extract_history(iteration_history[0], 'Total')
+#cgn = extract_history(iteration_history[1], 'c')
+#tgn = extract_history(iteration_history[1], 'Total')
+#
+#import matplotlib.pyplot as plt
+#plt.figure(1)
+#plt.plot(ctr, label='TR')
+#plt.plot(cgn, label='GN')
+#plt.figure(2)
+#plt.plot(ttr, label='TR')
+#plt.plot(tgn, label='GN')
+#
+#nnntr = extract_history(iteration_history_tr, 'NNN')
+#nnngn = extract_history(iteration_history_gn, 'NNN')
+#nnntr = [sum(i.values()) for i in nnntr]
+#nnngn = [sum(i.values()) for i in nnngn]
+#
+#plt.figure(3)
+#plt.plot(nnntr)
+#plt.plot(nnngn)
