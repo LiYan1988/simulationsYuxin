@@ -58,7 +58,7 @@ def change_file(file_path, replace_lines):
 # simulation parameters
 num_simulations = 30
 n_demands = 50
-simulation_name = 'e50d30sq'
+simulation_name = 'qr'
 partition = 'economy'
 group = 'maite_group'
 

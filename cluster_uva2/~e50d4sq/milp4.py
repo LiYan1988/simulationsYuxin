@@ -34,7 +34,7 @@ bigM3 = 20000
 # scheduler parameters
 n_demands_per_stage = 5
 n_iter_per_stage = 10
-timelimit_baseline = 600
+timelimit_baseline = 150
 timelimit0 = 20
 time_factor = 1.5
 ##############################################################################
