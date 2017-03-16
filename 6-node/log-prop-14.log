@@ -1,0 +1,2195 @@
+
+#######################################
+TR: iteration 0 at stage 0
+Added demands: [0, 1, 2, 3, 4]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:14
+
+Changed value of parameter LogFile to log-prop-14.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 100.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 1483 rows, 404 columns and 5510 nonzeros
+Variable types: 217 continuous, 187 integer (181 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 138.5
+Presolve removed 512 rows and 52 columns
+Presolve time: 0.00s
+Presolved: 971 rows, 352 columns, 3615 nonzeros
+Variable types: 216 continuous, 136 integer (136 binary)
+Presolve removed 25 rows and 8 columns
+Presolved: 946 rows, 344 columns, 3551 nonzeros
+
+
+Root relaxation: objective 8.200000e+01, 97 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   82.00000    0    3  138.50000   82.00000  40.8%     -    0s
+H    0     0                     135.5000000   82.00000  39.5%     -    0s
+     0     0   82.00000    0   11  135.50000   82.00000  39.5%     -    0s
+H    0     0                     133.5000000   82.00000  38.6%     -    0s
+     0     0   82.00000    0   14  133.50000   82.00000  38.6%     -    0s
+     0     0   82.00000    0   11  133.50000   82.00000  38.6%     -    0s
+     0     0   82.00000    0   19  133.50000   82.00000  38.6%     -    0s
+H    0     0                     133.4999485   82.00000  38.6%     -    0s
+     0     0   82.00000    0   19  133.49995   82.00000  38.6%     -    0s
+     0     0   82.00000    0   19  133.49995   82.00000  38.6%     -    0s
+     0     0   82.00000    0    2  133.49995   82.00000  38.6%     -    0s
+     0     2   82.00000    0    2  133.49995   82.00000  38.6%     -    0s
+
+Cutting planes:
+  Gomory: 2
+  MIR: 9
+  Flow cover: 10
+
+Explored 2426 nodes (11751 simplex iterations) in 0.39 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 4: 133.5 133.5 135.5 138.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.334999485134e+02, best bound 1.334999485134e+02, gap 0.0000%
+
+#######################################
+GN: iteration 0 at stage 0
+Added demands: [0, 1, 2, 3, 4]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:15
+
+Changed value of parameter LogFile to log-prop-14.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 100.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 4321 rows, 1412 columns and 11768 nonzeros
+Variable types: 775 continuous, 637 integer (631 binary)
+Coefficient statistics:
+  Matrix range     [6e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 180.5
+Presolve removed 2450 rows and 700 columns
+Presolve time: 0.03s
+Presolved: 1871 rows, 712 columns, 6136 nonzeros
+Variable types: 396 continuous, 316 integer (316 binary)
+Presolve removed 191 rows and 94 columns
+Presolved: 1680 rows, 618 columns, 5636 nonzeros
+
+
+Root relaxation: objective 8.200000e+01, 83 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   82.00000    0    3  180.50000   82.00000  54.6%     -    0s
+H    0     0                     163.0000000   82.00000  49.7%     -    0s
+     0     0   82.00000    0   14  163.00000   82.00000  49.7%     -    0s
+     0     0   82.00000    0    9  163.00000   82.00000  49.7%     -    0s
+H    0     0                     150.5000000   82.00000  45.5%     -    0s
+H    0     0                     149.5000000   82.00000  45.2%     -    0s
+H    0     0                     136.5000000   82.00000  39.9%     -    0s
+H    0     0                     133.5000000   82.00000  38.6%     -    0s
+     0     0   82.00000    0    9  133.50000   82.00000  38.6%     -    0s
+     0     0   82.00000    0   19  133.50000   82.00000  38.6%     -    0s
+     0     0   82.00000    0   31  133.50000   82.00000  38.6%     -    0s
+     0     0   82.00000    0   10  133.50000   82.00000  38.6%     -    0s
+     0     2   82.00000    0   10  133.50000   82.00000  38.6%     -    0s
+H 1898   288                     133.4998825   82.00000  38.6%  12.9    1s
+
+Cutting planes:
+  Gomory: 4
+  Implied bound: 4
+  Clique: 1
+  MIR: 8
+  Flow cover: 13
+  Zero half: 4
+
+Explored 4087 nodes (46821 simplex iterations) in 1.95 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 7: 133.5 133.5 136.5 ... 180.5
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.334998824778e+02, best bound 1.334998824778e+02, gap 0.0000%
+
+#######################################
+TR: iteration 1 at stage 0
+Added demands: [1]
+Fixed demands: [0, 2, 4, 3]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:17
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 1483 rows, 404 columns and 5510 nonzeros
+Variable types: 217 continuous, 187 integer (181 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 135.5
+Presolve removed 1340 rows and 323 columns
+Presolve time: 0.00s
+Presolved: 143 rows, 81 columns, 422 nonzeros
+
+Loaded MIP start with objective 133.5
+
+Variable types: 48 continuous, 33 integer (32 binary)
+Presolve removed 7 rows and 2 columns
+Presolved: 136 rows, 79 columns, 405 nonzeros
+
+
+Root relaxation: objective 1.105000e+02, 24 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  110.50000    0    1  133.50000  110.50000  17.2%     -    0s
+     0     0  110.55271    0    1  133.50000  110.55271  17.2%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 0 nodes (50 simplex iterations) in 0.03 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 133.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.335000000000e+02, best bound 1.335000000000e+02, gap 0.0000%
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:17
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 1483 rows, 404 columns and 5510 nonzeros
+Variable types: 217 continuous, 187 integer (181 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 143 rows, 81 columns, 422 nonzeros
+
+Continuing optimization...
+
+
+Cutting planes:
+  Gomory: 1
+
+Explored 0 nodes (50 simplex iterations) in 0.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 133.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.335000000000e+02, best bound 1.335000000000e+02, gap 0.0000%
+
+#######################################
+GN: iteration 1 at stage 0
+Added demands: [1]
+Fixed demands: [0, 2, 4, 3]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:17
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 4321 rows, 1412 columns and 11768 nonzeros
+Variable types: 775 continuous, 637 integer (631 binary)
+Coefficient statistics:
+  Matrix range     [6e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 136.5
+Presolve removed 4175 rows and 1330 columns
+Presolve time: 0.00s
+Presolved: 146 rows, 82 columns, 430 nonzeros
+
+Loaded MIP start with objective 133.5
+
+Variable types: 50 continuous, 32 integer (32 binary)
+Presolve removed 7 rows and 2 columns
+Presolved: 139 rows, 80 columns, 413 nonzeros
+
+
+Root relaxation: objective 1.105000e+02, 25 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  110.50000    0    3  133.50000  110.50000  17.2%     -    0s
+     0     0  110.50000    0    6  133.50000  110.50000  17.2%     -    0s
+     0     0  110.50000    0    8  133.50000  110.50000  17.2%     -    0s
+     0     0  113.63018    0    3  133.50000  113.63018  14.9%     -    0s
+     0     0  113.63018    0    3  133.50000  113.63018  14.9%     -    0s
+     0     0     cutoff    0       133.50000  133.50000  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  Implied bound: 1
+  MIR: 9
+  Flow cover: 4
+
+Explored 0 nodes (136 simplex iterations) in 0.05 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 133.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.335000000000e+02, best bound 1.335000000000e+02, gap 0.0000%
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:17
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 4321 rows, 1412 columns and 11768 nonzeros
+Variable types: 775 continuous, 637 integer (631 binary)
+Coefficient statistics:
+  Matrix range     [6e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 146 rows, 82 columns, 430 nonzeros
+
+Continuing optimization...
+
+
+Cutting planes:
+  Gomory: 1
+  Implied bound: 1
+  MIR: 9
+  Flow cover: 4
+
+Explored 0 nodes (136 simplex iterations) in 0.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 133.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.335000000000e+02, best bound 1.335000000000e+02, gap 0.0000%
+
+#######################################
+TR: iteration 2 at stage 0
+Added demands: []
+Fixed demands: [1, 3, 2, 0, 4]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:17
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 1483 rows, 404 columns and 5510 nonzeros
+Variable types: 217 continuous, 187 integer (181 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 136.5
+Presolve removed 1472 rows and 394 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 10 columns, 30 nonzeros
+
+Loaded MIP start with objective 133.5
+
+Variable types: 2 continuous, 8 integer (6 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 133.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.335000000000e+02, best bound 1.335000000000e+02, gap 0.0000%
+
+#######################################
+GN: iteration 2 at stage 0
+Added demands: []
+Fixed demands: [1, 3, 2, 0, 4]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:17
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 4321 rows, 1412 columns and 11768 nonzeros
+Variable types: 775 continuous, 637 integer (631 binary)
+Coefficient statistics:
+  Matrix range     [6e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 136.5
+Presolve removed 4315 rows and 1407 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 5 columns, 16 nonzeros
+
+Loaded MIP start with objective 133.5
+
+Variable types: 2 continuous, 3 integer (3 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.03 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 133.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.335000000000e+02, best bound 1.335000000000e+02, gap 0.0000%
+
+#######################################
+TR: iteration 0 at stage 1
+Added demands: [5, 6, 7, 8, 9]
+Fixed demands: [0, 1, 2, 3, 4]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:18
+
+Changed value of parameter LogFile to log-prop-14.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 100.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 4803 rows, 844 columns and 20095 nonzeros
+Variable types: 432 continuous, 412 integer (406 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 137.5
+Presolve removed 3716 rows and 454 columns
+Presolve time: 0.02s
+Presolved: 1087 rows, 390 columns, 4056 nonzeros
+Variable types: 223 continuous, 167 integer (166 binary)
+Presolve removed 17 rows and 4 columns
+Presolved: 1070 rows, 386 columns, 4010 nonzeros
+
+
+Root relaxation: objective 1.335000e+02, 103 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     133.5000000  133.50000  0.00%     -    0s
+
+Explored 0 nodes (214 simplex iterations) in 0.05 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 2: 133.5 137.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.335000000000e+02, best bound 1.335000000000e+02, gap 0.0000%
+
+#######################################
+GN: iteration 0 at stage 1
+Added demands: [5, 6, 7, 8, 9]
+Fixed demands: [0, 1, 2, 3, 4]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:18
+
+Changed value of parameter LogFile to log-prop-14.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 100.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 13161 rows, 3742 columns and 39793 nonzeros
+Variable types: 1530 continuous, 2212 integer (2206 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 164.5
+Presolve removed 11163 rows and 2985 columns
+Presolve time: 0.06s
+Presolved: 1998 rows, 757 columns, 6613 nonzeros
+Variable types: 411 continuous, 346 integer (346 binary)
+Presolve removed 187 rows and 92 columns
+Presolved: 1811 rows, 665 columns, 6080 nonzeros
+
+
+Root relaxation: objective 1.335000e+02, 78 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  133.50000    0    1  164.50000  133.50000  18.8%     -    0s
+H    0     0                     159.5000000  133.50000  16.3%     -    0s
+     0     0  133.50000    0    6  159.50000  133.50000  16.3%     -    0s
+H    0     0                     133.5000000  133.50000  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  MIR: 1
+  Flow cover: 2
+
+Explored 0 nodes (544 simplex iterations) in 0.16 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 3: 133.5 159.5 164.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.335000000000e+02, best bound 1.335000000000e+02, gap 0.0000%
+
+#######################################
+TR: iteration 1 at stage 1
+Added demands: [8, 5, 6, 7, 1, 4]
+Fixed demands: [0, 9, 2, 3]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:19
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 4803 rows, 844 columns and 20095 nonzeros
+Variable types: 432 continuous, 412 integer (406 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 208
+Presolve removed 3451 rows and 389 columns
+Presolve time: 0.02s
+Presolved: 1352 rows, 455 columns, 5181 nonzeros
+
+Loaded MIP start with objective 133.5
+
+Variable types: 263 continuous, 192 integer (191 binary)
+Presolve removed 17 rows and 4 columns
+Presolved: 1335 rows, 451 columns, 5133 nonzeros
+
+
+Root relaxation: objective 1.105000e+02, 119 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  110.50000    0    2  133.50000  110.50000  17.2%     -    0s
+     0     0  110.55271    0    2  133.50000  110.55271  17.2%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 0 nodes (413 simplex iterations) in 0.08 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 133.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.335000000000e+02, best bound 1.335000000000e+02, gap 0.0000%
+
+#######################################
+GN: iteration 1 at stage 1
+Added demands: [8, 5, 6, 7, 1, 4]
+Fixed demands: [0, 9, 2, 3]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:19
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 13161 rows, 3742 columns and 39793 nonzeros
+Variable types: 1530 continuous, 2212 integer (2206 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 207
+Presolve removed 10578 rows and 2801 columns
+Presolve time: 0.09s
+Presolved: 2583 rows, 941 columns, 8615 nonzeros
+
+Loaded MIP start with objective 133.5
+
+Variable types: 481 continuous, 460 integer (460 binary)
+Presolve removed 219 rows and 108 columns
+Presolved: 2364 rows, 833 columns, 8014 nonzeros
+
+
+Root relaxation: objective 1.105000e+02, 91 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  110.50000    0    3  133.50000  110.50000  17.2%     -    0s
+     0     0  110.50000    0   20  133.50000  110.50000  17.2%     -    0s
+     0     0  113.63018    0    3  133.50000  113.63018  14.9%     -    0s
+
+Explored 0 nodes (1204 simplex iterations) in 0.28 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 2: 133.5 133.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.334999999865e+02, best bound 1.334999999865e+02, gap 0.0000%
+
+#######################################
+TR: iteration 2 at stage 1
+Added demands: [5, 1, 6, 4, 9, 2, 3, 0]
+Fixed demands: [8, 7]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:19
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 4803 rows, 844 columns and 20095 nonzeros
+Variable types: 432 continuous, 412 integer (406 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 163.5
+Presolve removed 2771 rows and 255 columns
+Presolve time: 0.03s
+Presolved: 2032 rows, 589 columns, 8134 nonzeros
+
+Loaded MIP start with objective 133.5
+
+Variable types: 347 continuous, 242 integer (242 binary)
+Presolve removed 33 rows and 10 columns
+Presolved: 1999 rows, 579 columns, 8047 nonzeros
+
+
+Root relaxation: objective 9.600000e+01, 169 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   96.00000    0    3  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   12  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   19  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   15  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   16  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   17  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   18  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   20  133.50000   96.00000  28.1%     -    0s
+     0     0   96.04189    0    2  133.50000   96.04189  28.1%     -    0s
+     0     2   96.04189    0    2  133.50000   96.04189  28.1%     -    0s
+
+Cutting planes:
+  Clique: 1
+  MIR: 2
+  Flow cover: 6
+
+Explored 79 nodes (1138 simplex iterations) in 0.28 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 133.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.335000000000e+02, best bound 1.335000000000e+02, gap 0.0000%
+
+#######################################
+GN: iteration 2 at stage 1
+Added demands: [5, 1, 6, 4, 9, 2, 3, 0]
+Fixed demands: [8, 7]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:19
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 13161 rows, 3742 columns and 39793 nonzeros
+Variable types: 1530 continuous, 2212 integer (2206 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 209
+Presolve removed 9037 rows and 2358 columns
+Presolve time: 0.14s
+Presolved: 4124 rows, 1384 columns, 14116 nonzeros
+
+Loaded MIP start with objective 133.5
+
+Variable types: 637 continuous, 747 integer (747 binary)
+Presolve removed 299 rows and 146 columns
+Presolved: 3825 rows, 1238 columns, 13302 nonzeros
+
+
+Root relaxation: objective 9.600000e+01, 122 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   96.00000    0    3  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   20  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   11  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   27  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   30  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   26  133.50000   96.00000  28.1%     -    0s
+H    0     0                     133.5000000   96.00000  28.1%     -    0s
+     0     0   96.00000    0   26  133.50000   96.00000  28.1%     -    0s
+     0     0   96.00000    0    8  133.50000   96.00000  28.1%     -    0s
+     0     0  116.50000    0    1  133.50000  116.50000  12.7%     -    0s
+     0     0  116.50000    0    9  133.50000  116.50000  12.7%     -    0s
+     0     0  116.50000    0    7  133.50000  116.50000  12.7%     -    0s
+     0     0  116.50000    0   13  133.50000  116.50000  12.7%     -    0s
+     0     0  116.50000    0   14  133.50000  116.50000  12.7%     -    0s
+     0     0  116.50000    0   10  133.50000  116.50000  12.7%     -    0s
+     0     0  116.50000    0    1  133.50000  116.50000  12.7%     -    0s
+     0     2  116.50000    0    1  133.50000  116.50000  12.7%     -    0s
+
+Cutting planes:
+  Cover: 2
+  MIR: 9
+  Flow cover: 6
+  Zero half: 1
+
+Explored 1101 nodes (11546 simplex iterations) in 0.95 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 3: 133.5 133.5 133.5 
+Pool objective bound 133.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.334999999865e+02, best bound 1.334999999865e+02, gap 0.0000%
+
+#######################################
+TR: iteration 0 at stage 2
+Added demands: [8, 9, 10, 11, 12, 13, 14]
+Fixed demands: [0, 1, 2, 3, 4, 5, 6, 7]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:24
+
+Changed value of parameter LogFile to log-prop-14.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 100.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 9973 rows, 1334 columns and 43780 nonzeros
+Variable types: 647 continuous, 687 integer (681 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 287
+Presolve removed 8135 rows and 765 columns
+Presolve time: 0.02s
+Presolved: 1838 rows, 569 columns, 7209 nonzeros
+Variable types: 312 continuous, 257 integer (256 binary)
+Presolve removed 32 rows and 10 columns
+Presolved: 1806 rows, 559 columns, 7126 nonzeros
+
+
+Root relaxation: objective 1.335000e+02, 174 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  133.50000    0   14  287.00000  133.50000  53.5%     -    0s
+H    0     0                     274.0000000  133.50000  51.3%     -    0s
+     0     0  133.50000    0   32  274.00000  133.50000  51.3%     -    0s
+     0     0  133.50000    0   32  274.00000  133.50000  51.3%     -    0s
+     0     0  133.50000    0   36  274.00000  133.50000  51.3%     -    0s
+H    0     0                     258.0000000  133.50000  48.3%     -    0s
+     0     0  133.50000    0   33  258.00000  133.50000  48.3%     -    0s
+     0     0  133.50000    0   28  258.00000  133.50000  48.3%     -    0s
+     0     0  133.50000    0   28  258.00000  133.50000  48.3%     -    0s
+     0     0  133.50000    0   37  258.00000  133.50000  48.3%     -    0s
+H    0     0                     239.0000000  133.50000  44.1%     -    0s
+     0     0  133.50000    0   37  239.00000  133.50000  44.1%     -    0s
+     0     0  133.50000    0   14  239.00000  133.50000  44.1%     -    0s
+     0     2  133.50000    0   14  239.00000  133.50000  44.1%     -    0s
+H   97    57                     233.0000000  133.50000  42.7%  11.3    0s
+H  147    75                     230.0000000  133.50000  42.0%  10.5    0s
+H  967   442                     230.0000000  133.50000  42.0%   7.7    0s
+H 1066   469                     227.0000000  133.50000  41.2%   7.4    1s
+H 1214   493                     219.0000000  133.50000  39.0%   7.6    1s
+H 1580   610                     217.0000000  133.50000  38.5%   7.4    1s
+  5680   376 infeasible   26       217.00000  164.50000  24.2%  10.6    5s
+H 6817   421                     217.0000000  165.50000  23.7%  10.6    5s
+H 8822   236                     216.9999165  178.00000  18.0%  10.7    6s
+
+Cutting planes:
+  Learned: 1
+  Gomory: 11
+  Cover: 4
+  Implied bound: 7
+  MIR: 59
+  Flow cover: 91
+
+Explored 15129 nodes (175850 simplex iterations) in 9.66 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 217 217 217 ... 239
+Pool objective bound 217
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.169999165217e+02, best bound 2.169999165217e+02, gap 0.0000%
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:33
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 9973 rows, 1334 columns and 43780 nonzeros
+Variable types: 647 continuous, 687 integer (681 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 1838 rows, 569 columns, 7209 nonzeros
+
+Continuing optimization...
+
+
+Cutting planes:
+  Learned: 1
+  Gomory: 11
+  Cover: 4
+  Implied bound: 7
+  MIR: 59
+  Flow cover: 91
+
+Explored 15129 nodes (175850 simplex iterations) in 0.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 217 217 217 ... 239
+Pool objective bound 217
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.169999165217e+02, best bound 2.169999165217e+02, gap 0.0000%
+
+#######################################
+GN: iteration 0 at stage 2
+Added demands: [8, 9, 10, 11, 12, 13, 14]
+Fixed demands: [0, 1, 2, 3, 4, 5, 6, 7]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:09:33
+
+Changed value of parameter LogFile to log-prop-14.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 100.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 26551 rows, 7022 columns and 84118 nonzeros
+Variable types: 2285 continuous, 4737 integer (4731 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 358.5
+Presolve removed 23038 rows and 5807 columns
+Presolve time: 0.14s
+Presolved: 3513 rows, 1215 columns, 12110 nonzeros
+Variable types: 578 continuous, 637 integer (637 binary)
+Presolve removed 262 rows and 128 columns
+Presolved: 3251 rows, 1087 columns, 11327 nonzeros
+
+
+Root relaxation: objective 1.335000e+02, 198 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  133.50000    0   15  358.50000  133.50000  62.8%     -    0s
+H    0     0                     337.5000000  133.50000  60.4%     -    0s
+     0     0  133.50000    0   52  337.50000  133.50000  60.4%     -    0s
+H    0     0                     261.0000000  133.50000  48.9%     -    0s
+     0     0  133.50000    0   44  261.00000  133.50000  48.9%     -    0s
+     0     0  133.50000    0   39  261.00000  133.50000  48.9%     -    0s
+     0     0  133.50000    0   38  261.00000  133.50000  48.9%     -    0s
+     0     0  133.50000    0   71  261.00000  133.50000  48.9%     -    0s
+H    0     0                     259.5000000  133.50000  48.6%     -    0s
+     0     0  133.50000    0   58  259.50000  133.50000  48.6%     -    0s
+     0     0  133.50000    0   64  259.50000  133.50000  48.6%     -    0s
+     0     0  133.50000    0   71  259.50000  133.50000  48.6%     -    0s
+     0     0  133.50000    0   17  259.50000  133.50000  48.6%     -    0s
+     0     2  133.50000    0   17  259.50000  133.50000  48.6%     -    0s
+H  179   117                     256.0000000  133.50000  47.9%   111    2s
+H  200   105                     247.0000000  133.50000  46.0%   101    2s
+H  208   103                     246.0000000  133.50000  45.7%   110    2s
+H  300   133                     244.0000000  133.50000  45.3%   101    2s
+H  551   235                     244.0000000  133.50000  45.3%  74.2    3s
+H  618   239                     239.0000000  133.50000  44.1%  71.3    4s
+H  675   284                     232.0000000  133.50000  42.5%  73.5    5s
+H  710   297                     231.0000000  133.50000  42.2%  78.2    6s
+H  711   298                     228.0000000  133.50000  41.4%  79.1    6s
+H  794   337                     224.0000000  133.50000  40.4%  82.2    6s
+H 1008   433                     224.0000000  133.50000  40.4%  92.5    9s
+  1046   460  222.00000   20  180  224.00000  133.50000  40.4%  94.2   10s
+  1524   639  133.50000   17   45  224.00000  133.50000  40.4%  92.0   15s
+  1889   763  163.50000   18   92  224.00000  133.50000  40.4%  93.6   20s
+  2561   927  167.50000   45   45  224.00000  166.50000  25.7%  97.6   25s
+  3207   834  223.00000   53  174  224.00000  166.50000  25.7%  99.5   30s
+  4117   749  166.50000   45   24  224.00000  166.50000  25.7%   100   35s
+  5240   493 infeasible   43       224.00000  167.50000  25.2%   103   40s
+  6908   413 infeasible   52       224.00000  192.50000  14.1%   106   45s
+  9171   615 infeasible   54       224.00000  206.50000  7.81%  94.9   50s
+ 11482   866 infeasible   51       224.00000  206.50000  7.81%  91.8   55s
+ 13949  1086  207.50000   43   66  224.00000  206.50000  7.81%  89.1   60s
+ 17209  1174 infeasible   48       224.00000  207.50000  7.37%  83.4   65s
+ 19449  1349 infeasible   53       224.00000  207.50000  7.37%  83.2   70s
+ 21591  1461  210.50000   58   10  224.00000  207.50000  7.37%  82.7   75s
+ 23362  1623  208.50000   50   12  224.00000  207.50000  7.37%  84.2   82s
+ 24277  1610  208.50000   51   42  224.00000  207.50000  7.37%  85.3   85s
+ 26302  1720  208.50000   49   20  224.00000  207.50000  7.37%  84.8   90s
+ 28148  1864  208.50000   44   35  224.00000  207.50000  7.37%  85.7   95s
+ 30001  2027 infeasible   52       224.00000  207.50000  7.37%  86.0  100s
+
+Cutting planes:
+  Gomory: 3
+  Cover: 6
+  MIR: 30
+  Flow cover: 81
+  Zero half: 23
+
+Explored 30452 nodes (2624197 simplex iterations) in 100.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 224 224 228 ... 247
+Pool objective bound 207.5
+
+Time limit reached
+Best objective 2.239999999775e+02, best bound 2.075000000000e+02, gap 7.3661%
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:11:13
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 26551 rows, 7022 columns and 84118 nonzeros
+Variable types: 2285 continuous, 4737 integer (4731 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 3513 rows, 1215 columns, 12110 nonzeros
+
+Continuing optimization...
+
+ 30452  2046 infeasible   46       224.00000  207.50000  7.37%  86.1  101s
+ 31950  2121 infeasible   55       224.00000  207.50000  7.37%  86.5  105s
+ 34714  2254 infeasible   49       224.00000  207.50000  7.37%  85.4  110s
+ 37187  2444  209.50000   50   47  224.00000  207.50000  7.37%  84.4  115s
+ 39097  2726  208.50000   53  143  224.00000  207.69279  7.28%  84.3  120s
+ 42276  2679 infeasible   50       224.00000  208.50000  6.92%  82.6  126s
+ 45078  2540 infeasible   58       224.00000  208.50000  6.92%  80.7  130s
+ 46568  2552 infeasible   55       224.00000  208.50000  6.92%  80.8  135s
+ 48968  2568 infeasible   50       224.00000  208.50000  6.92%  80.4  140s
+ 51444  2543 infeasible   65       224.00000  208.50000  6.92%  80.0  146s
+H51469  2543                     223.9996829  208.50000  6.92%  80.0  146s
+ 53064  2443  208.50000   52   67  223.99968  208.50000  6.92%  79.6  150s
+ 54263  2415  208.50000   52   38  223.99968  208.50000  6.92%  79.8  155s
+ 57000  2382  208.50000   58   27  223.99968  208.50000  6.92%  79.5  160s
+ 59605  2277  208.50000   62   17  223.99968  208.50000  6.92%  78.7  165s
+ 61601  2211  209.50000   45   77  223.99968  208.50000  6.92%  78.2  170s
+ 63593  2133 infeasible   54       223.99968  208.50000  6.92%  78.1  175s
+ 66790  2040  209.50000   55   20  223.99968  208.50000  6.92%  77.5  180s
+ 69281  1959  209.50000   57  117  223.99968  208.50000  6.92%  77.3  185s
+ 71629  1976 infeasible   67       223.99968  208.71802  6.82%  77.8  192s
+ 73671  1763 infeasible   68       223.99968  209.50000  6.47%  77.2  195s
+ 75686  1659  209.50000   59   26  223.99968  209.50000  6.47%  77.0  200s
+
+Cutting planes:
+  Gomory: 3
+  Cover: 6
+  MIR: 31
+  Flow cover: 84
+  Zero half: 23
+
+Explored 75882 nodes (5842784 simplex iterations) in 100.03 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 224 224 224 ... 246
+Pool objective bound 209.5
+
+Time limit reached
+Best objective 2.239996828974e+02, best bound 2.095000000000e+02, gap 6.4731%
+
+#######################################
+I AM CHEATING!!! at stage 2
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:12:53
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 26551 rows, 7022 columns and 84118 nonzeros
+Variable types: 2285 continuous, 4737 integer (4731 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 222
+Presolve removed 26517 rows and 6991 columns
+Presolve time: 0.02s
+Presolved: 34 rows, 31 columns, 96 nonzeros
+
+MIP start did not produce a new incumbent solution
+
+Variable types: 12 continuous, 19 integer (16 binary)
+Presolve removed 7 rows and 7 columns
+Presolved: 27 rows, 24 columns, 72 nonzeros
+
+
+Root relaxation: objective 2.170000e+02, 9 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     217.0000000  217.00000  0.00%     -    0s
+
+Explored 0 nodes (9 simplex iterations) in 0.06 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 2: 217 222 
+Pool objective bound 217
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.169999999999e+02, best bound 2.169999999999e+02, gap 0.0000%
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:12:54
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 26551 rows, 7022 columns and 84118 nonzeros
+Variable types: 2285 continuous, 4737 integer (4731 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 34 rows, 31 columns, 96 nonzeros
+
+Continuing optimization...
+
+
+Explored 0 nodes (9 simplex iterations) in 0.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 2: 217 222 
+Pool objective bound 217
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.169999999999e+02, best bound 2.169999999999e+02, gap 0.0000%
+
+#######################################
+TR: iteration 1 at stage 2
+Added demands: [10, 5, 6, 11, 1, 7, 14]
+Fixed demands: [12, 9, 0, 3, 4, 2, 13, 8]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:12:54
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 9973 rows, 1334 columns and 43780 nonzeros
+Variable types: 647 continuous, 687 integer (681 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 302.5
+Presolve removed 8100 rows and 759 columns
+Presolve time: 0.02s
+Presolved: 1873 rows, 575 columns, 7340 nonzeros
+
+Loaded MIP start with objective 217
+
+Variable types: 312 continuous, 263 integer (260 binary)
+Presolve removed 23 rows and 6 columns
+Presolved: 1850 rows, 569 columns, 7277 nonzeros
+
+
+Root relaxation: objective 1.505000e+02, 149 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  150.50000    0    9  217.00000  150.50000  30.6%     -    0s
+     0     0  150.55739    0   26  217.00000  150.55739  30.6%     -    0s
+     0     0  150.55739    0   25  217.00000  150.55739  30.6%     -    0s
+     0     0  174.50000    0   23  217.00000  174.50000  19.6%     -    0s
+     0     0  174.50000    0   23  217.00000  174.50000  19.6%     -    0s
+     0     0  174.50000    0   29  217.00000  174.50000  19.6%     -    0s
+     0     0  174.50000    0   23  217.00000  174.50000  19.6%     -    0s
+     0     0  174.50000    0   24  217.00000  174.50000  19.6%     -    0s
+     0     0  174.50000    0   24  217.00000  174.50000  19.6%     -    0s
+     0     0  174.95599    0   11  217.00000  174.95599  19.4%     -    0s
+     0     2  174.95599    0    7  217.00000  174.95599  19.4%     -    0s
+H   34    25                     217.0000000  180.50000  16.8%   7.1    0s
+
+Cutting planes:
+  Gomory: 3
+  Cover: 11
+  Implied bound: 6
+  MIR: 53
+  Flow cover: 20
+
+Explored 9328 nodes (45420 simplex iterations) in 1.96 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 2: 217 217 
+Pool objective bound 217
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.169999999782e+02, best bound 2.169999999782e+02, gap 0.0000%
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:12:56
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 9973 rows, 1334 columns and 43780 nonzeros
+Variable types: 647 continuous, 687 integer (681 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 1873 rows, 575 columns, 7340 nonzeros
+
+Continuing optimization...
+
+
+Cutting planes:
+  Gomory: 3
+  Cover: 11
+  Implied bound: 6
+  MIR: 53
+  Flow cover: 20
+
+Explored 9328 nodes (45420 simplex iterations) in 0.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 2: 217 217 
+Pool objective bound 217
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.169999999782e+02, best bound 2.169999999782e+02, gap 0.0000%
+
+#######################################
+GN: iteration 1 at stage 2
+Added demands: [10, 5, 6, 11, 1, 7, 14]
+Fixed demands: [12, 9, 0, 3, 4, 2, 13, 8]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:12:56
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 26551 rows, 7022 columns and 84118 nonzeros
+Variable types: 2285 continuous, 4737 integer (4731 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 423
+Presolve removed 23019 rows and 5804 columns
+Presolve time: 0.14s
+Presolved: 3532 rows, 1218 columns, 12151 nonzeros
+
+Loaded MIP start with objective 217
+
+Variable types: 580 continuous, 638 integer (638 binary)
+Presolve removed 253 rows and 124 columns
+Presolved: 3279 rows, 1094 columns, 11382 nonzeros
+
+
+Root relaxation: objective 1.505000e+02, 207 iterations, 0.03 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  150.50000    0    9  217.00000  150.50000  30.6%     -    0s
+     0     0  150.50000    0   34  217.00000  150.50000  30.6%     -    0s
+     0     0  150.50000    0   27  217.00000  150.50000  30.6%     -    0s
+     0     0  150.55739    0   37  217.00000  150.55739  30.6%     -    0s
+     0     0  150.55739    0   50  217.00000  150.55739  30.6%     -    0s
+     0     0  156.23134    0   42  217.00000  156.23134  28.0%     -    0s
+     0     0  156.23134    0   52  217.00000  156.23134  28.0%     -    0s
+     0     0  162.50000    0   35  217.00000  162.50000  25.1%     -    0s
+     0     0  162.50000    0   49  217.00000  162.50000  25.1%     -    0s
+     0     0  165.50000    0   26  217.00000  165.50000  23.7%     -    0s
+     0     2  165.50000    0   26  217.00000  165.50000  23.7%     -    0s
+H   76    55                     217.0000000  174.50000  19.6%  58.2    1s
+  1289   363  176.50000   10   42  217.00000  175.50000  19.1%  62.1    5s
+H 4310   731                     217.0000000  175.52525  19.1%  49.4    8s
+  4871   812  177.50000   36   11  217.00000  176.50000  18.7%  50.9   10s
+  5456   661  208.50000   31   11  217.00000  181.50000  16.4%  58.7   15s
+
+Cutting planes:
+  Gomory: 2
+  Cover: 15
+  Implied bound: 7
+  Clique: 1
+  MIR: 15
+  Flow cover: 19
+
+Explored 5750 nodes (340488 simplex iterations) in 15.67 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 4: 217 217 217 217 
+Pool objective bound 217
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.169999999564e+02, best bound 2.169999999564e+02, gap 0.0000%
+
+#######################################
+TR: iteration 2 at stage 2
+Added demands: [13, 11, 2, 6, 9, 12]
+Fixed demands: [0, 4, 7, 5, 3, 14, 1, 10, 8]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:13:11
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 9973 rows, 1334 columns and 43780 nonzeros
+Variable types: 647 continuous, 687 integer (681 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 332.5
+Presolve removed 8463 rows and 838 columns
+Presolve time: 0.02s
+Presolved: 1510 rows, 496 columns, 5795 nonzeros
+
+Loaded MIP start with objective 217
+
+Variable types: 268 continuous, 228 integer (225 binary)
+Presolve removed 30 rows and 8 columns
+Presolved: 1480 rows, 488 columns, 5719 nonzeros
+
+
+Root relaxation: objective 1.980000e+02, 138 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  198.00000    0    2  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0    9  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0    8  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   15  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   15  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   15  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   18  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   10  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   14  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0    2  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0    1  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   10  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   10  217.00000  198.00000  8.76%     -    0s
+H    0     0                     217.0000000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   10  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   10  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0    9  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0    9  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0    6  217.00000  198.00000  8.76%     -    0s
+     0     2  198.00000    0    2  217.00000  198.00000  8.76%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  Cover: 6
+  Implied bound: 1
+  MIR: 12
+  Flow cover: 4
+
+Explored 221 nodes (2680 simplex iterations) in 0.47 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 3: 217 217 217 
+Pool objective bound 217
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.169999999782e+02, best bound 2.169999999782e+02, gap 0.0000%
+
+#######################################
+GN: iteration 2 at stage 2
+Added demands: [13, 11, 2, 6, 9, 12]
+Fixed demands: [0, 4, 7, 5, 3, 14, 1, 10, 8]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:13:12
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 26551 rows, 7022 columns and 84118 nonzeros
+Variable types: 2285 continuous, 4737 integer (4731 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 312.5
+Presolve removed 23772 rows and 6022 columns
+Presolve time: 0.11s
+Presolved: 2779 rows, 1000 columns, 9436 nonzeros
+
+Loaded MIP start with objective 217
+
+Variable types: 502 continuous, 498 integer (498 binary)
+Presolve removed 232 rows and 112 columns
+Presolved: 2547 rows, 888 columns, 8751 nonzeros
+
+
+Root relaxation: objective 1.980000e+02, 140 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  198.00000    0    5  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   20  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   19  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   40  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   35  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   22  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   21  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   30  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   28  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0    6  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0    3  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   15  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   17  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   12  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   12  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   17  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   20  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   22  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   17  217.00000  198.00000  8.76%     -    0s
+     0     0  198.00000    0   17  217.00000  198.00000  8.76%     -    0s
+     0     2  198.00000    0   12  217.00000  198.00000  8.76%     -    0s
+
+Cutting planes:
+  Learned: 31
+  Gomory: 1
+  Cover: 25
+  Implied bound: 13
+  MIR: 65
+  Flow cover: 6
+  Zero half: 2
+
+Explored 6644 nodes (191225 simplex iterations) in 3.92 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 217 
+Pool objective bound 217
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.170000000000e+02, best bound 2.170000000000e+02, gap 0.0000%
+
+#######################################
+TR: iteration 0 at stage 3
+Added demands: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+Fixed demands: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:13:21
+
+Changed value of parameter LogFile to log-prop-14.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 100.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 16993 rows, 1874 columns and 76565 nonzeros
+Variable types: 862 continuous, 1012 integer (1006 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 377.5
+Presolve removed 13775 rows and 1033 columns
+Presolve time: 0.03s
+Presolved: 3218 rows, 841 columns, 13209 nonzeros
+Variable types: 441 continuous, 400 integer (397 binary)
+Presolve removed 25 rows and 6 columns
+Presolved: 3193 rows, 835 columns, 13136 nonzeros
+
+
+Root relaxation: objective 1.505000e+02, 214 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  150.50000    0   14  377.50000  150.50000  60.1%     -    0s
+H    0     0                     281.5000000  150.50000  46.5%     -    0s
+H    0     0                     261.0000000  150.50000  42.3%     -    0s
+     0     0  150.50000    0   35  261.00000  150.50000  42.3%     -    0s
+     0     0  150.50000    0   31  261.00000  150.50000  42.3%     -    0s
+     0     0  150.50000    0   36  261.00000  150.50000  42.3%     -    0s
+     0     0  150.50000    0   35  261.00000  150.50000  42.3%     -    0s
+     0     0  150.50000    0   44  261.00000  150.50000  42.3%     -    0s
+     0     0  150.50000    0   45  261.00000  150.50000  42.3%     -    0s
+     0     0  150.50000    0   44  261.00000  150.50000  42.3%     -    0s
+     0     0  150.50000    0   43  261.00000  150.50000  42.3%     -    0s
+     0     0  150.50000    0   18  261.00000  150.50000  42.3%     -    0s
+H    0     0                     246.0000000  150.50000  38.8%     -    0s
+     0     2  150.50000    0   18  246.00000  150.50000  38.8%     -    0s
+H  300   193                     245.0000000  150.50000  38.6%  10.2    0s
+H  483   258                     243.0000000  150.50000  38.1%   9.2    0s
+H  561   294                     242.5000000  150.50000  37.9%   8.9    0s
+H  638   324                     241.0000000  150.50000  37.6%   8.6    0s
+H  910   464                     241.0000000  150.50000  37.6%   8.5    1s
+H  973   502                     237.0000000  150.50000  36.5%   8.5    1s
+H 1330   595                     237.0000000  150.50000  36.5%   8.5    2s
+  2142   931  150.50000   17   12  237.00000  150.50000  36.5%   8.5    5s
+  9513  2128  175.50000   47   39  237.00000  174.50000  26.4%  10.7   10s
+ 18813  4152  174.79221   52   39  237.00000  174.50000  26.4%  10.7   15s
+ 26977  6390  174.50000   40   45  237.00000  174.50000  26.4%  11.2   20s
+ 34673  8060  221.00000   45   40  237.00000  174.50000  26.4%  11.5   25s
+ 43359 10859 infeasible   48       237.00000  174.50000  26.4%  11.6   30s
+ 52046 12972 infeasible   50       237.00000  174.50000  26.4%  11.8   35s
+ 61607 15285 infeasible   51       237.00000  174.50000  26.4%  11.8   40s
+ 70306 16992 infeasible   68       237.00000  174.50000  26.4%  11.9   45s
+ 80868 19764  174.50000   47   43  237.00000  174.50000  26.4%  11.9   50s
+H87759 21500                     236.9999135  174.50000  26.4%  11.9   53s
+ 89636 21809  228.00000   57   20  236.99991  174.50000  26.4%  11.9   55s
+ 98933 23598 infeasible   55       236.99991  174.50000  26.4%  11.9   60s
+ 108663 25894 infeasible   48       236.99991  174.50000  26.4%  11.8   65s
+ 117270 27485  174.50000   49   40  236.99991  174.50000  26.4%  11.8   70s
+ 127354 29482  228.00000   55   36  236.99991  174.50000  26.4%  11.7   75s
+ 137461 32197  221.10626   50   54  236.99991  174.50000  26.4%  11.7   80s
+ 146824 34530 infeasible   45       236.99991  174.50000  26.4%  11.7   85s
+ 154507 36033  175.50000   53   42  236.99991  174.50000  26.4%  11.8   90s
+ 162690 37577 infeasible   58       236.99991  174.50000  26.4%  11.8   95s
+ 171586 39315  177.50000   56   52  236.99991  174.50000  26.4%  11.8  100s
+
+Cutting planes:
+  Learned: 1
+  Gomory: 5
+  Cover: 5
+  Implied bound: 2
+  MIR: 41
+  Flow cover: 73
+
+Explored 171716 nodes (2021533 simplex iterations) in 100.03 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 237 237 237 ... 246
+Pool objective bound 174.5
+
+Time limit reached
+Best objective 2.369999135237e+02, best bound 1.745000000000e+02, gap 26.3713%
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:15:01
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 16993 rows, 1874 columns and 76565 nonzeros
+Variable types: 862 continuous, 1012 integer (1006 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 3218 rows, 841 columns, 13209 nonzeros
+
+Continuing optimization...
+
+ 171716 39321  174.50000   50   44  236.99991  174.50000  26.4%  11.8  100s
+ 178373 40792 infeasible   54       236.99991  174.50000  26.4%  11.8  105s
+ 187295 42733 infeasible   54       236.99991  174.50000  26.4%  11.9  110s
+ 195724 44432 infeasible   57       236.99991  174.50000  26.4%  11.9  115s
+ 204607 46346 infeasible   55       236.99991  174.60663  26.3%  11.9  120s
+ 213610 47786  175.50000   50   43  236.99991  174.66137  26.3%  12.0  125s
+ 220485 48555 infeasible   55       236.99991  174.71404  26.3%  12.0  130s
+ 227147 48714 infeasible   52       236.99991  174.79221  26.2%  12.1  135s
+ 233980 49607 infeasible   58       236.99991  174.87371  26.2%  12.2  140s
+ 240842 49426 infeasible   50       236.99991  175.50000  25.9%  12.2  145s
+ 249023 49896 infeasible   58       236.99991  175.50000  25.9%  12.2  150s
+ 255373 49599 infeasible   63       236.99991  175.50000  25.9%  12.2  155s
+ 259927 49062 infeasible   58       236.99991  175.50000  25.9%  12.3  160s
+ 268361 49384 infeasible   60       236.99991  175.50000  25.9%  12.2  165s
+ 276137 49379  176.50000   45   43  236.99991  175.50000  25.9%  12.2  170s
+ 282469 49037 infeasible   57       236.99991  175.50000  25.9%  12.3  175s
+ 290595 49268 infeasible   69       236.99991  175.50000  25.9%  12.2  180s
+ 299523 50193 infeasible   68       236.99991  175.50000  25.9%  12.2  185s
+ 308382 51500  228.00000   48   42  236.99991  175.50000  25.9%  12.2  190s
+H313100 51833                     236.9998586  175.50000  25.9%  12.2  193s
+ 315895 52202 infeasible   56       236.99986  175.50000  25.9%  12.2  195s
+ 321260 52180 infeasible   51       236.99986  175.50000  25.9%  12.2  200s
+
+Cutting planes:
+  Learned: 2
+  Gomory: 6
+  Cover: 6
+  Implied bound: 2
+  MIR: 53
+  Flow cover: 81
+
+Explored 321339 nodes (3917872 simplex iterations) in 100.03 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 237 237 237 ... 245
+Pool objective bound 175.5
+
+Time limit reached
+Best objective 2.369998585670e+02, best bound 1.755000000000e+02, gap 25.9493%
+
+#######################################
+GN: iteration 0 at stage 3
+Added demands: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+Fixed demands: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:16:41
+
+Changed value of parameter LogFile to log-prop-14.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 100.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 44491 rows, 11252 columns and 144743 nonzeros
+Variable types: 3040 continuous, 8212 integer (8206 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 421
+Presolve removed 38100 rows and 9226 columns
+Presolve time: 0.31s
+Presolved: 6391 rows, 2026 columns, 22482 nonzeros
+Variable types: 817 continuous, 1209 integer (1209 binary)
+Presolve removed 356 rows and 173 columns
+Presolved: 6035 rows, 1853 columns, 21430 nonzeros
+
+
+Root relaxation: objective 1.505000e+02, 323 iterations, 0.05 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  150.50000    0   18  421.00000  150.50000  64.3%     -    0s
+H    0     0                     417.0000000  150.50000  63.9%     -    0s
+H    0     0                     340.5000000  150.50000  55.8%     -    0s
+H    0     0                     327.5000000  150.50000  54.0%     -    0s
+     0     0  150.50000    0   60  327.50000  150.50000  54.0%     -    0s
+H    0     0                     269.5000000  150.50000  44.2%     -    0s
+     0     0  150.50000    0   65  269.50000  150.50000  44.2%     -    0s
+     0     0  150.50000    0   65  269.50000  150.50000  44.2%     -    0s
+H    0     0                     262.5000000  150.50000  42.7%     -    0s
+     0     0  150.50000    0   63  262.50000  150.50000  42.7%     -    0s
+     0     0  150.50000    0   52  262.50000  150.50000  42.7%     -    0s
+     0     0  150.50000    0   52  262.50000  150.50000  42.7%     -    0s
+     0     0  150.50000    0   55  262.50000  150.50000  42.7%     -    0s
+     0     0  150.50000    0   49  262.50000  150.50000  42.7%     -    0s
+     0     0  150.50000    0   40  262.50000  150.50000  42.7%     -    1s
+H    0     0                     262.4994385  150.50000  42.7%     -    1s
+H    0     2                     261.0000000  150.50000  42.3%     -    1s
+     0     2  150.50000    0   27  261.00000  150.50000  42.3%     -    1s
+H   30    28                     253.0000000  150.50000  40.5%   126    1s
+H  103    83                     248.0000000  150.50000  39.3%   100    2s
+H  157   110                     247.9999148  150.50000  39.3%  76.9    2s
+H  191   133                     245.0000000  150.50000  38.6%  69.4    3s
+H  233   161                     241.0000000  150.50000  37.6%  78.9    4s
+   295   199  164.50000   26   27  241.00000  150.50000  37.6%  79.6    5s
+H  434   276                     241.0000000  150.50000  37.6%  83.9    7s
+H  498   283                     240.9999095  150.50000  37.6%  77.7    7s
+   641   374  175.50000   26  173  240.99991  150.50000  37.6%  88.6   10s
+H  880   487                     240.0000000  150.50000  37.3%  91.4   17s
+H  916   492                     240.0000000  150.50000  37.3%  90.5   17s
+  1109   583  175.50000   30   40  240.00000  150.50000  37.3%  88.0   20s
+  1182   629 infeasible   33       240.00000  163.50000  31.9%   103   25s
+H 1284   608                     239.0000000  163.50000  31.6%   100   26s
+H 1326   583                     237.0000000  163.50000  31.0%   103   27s
+  1475   588  174.56028   39  129  237.00000  163.50000  31.0%   109   30s
+H 1627   576                     237.0000000  163.50000  31.0%   118   34s
+  1702   590  175.50000   58   32  237.00000  163.50000  31.0%   121   35s
+  1882   583  175.50000   57   31  237.00000  163.50000  31.0%   134   40s
+  2007   590  164.50000   25  118  237.00000  163.50000  31.0%   140   45s
+  2132   603  229.00000   30  120  237.00000  163.50000  31.0%   151   50s
+  2509   642  227.00000   44    8  237.00000  163.50000  31.0%   157   55s
+  2614   641 infeasible   37       237.00000  163.50000  31.0%   163   61s
+  2855   683  163.51684   39   76  237.00000  163.50000  31.0%   158   65s
+  3262   781 infeasible   44       237.00000  163.50000  31.0%   162   70s
+  3677   883  164.51826   43  104  237.00000  164.50000  30.6%   165   75s
+  4018   937  176.50000   58   16  237.00000  164.50000  30.6%   167   81s
+  4466  1018  174.50000   47   85  237.00000  164.50000  30.6%   163   85s
+  5096  1151  219.00000   61  171  237.00000  164.50000  30.6%   160   90s
+  5836  1272  181.40358   55   19  237.00000  165.50000  30.2%   157   96s
+  6387  1389 infeasible   33       237.00000  165.50000  30.2%   155  100s
+
+Cutting planes:
+  Gomory: 4
+  Implied bound: 5
+  MIR: 11
+  Flow cover: 43
+  Zero half: 9
+
+Explored 6440 nodes (1003776 simplex iterations) in 100.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 237 237 239 ... 245
+Pool objective bound 165.5
+
+Time limit reached
+Best objective 2.369999999762e+02, best bound 1.655000000000e+02, gap 30.1688%
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:18:22
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 44491 rows, 11252 columns and 144743 nonzeros
+Variable types: 3040 continuous, 8212 integer (8206 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 6391 rows, 2026 columns, 22482 nonzeros
+
+Continuing optimization...
+
+  6440  1387  165.50000   50  216  237.00000  165.50000  30.2%   155  102s
+  6705  1431  166.50000   38  235  237.00000  165.50000  30.2%   158  105s
+  7420  1556 infeasible   68       237.00000  165.50000  30.2%   155  111s
+  8036  1663  166.50000   57   77  237.00000  165.50000  30.2%   154  116s
+  8823  1840 infeasible   54       237.00000  165.50000  30.2%   150  121s
+H 9500  1944                     236.9999205  165.50000  30.2%   147  124s
+  9735  1934 infeasible   62       236.99992  165.50000  30.2%   145  126s
+ 10852  2085 infeasible   68       236.99992  166.50000  29.7%   139  132s
+ 11572  2153  175.50000   37   81  236.99992  166.50000  29.7%   136  135s
+ 13261  2414  175.50000   64   50  236.99992  166.50000  29.7%   129  140s
+ 15046  2572 infeasible   67       236.99992  166.50000  29.7%   121  146s
+ 16000  2664  169.50000   56   58  236.99992  167.50000  29.3%   120  150s
+ 18127  2932  177.50000   66   72  236.99992  167.50000  29.3%   113  156s
+ 19606  3003  171.50000   71   29  236.99992  169.50000  28.5%   109  161s
+ 20610  2971 infeasible   60       236.99992  169.50000  28.5%   108  165s
+ 22034  3021 infeasible   39       236.99992  170.50000  28.1%   106  170s
+ 23353  3053  183.40358   68  107  236.99992  172.50000  27.2%   105  175s
+ 25770  3346  179.00000   49   89  236.99992  173.50000  26.8%  99.4  180s
+ 27190  3609  176.50000   45  215  236.99992  173.50000  26.8%   100  185s
+ 28068  3853 infeasible   50       236.99992  174.50000  26.4%   102  191s
+ 28726  4012 infeasible   43       236.99992  174.50000  26.4%   104  196s
+ 29639  4301 infeasible   54       236.99992  174.50000  26.4%   105  200s
+
+Cutting planes:
+  Gomory: 5
+  Implied bound: 7
+  MIR: 21
+  Flow cover: 59
+  Zero half: 12
+
+Explored 29642 nodes (3130765 simplex iterations) in 100.03 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 237 237 237 ... 241
+Pool objective bound 174.5
+
+Time limit reached
+Best objective 2.369999204999e+02, best bound 1.745000000000e+02, gap 26.3713%
+
+#######################################
+TR: iteration 1 at stage 3
+Added demands: [17, 6, 13, 18, 8, 5, 11, 19, 0, 9]
+Fixed demands: [3, 2, 10, 14, 16, 4, 15, 1, 7, 12]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:20:02
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 16993 rows, 1874 columns and 76565 nonzeros
+Variable types: 862 continuous, 1012 integer (1006 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 278
+Presolve removed 13750 rows and 1031 columns
+Presolve time: 0.05s
+Presolved: 3243 rows, 843 columns, 13309 nonzeros
+
+Loaded MIP start with objective 237
+
+Variable types: 443 continuous, 400 integer (398 binary)
+Presolve removed 34 rows and 8 columns
+Presolved: 3209 rows, 835 columns, 13217 nonzeros
+
+
+Root relaxation: objective 2.330000e+02, 219 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  233.00000    0    3  237.00000  233.00000  1.69%     -    0s
+     0     0  233.00000    0    9  237.00000  233.00000  1.69%     -    0s
+     0     0  233.00000    0   14  237.00000  233.00000  1.69%     -    0s
+     0     0  233.00000    0   21  237.00000  233.00000  1.69%     -    0s
+     0     0  233.00000    0   23  237.00000  233.00000  1.69%     -    0s
+     0     0  233.00000    0   35  237.00000  233.00000  1.69%     -    0s
+     0     0  233.00000    0   35  237.00000  233.00000  1.69%     -    0s
+     0     0  233.00000    0   37  237.00000  233.00000  1.69%     -    0s
+     0     0  233.00000    0   37  237.00000  233.00000  1.69%     -    0s
+*    0     0               0     233.0000000  233.00000  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  Implied bound: 12
+  MIR: 29
+  Flow cover: 11
+
+Explored 0 nodes (1255 simplex iterations) in 0.39 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 2: 233 237 
+Pool objective bound 233
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.329999999999e+02, best bound 2.329999999999e+02, gap 0.0000%
+
+#######################################
+GN: iteration 1 at stage 3
+Added demands: [17, 6, 13, 18, 8, 5, 11, 19, 0, 9]
+Fixed demands: [3, 2, 10, 14, 16, 4, 15, 1, 7, 12]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:20:02
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 44491 rows, 11252 columns and 144743 nonzeros
+Variable types: 3040 continuous, 8212 integer (8206 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 442
+Presolve removed 38074 rows and 9223 columns
+Presolve time: 0.33s
+Presolved: 6417 rows, 2029 columns, 22598 nonzeros
+
+Loaded MIP start with objective 237
+
+Variable types: 819 continuous, 1210 integer (1210 binary)
+Presolve removed 359 rows and 171 columns
+Presolved: 6058 rows, 1858 columns, 21561 nonzeros
+
+
+Root relaxation: objective 2.210000e+02, 305 iterations, 0.05 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  221.00000    0    6  237.00000  221.00000  6.75%     -    0s
+H    0     0                     233.0000000  221.00000  5.15%     -    0s
+H    0     0                     230.0000000  221.00000  3.91%     -    0s
+     0     0  221.00000    0   33  230.00000  221.00000  3.91%     -    0s
+H    0     0                     229.0000000  221.00000  3.49%     -    0s
+     0     0  221.00000    0   35  229.00000  221.00000  3.49%     -    0s
+     0     0  221.00000    0   63  229.00000  221.00000  3.49%     -    0s
+     0     0  221.00000    0   45  229.00000  221.00000  3.49%     -    0s
+     0     0  221.00000    0   39  229.00000  221.00000  3.49%     -    0s
+     0     0  221.00000    0   42  229.00000  221.00000  3.49%     -    0s
+     0     0  221.00000    0   39  229.00000  221.00000  3.49%     -    0s
+     0     0  221.00000    0   38  229.00000  221.00000  3.49%     -    0s
+     0     0  221.00000    0   12  229.00000  221.00000  3.49%     -    1s
+     0     0  221.00000    0    5  229.00000  221.00000  3.49%     -    1s
+     0     0  221.00000    0   25  229.00000  221.00000  3.49%     -    1s
+     0     0  221.00000    0   24  229.00000  221.00000  3.49%     -    1s
+     0     0  221.00000    0   31  229.00000  221.00000  3.49%     -    1s
+     0     0  221.00000    0   29  229.00000  221.00000  3.49%     -    1s
+     0     0  221.00000    0   31  229.00000  221.00000  3.49%     -    1s
+     0     0  221.00000    0   28  229.00000  221.00000  3.49%     -    1s
+     0     0  221.00000    0   43  229.00000  221.00000  3.49%     -    1s
+     0     0  221.00000    0   38  229.00000  221.00000  3.49%     -    1s
+     0     0  221.00000    0    4  229.00000  221.00000  3.49%     -    2s
+     0     2  221.00000    0    4  229.00000  221.00000  3.49%     -    2s
+   440   180  221.02155   10   78  229.00000  221.00000  3.49%  88.1    5s
+H  723   277                     229.0000000  221.00000  3.49%  79.2    6s
+  1165   369  222.00000   21   41  229.00000  221.00000  3.49%  82.3   10s
+H 1325   420                     228.9999920  221.00000  3.49%  78.6   11s
+  1832   552 infeasible   16       228.99999  221.00000  3.49%  84.0   15s
+  2322   709  221.00000    9   12  228.99999  221.00000  3.49%   100   20s
+
+Cutting planes:
+  Learned: 1
+  Cover: 21
+  Implied bound: 14
+  MIR: 41
+  Flow cover: 49
+  Zero half: 1
+
+Explored 2715 nodes (287196 simplex iterations) in 23.90 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 7: 229 229 229 ... 237
+Pool objective bound 229
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.289999920230e+02, best bound 2.289999920230e+02, gap 0.0000%
+
+#######################################
+TR: iteration 2 at stage 3
+Added demands: [3, 17, 13, 5, 16, 18, 0, 19, 2, 9, 1, 14]
+Fixed demands: [6, 10, 8, 7, 12, 11, 4, 15]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:20:26
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 16993 rows, 1874 columns and 76565 nonzeros
+Variable types: 862 continuous, 1012 integer (1006 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 297.5
+Presolve removed 12755 rows and 885 columns
+Presolve time: 0.05s
+Presolved: 4238 rows, 989 columns, 17811 nonzeros
+
+Loaded MIP start with objective 233
+
+Variable types: 527 continuous, 462 integer (461 binary)
+Presolve removed 40 rows and 10 columns
+Presolved: 4198 rows, 979 columns, 17702 nonzeros
+
+
+Root relaxation: objective 2.280000e+02, 289 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  228.00000    0    4  233.00000  228.00000  2.15%     -    0s
+H    0     0                     232.0000000  228.00000  1.72%     -    0s
+     0     0  228.00000    0    8  232.00000  228.00000  1.72%     -    0s
+     0     0  228.00000    0    8  232.00000  228.00000  1.72%     -    0s
+H    0     0                     230.0000000  228.00000  0.87%     -    0s
+     0     0  228.00000    0   10  230.00000  228.00000  0.87%     -    0s
+H    0     0                     229.0000000  228.00000  0.44%     -    0s
+     0     0  228.00000    0   13  229.00000  228.00000  0.44%     -    0s
+     0     0  228.00000    0   14  229.00000  228.00000  0.44%     -    0s
+     0     0  228.00000    0   14  229.00000  228.00000  0.44%     -    0s
+     0     0  228.00000    0   12  229.00000  228.00000  0.44%     -    0s
+     0     0  228.00000    0   11  229.00000  228.00000  0.44%     -    0s
+     0     0  228.00000    0    4  229.00000  228.00000  0.44%     -    0s
+     0     2  228.00000    0    3  229.00000  228.00000  0.44%     -    0s
+H  899   184                     228.9999990  228.00000  0.44%   4.2    0s
+
+Cutting planes:
+  Learned: 1
+  Gomory: 1
+  Cover: 2
+  Implied bound: 4
+  MIR: 3
+  Flow cover: 11
+
+Explored 4714 nodes (19224 simplex iterations) in 4.28 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 7: 229 229 229 ... 233
+Pool objective bound 229
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.289999990230e+02, best bound 2.289999990230e+02, gap 0.0000%
+
+#######################################
+GN: iteration 2 at stage 3
+Added demands: [3, 17, 13, 5, 16, 18, 0, 19, 2, 9, 1, 14]
+Fixed demands: [6, 10, 8, 7, 12, 11, 4, 15]
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 16:20:30
+
+Parameter LogFile unchanged
+   Value: log-prop-14.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 100.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 44491 rows, 11252 columns and 144743 nonzeros
+Variable types: 3040 continuous, 8212 integer (8206 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 376
+Presolve removed 35802 rows and 8627 columns
+Presolve time: 0.42s
+Presolved: 8689 rows, 2625 columns, 30918 nonzeros
+
+Loaded MIP start with objective 229
+
+Variable types: 973 continuous, 1652 integer (1652 binary)
+Presolve removed 424 rows and 202 columns
+Presolved: 8265 rows, 2423 columns, 29720 nonzeros
+
+
+Root relaxation: objective 2.280000e+02, 332 iterations, 0.07 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  228.00000    0   16  229.00000  228.00000  0.44%     -    0s
+     0     0  228.00000    0  217  229.00000  228.00000  0.44%     -    1s
+     0     0  228.00000    0  169  229.00000  228.00000  0.44%     -    2s
+     0     0  228.00000    0  136  229.00000  228.00000  0.44%     -    2s
+     0     0  228.00000    0   90  229.00000  228.00000  0.44%     -    2s
+     0     0  228.00000    0   82  229.00000  228.00000  0.44%     -    2s
+     0     0  228.00000    0   79  229.00000  228.00000  0.44%     -    2s
+     0     0  228.00000    0   61  229.00000  228.00000  0.44%     -    2s
+     0     0  228.00000    0    3  229.00000  228.00000  0.44%     -    3s
+     0     0  228.00000    0    1  229.00000  228.00000  0.44%     -    4s
+     0     0  228.00000    0   17  229.00000  228.00000  0.44%     -    4s
+     0     0  228.00000    0   22  229.00000  228.00000  0.44%     -    4s
+     0     0  228.00000    0   22  229.00000  228.00000  0.44%     -    4s
+     0     0  228.00000    0   17  229.00000  228.00000  0.44%     -    4s
+     0     0  228.00000    0   22  229.00000  228.00000  0.44%     -    4s
+     0     0  228.00000    0   18  229.00000  228.00000  0.44%     -    4s
+     0     0  228.00000    0   19  229.00000  228.00000  0.44%     -    4s
+     0     0  228.00000    0    4  229.00000  228.00000  0.44%     -    4s
+     0     2  228.00000    0    2  229.00000  228.00000  0.44%     -    4s
+    11    12  228.00000    4    8  229.00000  228.00000  0.44%  41.8    5s
+H   38    31                     229.0000000  228.00000  0.44%   116    5s
+   248    44  228.00000    5   13  229.00000  228.00000  0.44%   153   10s
+  1561   167  228.00000   30    4  229.00000  228.00000  0.44%  78.4   15s
+  3915   274 infeasible   21       229.00000  228.00000  0.44%  54.3   20s
+  6087   335  228.00000   33   18  229.00000  228.00000  0.44%  45.8   25s
+  7822   260  228.00000   21   32  229.00000  228.00000  0.44%  41.8   30s
+ 10230   367  228.00000   31    3  229.00000  228.00000  0.44%  37.5   36s
+ 10594   297  228.00000   24   21  229.00000  228.00000  0.44%  39.4   40s
+ 12051    26  228.00000   31    2  229.00000  228.00000  0.44%  41.7   45s
+ 12734    29     cutoff   36       229.00000  228.00000  0.44%  42.2   50s
+ 13370    52  228.00000   36    3  229.00000  228.00000  0.44%  42.4   56s
+ 13827    26  228.00000   38    1  229.00000  228.00000  0.44%  42.4   60s
+ 14288    17  228.00000   47    1  229.00000  228.00000  0.44%  42.4   65s
+
+Cutting planes:
+  Learned: 4
+  Gomory: 5
+  Cover: 12
+  Implied bound: 1
+  Clique: 2
+  MIR: 65
+  Flow cover: 56
+  GUB cover: 5
+  Zero half: 1
+
+Explored 14417 nodes (617867 simplex iterations) in 65.59 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 3: 229 229 229 
+Pool objective bound 229
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 2.289999999770e+02, best bound 2.289999999770e+02, gap 0.0000%
