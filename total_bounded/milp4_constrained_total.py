@@ -38,7 +38,7 @@ timelimit_baseline = 150
 timelimit0 = 20
 time_factor = 1.5
 ##############################################################################
-
+Total_max = 4
 epsilon_c = 1
 
 class Network(object):
@@ -407,6 +407,8 @@ class Network(object):
                             name='nnn_{}'.format(n))
             model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
 
+        model.addConstr(Total<=Total_max)
+
         # objective
         model.setObjective(epsilon_c*c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n]
             for n in self.nodes), GRB.MINIMIZE)
@@ -576,6 +578,8 @@ class Network(object):
         for n in self.nodes:
             model.addConstr(NNN[n]==quicksum(Ire[n, d] for d in demands.id))
             model.addConstr(I[n]*Nmax>=NNN[n])
+
+        model.addConstr(Total<=Total_max)
 
         # objective
         model.setObjective(epsilon_c*c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n]

@@ -23,7 +23,7 @@ miu = 1.705
 
 # objective weight
 Nmax = 10
-epsilon_total = 1
+epsilon_total = 1000
 epsilon_nnn = 0.0
 
 # modelling parameters
@@ -33,12 +33,12 @@ bigM3 = 20000
 
 # scheduler parameters
 n_demands_per_stage = 5
-n_iter_per_stage = 10
-timelimit_baseline = 150
+n_iter_per_stage = 2
+timelimit_baseline = 60
 timelimit0 = 20
 time_factor = 1.5
 ##############################################################################
-
+Total_max = 4
 epsilon_c = 1
 
 class Network(object):
@@ -407,6 +407,8 @@ class Network(object):
                             name='nnn_{}'.format(n))
             model.addConstr(I[n]*Nmax>=NNN[n], name='nmax_{}'.format(n))
 
+        model.addConstr(Total<=Total_max)
+
         # objective
         model.setObjective(epsilon_c*c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n]
             for n in self.nodes), GRB.MINIMIZE)
@@ -576,6 +578,8 @@ class Network(object):
         for n in self.nodes:
             model.addConstr(NNN[n]==quicksum(Ire[n, d] for d in demands.id))
             model.addConstr(I[n]*Nmax>=NNN[n])
+
+        model.addConstr(Total<=Total_max)
 
         # objective
         model.setObjective(epsilon_c*c+epsilon_total*Total+epsilon_nnn*quicksum(NNN[n]
