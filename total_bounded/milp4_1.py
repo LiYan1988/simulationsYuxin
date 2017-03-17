@@ -850,8 +850,11 @@ class Network(object):
             if previous is None:
                 n_added = np.random.randint(1, max_added+1)
             elif previous['better']:
-                n_added = np.random.randint(max(1, previous['n_added']),
-                    min(n_demands_all, previous['n_added']+3))
+                lb = min(max(1, previous['n_added']),
+                         min(n_demands_all, previous['n_added']+3))
+                ub = max(max(1, previous['n_added']),
+                         min(n_demands_all, previous['n_added']+3))
+                n_added = np.random.randint(lb, ub)
             else:
                 n_added = np.random.randint(previous['n_added']-2,
                     previous['n_added']+1)

@@ -18,7 +18,7 @@ M=N-1
 #total_time = []
 #for i in range(0, N):
 #    try:
-#        sn, iteration_history = read_data('br_{}.pkl'.format(i))
+#        sn, iteration_history = read_data('qr_{}.pkl'.format(i))
 #    except:
 #        pass
 #    print('Total time for simulation {}: {}'.format(i, sn.total_runtime/3600))
@@ -45,7 +45,7 @@ nnngn = {}
 demands_solved = {}
 stage_end = {}
 
-demands_file = 'br_0.csv'
+demands_file = 'qr_0.csv'
 demands = pd.read_csv(demands_file)
 n_demands = demands.shape[0]
 n_stages = int(np.ceil(n_demands/n_demands_per_stage))
@@ -55,7 +55,7 @@ n_demands_in_stage = [n_demands_initial+idx_stage*n_demands_per_stage
 
 for i in range(0, N):
     try:
-        sn, iteration_history = read_data('br_{}.pkl'.format(i))
+        sn, iteration_history = read_data('qr_{}.pkl'.format(i))
         print('Total time for simulation {}: {}'.format(i, sn.total_runtime/3600))
         total_time.append(sn.total_runtime/3600)
     except:
@@ -121,9 +121,6 @@ cgn = np.array(cgn)
 ttr = np.array(ttr)
 tgn = np.array(tgn)
 
-nnntr = np.array([nnntr[i] for i in nnntr.keys()]).mean(axis=0)
-nnngn = np.array([nnngn[i] for i in nnngn.keys()]).mean(axis=0)
-
 plt.figure(1)
 h1, = plt.plot(ctr, label='TR spectrum', color=colors[0], linestyle='-.')
 h2, = plt.plot(cgn, label='GN spectrum', color=colors[1], linestyle='--')
@@ -138,6 +135,9 @@ plt.figure(3)
 h1, = plt.plot(ctr+ttr, label='TR Obj', color=colors[0], linestyle='-.')
 h2, = plt.plot(cgn+tgn, label='GN Obj', color=colors[1], linestyle='--')
 plt.legend(handles=[h1, h2])
+
+nnntr = np.array([nnntr[i] for i in nnntr.keys()]).mean(axis=0)
+nnngn = np.array([nnngn[i] for i in nnngn.keys()]).mean(axis=0)
 
 plt.figure(4)
 h1, = plt.plot(nnntr, label='TR NNN', color=colors[0], linestyle='-.')
