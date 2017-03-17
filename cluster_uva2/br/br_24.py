@@ -10,7 +10,7 @@ This is a template of python files for simulation algorithem on Rivanna
 from milp4 import *
 seed = 314460
 np.random.seed(seed)
-kwargs = {'logfile': 'br_24.log', 'mipgap': 0.001, 'miphint': True, 'threads': 4, 'mipfocus': 1, 'presolve': 2}
+kwargs = {'presolve': 2, 'mipfocus': 1, 'mipgap': 0.001, 'miphint': True, 'threads': 4, 'logfile': 'br_24.log'}
 
 batch_id = 24
 network_cost = pd.read_csv('nsf-24nodes.csv', header=None, index_col=None)

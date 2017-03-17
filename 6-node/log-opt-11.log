@@ -1,0 +1,1078 @@
+
+#######################################
+TR: iteration 0 at stage 0
+Added demands: [0, 1, 2, 3, 4]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 23:56:17
+
+Changed value of parameter LogFile to log-opt-11.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 300.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 1483 rows, 404 columns and 5504 nonzeros
+Variable types: 217 continuous, 187 integer (181 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 93
+Presolve removed 890 rows and 206 columns
+Presolve time: 0.02s
+Presolved: 593 rows, 198 columns, 2405 nonzeros
+Variable types: 110 continuous, 88 integer (88 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 93 
+Pool objective bound 93
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 9.300000000000e+01, best bound 9.300000000000e+01, gap 0.0000%
+
+#######################################
+GN: iteration 0 at stage 0
+Added demands: [0, 1, 2, 3, 4]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 23:56:17
+
+Changed value of parameter LogFile to log-opt-11.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 300.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 4321 rows, 1412 columns and 11762 nonzeros
+Variable types: 775 continuous, 637 integer (631 binary)
+Coefficient statistics:
+  Matrix range     [7e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 93
+Presolve removed 2972 rows and 920 columns
+Presolve time: 0.05s
+Presolved: 1349 rows, 492 columns, 4653 nonzeros
+Variable types: 254 continuous, 238 integer (238 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.06 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 93 
+Pool objective bound 93
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 9.300000000000e+01, best bound 9.300000000000e+01, gap 0.0000%
+
+#######################################
+TR: iteration 0 at stage 1
+Added demands: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 23:56:19
+
+Changed value of parameter LogFile to log-opt-11.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 300.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 4803 rows, 844 columns and 20089 nonzeros
+Variable types: 432 continuous, 412 integer (406 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 203.5
+Presolve removed 2734 rows and 402 columns
+Presolve time: 0.02s
+Presolved: 2069 rows, 442 columns, 9165 nonzeros
+Variable types: 232 continuous, 210 integer (210 binary)
+Presolve removed 14 rows and 0 columns
+Presolved: 2055 rows, 446 columns, 9106 nonzeros
+
+
+Root relaxation: objective 9.800000e+01, 65 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   98.00000    0    3  203.50000   98.00000  51.8%     -    0s
+H    0     0                     198.5000000   98.00000  50.6%     -    0s
+H    0     0                     173.5000000   98.00000  43.5%     -    0s
+     0     0   98.00000    0   11  173.50000   98.00000  43.5%     -    0s
+     0     0   98.00000    0   13  173.50000   98.00000  43.5%     -    0s
+     0     0   98.00000    0   20  173.50000   98.00000  43.5%     -    0s
+     0     0   98.00000    0   20  173.50000   98.00000  43.5%     -    0s
+     0     0   98.00000    0   18  173.50000   98.00000  43.5%     -    0s
+     0     0   98.00000    0   18  173.50000   98.00000  43.5%     -    0s
+     0     0   98.00000    0   23  173.50000   98.00000  43.5%     -    0s
+     0     0   98.00000    0   23  173.50000   98.00000  43.5%     -    0s
+     0     0   98.00000    0    3  173.50000   98.00000  43.5%     -    0s
+     0     2   98.00000    0    3  173.50000   98.00000  43.5%     -    0s
+  4198   449   98.00000   21    9  173.50000   98.00000  43.5%   4.4    5s
+H 6113   498                     173.4999449   98.00000  43.5%   4.2    7s
+
+Cutting planes:
+  Learned: 4
+  Gomory: 4
+  MIR: 8
+  Flow cover: 14
+
+Explored 6224 nodes (29611 simplex iterations) in 7.83 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 4: 173.5 173.5 198.5 203.5 
+Pool objective bound 173.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.734999449378e+02, best bound 1.734999449378e+02, gap 0.0000%
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 23:56:27
+
+Parameter LogFile unchanged
+   Value: log-opt-11.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 300.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 4803 rows, 844 columns and 20089 nonzeros
+Variable types: 432 continuous, 412 integer (406 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 2069 rows, 442 columns, 9165 nonzeros
+
+Continuing optimization...
+
+
+Cutting planes:
+  Learned: 4
+  Gomory: 4
+  MIR: 8
+  Flow cover: 14
+
+Explored 6224 nodes (29611 simplex iterations) in 0.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 4: 173.5 173.5 198.5 203.5 
+Pool objective bound 173.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.734999449378e+02, best bound 1.734999449378e+02, gap 0.0000%
+
+#######################################
+GN: iteration 0 at stage 1
+Added demands: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 23:56:27
+
+Changed value of parameter LogFile to log-opt-11.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 300.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 13161 rows, 3742 columns and 39787 nonzeros
+Variable types: 1530 continuous, 2212 integer (2206 binary)
+Coefficient statistics:
+  Matrix range     [7e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 8240 rows and 2233 columns
+Presolve time: 0.20s
+Presolved: 4921 rows, 1509 columns, 17566 nonzeros
+Variable types: 575 continuous, 934 integer (934 binary)
+Found heuristic solution: objective 635.0000000
+Presolve removed 332 rows and 160 columns
+Presolved: 4589 rows, 1349 columns, 16715 nonzeros
+
+
+Root relaxation: objective 9.800000e+01, 172 iterations, 0.03 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   98.00000    0    4  635.00000   98.00000  84.6%     -    0s
+H    0     0                     250.0000000   98.00000  60.8%     -    0s
+H    0     0                     203.5000000   98.00000  51.8%     -    0s
+     0     0   98.00000    0   20  203.50000   98.00000  51.8%     -    0s
+H    0     0                     201.5000000   98.00000  51.4%     -    0s
+H    0     0                     196.5000000   98.00000  50.1%     -    0s
+     0     0   98.00000    0   20  196.50000   98.00000  50.1%     -    0s
+     0     0   98.00000    0   21  196.50000   98.00000  50.1%     -    0s
+     0     0   98.00000    0   20  196.50000   98.00000  50.1%     -    0s
+     0     0   98.00000    0   41  196.50000   98.00000  50.1%     -    0s
+H    0     0                     179.5000000   98.00000  45.4%     -    0s
+     0     0   98.00000    0   32  179.50000   98.00000  45.4%     -    0s
+     0     0   98.00000    0   31  179.50000   98.00000  45.4%     -    0s
+H    0     0                     175.5000000   98.00000  44.2%     -    0s
+     0     0   98.00000    0   32  175.50000   98.00000  44.2%     -    0s
+     0     0   98.00000    0    3  175.50000   98.00000  44.2%     -    0s
+     0     2   98.00000    0    3  175.50000   98.00000  44.2%     -    0s
+H   92    60                     173.5000000   98.00000  43.5%  28.3    1s
+
+Cutting planes:
+  Gomory: 2
+  Implied bound: 19
+  MIR: 30
+  Flow cover: 10
+  Zero half: 1
+
+Explored 1783 nodes (42670 simplex iterations) in 2.86 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 8: 173.5 175.5 179.5 ... 635
+Pool objective bound 173.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.735000000000e+02, best bound 1.735000000000e+02, gap 0.0000%
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 23:56:29
+
+Parameter LogFile unchanged
+   Value: log-opt-11.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 300.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 13161 rows, 3742 columns and 39787 nonzeros
+Variable types: 1530 continuous, 2212 integer (2206 binary)
+Coefficient statistics:
+  Matrix range     [7e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 4921 rows, 1509 columns, 17566 nonzeros
+
+Continuing optimization...
+
+
+Cutting planes:
+  Gomory: 2
+  Implied bound: 19
+  MIR: 30
+  Flow cover: 10
+  Zero half: 1
+
+Explored 1783 nodes (42670 simplex iterations) in 0.03 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 8: 173.5 175.5 179.5 ... 635
+Pool objective bound 173.5
+
+Optimal solution found (tolerance 1.00e-03)
+Best objective 1.735000000000e+02, best bound 1.735000000000e+02, gap 0.0000%
+
+#######################################
+TR: iteration 0 at stage 2
+Added demands: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/16/17 23:56:33
+
+Changed value of parameter LogFile to log-opt-11.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 300.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 9973 rows, 1334 columns and 43774 nonzeros
+Variable types: 647 continuous, 687 integer (681 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Found heuristic solution: objective 371.5
+Presolve removed 5860 rows and 659 columns
+Presolve time: 0.05s
+Presolved: 4113 rows, 675 columns, 18859 nonzeros
+Variable types: 333 continuous, 342 integer (342 binary)
+Presolve removed 0 rows and 15 columns
+Presolved: 675 rows, 4773 columns, 19464 nonzeros
+
+Presolve removed 675 rows and 4773 columns
+
+Root relaxation: objective 9.800000e+01, 2431 iterations, 0.13 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   98.00000    0   22  371.50000   98.00000  73.6%     -    0s
+H    0     0                     351.5000000   98.00000  72.1%     -    0s
+H    0     0                     275.0000000   98.00000  64.4%     -    0s
+H    0     0                     269.0000000   98.00000  63.6%     -    0s
+     0     0   98.00000    0   46  269.00000   98.00000  63.6%     -    0s
+H    0     0                     261.0000000   98.00000  62.5%     -    0s
+     0     0   98.00000    0   43  261.00000   98.00000  62.5%     -    0s
+H    0     0                     259.0000000   98.00000  62.2%     -    0s
+     0     0   98.00000    0   39  259.00000   98.00000  62.2%     -    0s
+H    0     0                     255.0000000   98.00000  61.6%     -    0s
+     0     0   98.00000    0   41  255.00000   98.00000  61.6%     -    0s
+     0     0   98.00000    0   51  255.00000   98.00000  61.6%     -    0s
+     0     0   98.00000    0   41  255.00000   98.00000  61.6%     -    0s
+     0     0   98.00000    0   47  255.00000   98.00000  61.6%     -    0s
+H    0     0                     237.0000000   98.00000  58.6%     -    0s
+     0     0   98.00000    0   20  237.00000   98.00000  58.6%     -    0s
+H    0     0                     236.0000000   98.00000  58.5%     -    0s
+     0     2   98.00000    0   20  236.00000   98.00000  58.5%     -    0s
+H  741   357                     236.0000000   98.00000  58.5%   6.1    1s
+  2847   871   98.00000   37   29  236.00000   98.00000  58.5%   5.2    5s
+  4204  1079  165.50000   20   24  236.00000   98.00000  58.5%   8.1   10s
+  6495  1220   98.00000   20   40  236.00000   98.00000  58.5%   9.3   15s
+ 10144  2293  198.50000   33   16  236.00000  151.50000  35.8%   9.5   20s
+ 18672  4396 infeasible   35       236.00000  163.50000  30.7%   9.3   25s
+ 27633  5844  173.50000   31   15  236.00000  170.50000  27.8%   8.9   30s
+ 36833  6796 infeasible   33       236.00000  179.50000  23.9%   8.8   35s
+ 44587  6990  203.50000   30   10  236.00000  184.50000  21.8%   8.8   40s
+ 54130  7767  205.50000   29    7  236.00000  184.50000  21.8%   8.5   45s
+ 63113  8265  193.45598   30   15  236.00000  184.50000  21.8%   8.3   50s
+ 68384  8340  201.50000   45   26  236.00000  184.50000  21.8%   8.5   55s
+ 74460  7790  201.50000   43    6  236.00000  184.50000  21.8%   8.7   60s
+ 81274  7000  184.50000   34   24  236.00000  184.50000  21.8%   8.7   65s
+ 89129  6531 infeasible   43       236.00000  184.50000  21.8%   8.8   70s
+ 96833  7523  203.50000   33   31  236.00000  184.50000  21.8%   8.8   75s
+ 103688  8021 infeasible   43       236.00000  184.50000  21.8%   8.8   80s
+ 110570  8655  190.50000   48    8  236.00000  184.50000  21.8%   8.8   85s
+ 118303  9053 infeasible   42       236.00000  184.50000  21.8%   8.9   90s
+ 126108  9734  205.50000   43   16  236.00000  184.50000  21.8%   8.9   95s
+ 133847  9805  190.50000   47    7  236.00000  186.50000  21.0%   8.9  100s
+ 141058  9874  188.50000   39    9  236.00000  188.50000  20.1%   9.0  105s
+ 148810 10000  188.50000   48   25  236.00000  188.50000  20.1%   9.0  110s
+ 155913 10322 infeasible   51       236.00000  188.50000  20.1%   9.0  115s
+ 162710 10668 infeasible   48       236.00000  188.50000  20.1%   9.0  120s
+ 169947 10784  188.50000   55    9  236.00000  188.50000  20.1%   9.0  125s
+ 176959 10455 infeasible   47       236.00000  190.50000  19.3%   9.0  130s
+ 184248 10538 infeasible   42       236.00000  190.50000  19.3%   9.1  135s
+ 193077 11126  192.50000   46   19  236.00000  190.50000  19.3%   9.0  140s
+ 201134 11405  190.50000   46   18  236.00000  190.50000  19.3%   9.1  145s
+ 208572 11538 infeasible   53       236.00000  190.50000  19.3%   9.1  150s
+ 216050 11750  190.50000   44   22  236.00000  190.50000  19.3%   9.0  155s
+ 223277 11612  191.50000   46   15  236.00000  191.50000  18.9%   9.1  160s
+ 230470 12011 infeasible   43       236.00000  192.50000  18.4%   9.2  165s
+ 237081 12641  192.50000   47   25  236.00000  192.50000  18.4%   9.2  170s
+ 244277 13257 infeasible   49       236.00000  192.50000  18.4%   9.2  175s
+ 250481 13828 infeasible   35       236.00000  192.50000  18.4%   9.3  180s
+ 256934 14405  201.50000   43    6  236.00000  192.50000  18.4%   9.3  185s
+ 264303 14969 infeasible   45       236.00000  192.50000  18.4%   9.3  190s
+ 271290 15151  192.50000   46   15  236.00000  192.50000  18.4%   9.4  195s
+ 278320 15673 infeasible   43       236.00000  192.50000  18.4%   9.4  200s
+ 285025 16053  201.50000   43   17  236.00000  192.50000  18.4%   9.5  205s
+ 291366 16402  203.50000   51    7  236.00000  192.50000  18.4%   9.5  210s
+ 299056 16822  192.50000   52   19  236.00000  192.50000  18.4%   9.5  215s
+ 306670 17025  192.50000   52   12  236.00000  192.50000  18.4%   9.4  220s
+ 314030 17423  198.50000   51   18  236.00000  192.50000  18.4%   9.4  225s
+ 320416 17770  198.50000   44   36  236.00000  192.50000  18.4%   9.4  230s
+ 327881 18231  192.50000   38   40  236.00000  192.50000  18.4%   9.3  235s
+ 335736 18280 infeasible   45       236.00000  193.50000  18.0%   9.3  240s
+ 343631 18119  193.50000   41   16  236.00000  193.50000  18.0%   9.4  245s
+ 351771 18047  200.50000   46    6  236.00000  193.50000  18.0%   9.4  250s
+ 359558 18204  193.50000   42   13  236.00000  193.50000  18.0%   9.4  255s
+ 368160 18288  193.50000   50   13  236.00000  193.50000  18.0%   9.4  260s
+ 375294 18306  193.50000   47    7  236.00000  193.50000  18.0%   9.4  265s
+ 383590 18410 infeasible   48       236.00000  193.50000  18.0%   9.4  270s
+ 391030 18663 infeasible   50       236.00000  193.50000  18.0%   9.4  275s
+ 398261 18809  227.00000   49    7  236.00000  195.50000  17.2%   9.5  280s
+ 404538 18931  195.50000   44   16  236.00000  195.50000  17.2%   9.6  285s
+ 411144 18583 infeasible   48       236.00000  196.50000  16.7%   9.6  290s
+ 418228 18193 infeasible   46       236.00000  196.50000  16.7%   9.6  295s
+ 425334 18122  196.50000   41   23  236.00000  196.50000  16.7%   9.6  300s
+
+Cutting planes:
+  Gomory: 19
+  Cover: 10
+  Implied bound: 1
+  MIR: 133
+  Flow cover: 203
+  Inf proof: 1
+
+Explored 425348 nodes (4098629 simplex iterations) in 300.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 236 236 237 ... 371.5
+Pool objective bound 196.5
+
+Time limit reached
+Best objective 2.359999999763e+02, best bound 1.965000000000e+02, gap 16.7373%
+
+Gurobi 7.0.2 (win64) logging started 03/17/17 00:01:33
+
+Parameter LogFile unchanged
+   Value: log-opt-11.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 300.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 9973 rows, 1334 columns and 43774 nonzeros
+Variable types: 647 continuous, 687 integer (681 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 4113 rows, 675 columns, 18859 nonzeros
+
+Continuing optimization...
+
+ 425348 18130  196.50000   46   23  236.00000  196.50000  16.7%   9.6  300s
+ 431691 17860 infeasible   37       236.00000  196.50000  16.7%   9.6  305s
+ 438633 17803 infeasible   44       236.00000  196.50000  16.7%   9.6  310s
+ 446687 17530  198.50000   44    7  236.00000  198.50000  15.9%   9.6  315s
+ 453700 16907  198.50000   46   10  236.00000  198.50000  15.9%   9.6  320s
+ 460792 16402 infeasible   48       236.00000  198.50000  15.9%   9.6  325s
+ 467268 16113 infeasible   53       236.00000  198.50000  15.9%   9.6  330s
+ 473421 15792 infeasible   43       236.00000  198.50000  15.9%   9.7  335s
+ 480158 15676 infeasible   56       236.00000  198.50000  15.9%   9.7  340s
+ 487461 15643 infeasible   44       236.00000  198.50000  15.9%   9.7  345s
+ 493717 15641 infeasible   43       236.00000  198.50000  15.9%   9.7  350s
+ 500774 15231 infeasible   49       236.00000  200.50000  15.0%   9.7  355s
+ 507010 14755  200.50000   58    8  236.00000  200.50000  15.0%   9.7  360s
+ 513611 14466 infeasible   46       236.00000  200.50000  15.0%   9.8  365s
+ 519969 14239 infeasible   58       236.00000  200.50000  15.0%   9.8  370s
+ 526256 14081  200.50000   53   23  236.00000  200.50000  15.0%   9.8  375s
+ 533497 13759  200.50000   46   35  236.00000  200.50000  15.0%   9.8  380s
+ 539741 13528  201.50000   45    7  236.00000  200.50000  15.0%   9.8  385s
+ 546032 13452 infeasible   52       236.00000  200.50000  15.0%   9.8  390s
+ 553297 13517 infeasible   46       236.00000  201.50000  14.6%   9.8  395s
+ 560654 13455  201.50000   44    5  236.00000  201.50000  14.6%   9.9  400s
+ 567558 13057 infeasible   48       236.00000  201.50000  14.6%   9.9  405s
+ 574416 12750 infeasible   48       236.00000  201.50000  14.6%   9.9  410s
+ 580941 12478  203.50000   47    7  236.00000  201.50000  14.6%   9.9  415s
+ 587048 12390  201.50000   43    9  236.00000  201.50000  14.6%   9.9  420s
+ 594386 12132  201.50000   51    5  236.00000  201.50000  14.6%   9.9  425s
+ 600666 11873  201.50000   46   11  236.00000  201.50000  14.6%   9.9  430s
+ 607152 11639 infeasible   50       236.00000  201.50000  14.6%   9.9  435s
+ 615131 11271  201.50000   47    9  236.00000  201.50000  14.6%   9.9  440s
+ 622049 10964  201.50000   44    7  236.00000  201.50000  14.6%   9.9  445s
+ 628918 10666 infeasible   48       236.00000  201.50000  14.6%   9.9  450s
+ 635608 10484  201.50000   48   18  236.00000  201.50000  14.6%   9.9  455s
+ 642034 10389 infeasible   49       236.00000  201.50000  14.6%   9.9  460s
+ 649944 10490 infeasible   49       236.00000  203.50000  13.8%   9.9  465s
+ 657257 10459     cutoff   46       236.00000  203.50000  13.8%   9.9  470s
+ 663682 10296  203.50000   52   10  236.00000  203.50000  13.8%  10.0  475s
+ 670961 10006  203.50000   44    7  236.00000  203.50000  13.8%  10.0  480s
+ 677175  9761 infeasible   55       236.00000  203.50000  13.8%  10.0  485s
+ 684621  9564  203.50000   37   14  236.00000  203.50000  13.8%  10.0  490s
+ 690770  9325 infeasible   50       236.00000  203.50000  13.8%  10.0  495s
+ 698557  9076  203.50000   48    9  236.00000  203.50000  13.8%  10.0  500s
+ 705745  8627  203.50000   45    7  236.00000  203.50000  13.8%  10.0  505s
+ 712626  8345 infeasible   49       236.00000  203.50000  13.8%  10.0  510s
+ 719252  8155  203.50000   54   12  236.00000  203.50000  13.8%  10.1  515s
+ 726270  7995 infeasible   37       236.00000  203.50000  13.8%  10.1  520s
+ 733549  7778  203.50000   48    9  236.00000  203.50000  13.8%  10.1  525s
+ 740635  7496 infeasible   47       236.00000  203.50000  13.8%  10.1  530s
+ 748086  7241  203.50000   48    9  236.00000  203.50000  13.8%  10.1  535s
+ 754555  7211  203.50000   48   14  236.00000  203.50000  13.8%  10.1  540s
+ 761744  6990 infeasible   46       236.00000  203.50000  13.8%  10.1  545s
+ 768513  6879  203.50000   40   22  236.00000  203.50000  13.8%  10.1  550s
+ 775984  6798  203.50000   45   13  236.00000  203.50000  13.8%  10.1  555s
+ 783285  6644  203.50000   48    8  236.00000  203.50000  13.8%  10.1  560s
+ 789613  6487 infeasible   49       236.00000  203.50000  13.8%  10.1  565s
+ 797115  6319  203.50000   49    4  236.00000  203.50000  13.8%  10.1  570s
+ 804133  6207 infeasible   50       236.00000  203.50000  13.8%  10.1  575s
+ 811045  6163 infeasible   51       236.00000  203.50000  13.8%  10.1  580s
+ 817884  6046  203.50000   49   21  236.00000  203.50000  13.8%  10.1  585s
+ 824925  5975  203.50000   55   10  236.00000  203.50000  13.8%  10.1  590s
+ 831902  5903  203.50000   48   14  236.00000  203.50000  13.8%  10.1  595s
+ 839143  5911 infeasible   45       236.00000  203.50000  13.8%  10.1  600s
+
+Cutting planes:
+  Gomory: 19
+  Cover: 11
+  Implied bound: 1
+  MIR: 146
+  Flow cover: 215
+  Inf proof: 1
+
+Explored 839165 nodes (8501407 simplex iterations) in 300.02 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 236 236 237 ... 371.5
+Pool objective bound 203.5
+
+Time limit reached
+Best objective 2.359999999763e+02, best bound 2.035000000000e+02, gap 13.7712%
+
+#######################################
+GN: iteration 0 at stage 2
+Added demands: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/17/17 00:06:33
+
+Changed value of parameter LogFile to log-opt-11.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 300.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 26551 rows, 7022 columns and 84112 nonzeros
+Variable types: 2285 continuous, 4737 integer (4731 binary)
+Coefficient statistics:
+  Matrix range     [7e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 16616 rows and 4235 columns
+Presolve time: 0.55s
+Presolved: 9935 rows, 2787 columns, 36167 nonzeros
+Variable types: 835 continuous, 1952 integer (1952 binary)
+Found heuristic solution: objective 1023.0000000
+Found heuristic solution: objective 924.5000000
+Presolve removed 481 rows and 226 columns
+Presolved: 9454 rows, 2561 columns, 34911 nonzeros
+
+
+Root relaxation: objective 9.800000e+01, 355 iterations, 0.08 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   98.00000    0   21  924.50000   98.00000  89.4%     -    0s
+H    0     0                     376.5000000   98.00000  74.0%     -    0s
+H    0     0                     366.5000000   98.00000  73.3%     -    0s
+     0     0   98.00000    0   84  366.50000   98.00000  73.3%     -    1s
+H    0     0                     299.0000000   98.00000  67.2%     -    1s
+H    0     0                     292.0000000   98.00000  66.4%     -    1s
+     0     0   98.00000    0   74  292.00000   98.00000  66.4%     -    1s
+H    0     0                     271.0000000   98.00000  63.8%     -    1s
+     0     0   98.00000    0   98  271.00000   98.00000  63.8%     -    1s
+     0     0   98.00000    0   78  271.00000   98.00000  63.8%     -    1s
+     0     0   98.00000    0   91  271.00000   98.00000  63.8%     -    1s
+H    0     0                     267.0000000   98.00000  63.3%     -    1s
+H    0     0                     264.0000000   98.00000  62.9%     -    1s
+     0     0   98.00000    0   63  264.00000   98.00000  62.9%     -    1s
+     0     0   98.00000    0   95  264.00000   98.00000  62.9%     -    1s
+     0     0   98.00000    0   67  264.00000   98.00000  62.9%     -    1s
+H    0     0                     263.0000000   98.00000  62.7%     -    1s
+     0     0   98.00000    0   48  263.00000   98.00000  62.7%     -    2s
+H    0     2                     255.0000000   98.00000  61.6%     -    2s
+H    0     2                     247.0000000   98.00000  60.3%     -    2s
+     0     2   98.00000    0   19  247.00000   98.00000  60.3%     -    2s
+H   33    22                     236.0000000   98.00000  58.5%  86.2    2s
+H   93    66                     236.0000000   98.00000  58.5%  45.7    3s
+   799   296   98.00000   36   40  236.00000   98.00000  58.5%  16.4    5s
+  1857   441 infeasible   32       236.00000   98.00000  58.5%  12.3   10s
+  2374   438 infeasible   45       236.00000   98.00000  58.5%  11.5   15s
+  2833   549   98.00000   41   29  236.00000   98.00000  58.5%  12.5   20s
+  3655   690   98.00000   32   32  236.00000   98.00000  58.5%  12.5   25s
+  4430   861   98.00000   33   76  236.00000   98.00000  58.5%  12.5   30s
+  4450   874 infeasible   20       236.00000   98.00000  58.5%  18.3   37s
+  4623   911  200.50000   42    4  236.00000   98.00000  58.5%  20.5   40s
+  5038   980 infeasible   39       236.00000   98.00000  58.5%  23.5   45s
+  5533   994 infeasible   44       236.00000   98.00000  58.5%  25.3   50s
+  5906  1001   98.00000   23  108  236.00000   98.00000  58.5%  29.1   55s
+  6196  1049  198.50000   47   22  236.00000   98.00000  58.5%  30.0   60s
+  6619  1062  188.50000   37   70  236.00000   98.00000  58.5%  30.9   65s
+  6935  1042 infeasible   42       236.00000   98.00000  58.5%  32.1   70s
+  7467  1168  165.50000   34   87  236.00000   98.00000  58.5%  32.9   75s
+  8220  1448  180.50000   40   46  236.00000   98.00000  58.5%  33.7   80s
+  8933  1673  180.50000   44   37  236.00000   98.00000  58.5%  35.4   86s
+  9528  1915  163.50000   35   67  236.00000   98.00000  58.5%  36.0   90s
+H 9649  1966                     235.9999996   98.00000  58.5%  36.2   90s
+ 10655  2372  192.50000   43   32  236.00000   98.00000  58.5%  37.0   95s
+ 11925  2800  200.50000   40   28  236.00000   98.00000  58.5%  38.2  102s
+ 12402  2943  200.50000   37   46  236.00000   98.00000  58.5%  38.6  105s
+ 13340  3266  200.50000   43    9  236.00000   98.00000  58.5%  39.3  110s
+ 14708  3739  200.50000   44   11  236.00000   98.00000  58.5%  40.0  116s
+ 15788  4163  196.50000   44  170  236.00000   98.00000  58.5%  40.5  122s
+ 16216  4321  196.50000   51   52  236.00000   98.00000  58.5%  40.8  125s
+ 16902  4556 infeasible   44       236.00000   98.00000  58.5%  41.8  130s
+ 17875  4869  200.50000   37   72  236.00000   98.00000  58.5%  42.4  136s
+ 18766  5110 infeasible   48       236.00000   98.00000  58.5%  42.2  142s
+ 19315  5284 infeasible   46       236.00000   98.00000  58.5%  42.1  145s
+ 20071  5552 infeasible   38       236.00000   98.00000  58.5%  42.0  150s
+ 21118  5892 infeasible   44       236.00000   98.00000  58.5%  42.1  156s
+ 22258  6192  190.50000   31   29  236.00000  129.54596  45.1%  42.1  160s
+ 24042  6682  196.50000   36   73  236.00000  140.50000  40.5%  41.6  165s
+ 25797  7100  140.50000   38   80  236.00000  140.50000  40.5%  41.4  170s
+ 27868  7612  181.50000   49   39  236.00000  140.50000  40.5%  41.3  176s
+ 29140  7894 infeasible   46       236.00000  140.50000  40.5%  41.2  180s
+ 30990  8309  200.50000   44   33  236.00000  144.50000  38.8%  40.9  185s
+ 32481  8620  198.50000   43   33  236.00000  145.50000  38.3%  40.6  190s
+ 34109  8966  201.50000   42   28  236.00000  145.50000  38.3%  40.6  195s
+ 35862  9310  177.50000   44   25  236.00000  151.50000  35.8%  40.3  200s
+ 38202  9690  198.50000   50   25  236.00000  153.50000  35.0%  40.0  206s
+ 39934 10071 infeasible   42       236.00000  153.50000  35.0%  40.0  210s
+ 41893 10525  163.50000   30   43  236.00000  153.50000  35.0%  39.6  215s
+ 43981 10968 infeasible   37       236.00000  153.50000  35.0%  39.4  220s
+ 45717 11321 infeasible   52       236.00000  153.50000  35.0%  39.3  226s
+ 47476 11748  161.50000   31   13  236.00000  153.50000  35.0%  39.3  231s
+ 49189 12228  196.50000   35   12  236.00000  155.50000  34.1%  39.3  236s
+ 50709 12587 infeasible   44       236.00000  155.50000  34.1%  39.2  240s
+ 52016 12872  170.50000   39   35  236.00000  155.50000  34.1%  39.4  246s
+ 53504 13190  198.50000   36   45  236.00000  155.50000  34.1%  39.4  250s
+ 55194 13567 infeasible   39       236.00000  155.50000  34.1%  39.7  256s
+ 56755 13935  170.50000   34   34  236.00000  155.50000  34.1%  39.6  260s
+ 58292 14321 infeasible   46       236.00000  155.50000  34.1%  39.6  265s
+ 59372 14651 infeasible   43       236.00000  155.50000  34.1%  39.7  271s
+ 60913 15097  200.50000   45   35  236.00000  155.50000  34.1%  39.7  275s
+ 62459 15482 infeasible   47       236.00000  155.50000  34.1%  39.6  280s
+ 64190 15897  190.50000   36   16  236.00000  155.50000  34.1%  39.5  285s
+ 65906 16170  200.50000   40   11  236.00000  155.50000  34.1%  39.4  290s
+ 68380 16686  170.50000   44   32  236.00000  155.50000  34.1%  39.1  295s
+ 70375 17239 infeasible   50       236.00000  155.50000  34.1%  39.0  300s
+
+Cutting planes:
+  Gomory: 16
+  Cover: 12
+  Implied bound: 17
+  MIR: 215
+  Flow cover: 189
+  GUB cover: 4
+  Zero half: 34
+
+Explored 70396 nodes (2747721 simplex iterations) in 300.04 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 236 236 236 ... 292
+Pool objective bound 155.5
+
+Time limit reached
+Best objective 2.359999995975e+02, best bound 1.555000000000e+02, gap 34.1102%
+
+Gurobi 7.0.2 (win64) logging started 03/17/17 00:11:33
+
+Parameter LogFile unchanged
+   Value: log-opt-11.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 300.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 26551 rows, 7022 columns and 84112 nonzeros
+Variable types: 2285 continuous, 4737 integer (4731 binary)
+Coefficient statistics:
+  Matrix range     [7e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 9935 rows, 2787 columns, 36167 nonzeros
+
+Continuing optimization...
+
+ 70396 17204 infeasible   39       236.00000  155.50000  34.1%  39.0  302s
+ 72142 17727  198.50000   36   31  236.00000  155.50000  34.1%  38.8  305s
+ 74018 18208  186.50000   33   83  236.00000  155.50000  34.1%  38.7  310s
+ 75806 18605  173.50000   42   40  236.00000  155.50000  34.1%  38.7  315s
+ 77446 18925  155.50000   31   77  236.00000  155.50000  34.1%  38.6  321s
+ 79001 19215 infeasible   30       236.00000  155.50000  34.1%  38.5  325s
+ 80841 19650 infeasible   47       236.00000  155.50000  34.1%  38.5  330s
+ 82660 20038 infeasible   36       236.00000  155.50000  34.1%  38.5  335s
+ 84593 20397 infeasible   38       236.00000  155.50000  34.1%  38.5  341s
+ 86086 20644 infeasible   39       236.00000  155.50000  34.1%  38.5  345s
+ 88035 20888     cutoff   42       236.00000  155.50000  34.1%  38.4  350s
+ 89819 21359 infeasible   36       236.00000  155.50000  34.1%  38.4  355s
+ 91482 21772  198.50000   32   21  236.00000  155.50000  34.1%  38.5  360s
+ 92929 22103 infeasible   39       236.00000  155.50000  34.1%  38.6  365s
+ 94675 22445  177.50000   41   26  236.00000  155.50000  34.1%  38.5  370s
+ 96751 22826  198.50000   44   24  236.00000  155.50000  34.1%  38.4  375s
+ 98959 23445 infeasible   50       236.00000  155.50000  34.1%  38.2  380s
+ 101113 24003  190.50000   42   21  236.00000  155.50000  34.1%  38.0  385s
+ 103051 24502 infeasible   48       236.00000  155.50000  34.1%  37.9  390s
+ 104858 25119 infeasible   49       236.00000  155.50000  34.1%  37.8  395s
+ 106711 25678 infeasible   49       236.00000  155.50000  34.1%  37.7  400s
+ 108594 26029  205.50000   46   31  236.00000  155.50000  34.1%  37.7  405s
+ 110430 26555 infeasible   49       236.00000  155.50000  34.1%  37.6  410s
+ 112730 27168 infeasible   43       236.00000  155.50000  34.1%  37.5  416s
+ 113799 27432  155.50000   32   49  236.00000  155.50000  34.1%  37.5  420s
+ 115593 27932  205.50000   49   12  236.00000  155.50000  34.1%  37.5  425s
+ 117261 28252 infeasible   37       236.00000  155.50000  34.1%  37.5  430s
+ 119238 28663 infeasible   42       236.00000  155.50000  34.1%  37.6  435s
+ 120978 28999 infeasible   43       236.00000  155.50000  34.1%  37.5  440s
+ 123300 29240 infeasible   43       236.00000  157.50000  33.3%  37.5  446s
+ 125233 29544     cutoff   40       236.00000  157.50000  33.3%  37.4  451s
+ 126210 29728 infeasible   45       236.00000  157.50000  33.3%  37.4  456s
+ 127610 29989  177.50000   30   75  236.00000  157.50000  33.3%  37.5  460s
+ 129397 30286 infeasible   43       236.00000  157.50000  33.3%  37.4  465s
+ 132081 30800  161.50000   36   27  236.00000  161.50000  31.6%  37.3  471s
+ 133460 31004  179.50000   35   16  236.00000  161.50000  31.6%  37.2  475s
+ 135545 31266  205.50000   38   25  236.00000  161.50000  31.6%  37.1  480s
+ 137653 31653  201.50000   43   39  236.00000  161.50000  31.6%  37.0  485s
+ 139701 31833  161.50000   41   27  236.00000  161.50000  31.6%  36.9  490s
+ 142370 32050  161.50000   44   19  236.00000  161.50000  31.6%  36.8  495s
+ 144647 32387  163.50000   33   14  236.00000  161.50000  31.6%  36.6  500s
+ 147237 32873  200.50000   37   13  236.00000  161.50000  31.6%  36.5  506s
+ 149033 33126  161.50000   36   27  236.00000  161.50000  31.6%  36.4  510s
+ 151212 33447  161.50000   38   49  236.00000  161.50000  31.6%  36.3  516s
+ 153150 33697  161.50000   32   36  236.00000  161.50000  31.6%  36.2  520s
+ 154960 33984  205.50000   43   52  236.00000  161.50000  31.6%  36.2  525s
+ 157080 34344 infeasible   44       236.00000  161.50000  31.6%  36.2  530s
+ 158895 34535  166.50000   44   19  236.00000  161.50000  31.6%  36.2  535s
+ 160715 34773 infeasible   37       236.00000  161.50000  31.6%  36.1  540s
+ 162399 35049 infeasible   42       236.00000  161.50000  31.6%  36.1  545s
+ 164329 35308  205.50000   50    4  236.00000  161.50000  31.6%  36.0  550s
+ 166023 35552 infeasible   47       236.00000  161.50000  31.6%  36.0  555s
+ 168471 35895  205.50000   39   27  236.00000  161.50000  31.6%  36.0  561s
+ 169697 36026 infeasible   38       236.00000  161.50000  31.6%  35.9  565s
+ 171785 36308 infeasible   50       236.00000  161.50000  31.6%  35.9  570s
+ 173677 36490 infeasible   42       236.00000  161.50000  31.6%  35.9  575s
+ 175420 36613  161.50000   35   10  236.00000  161.50000  31.6%  35.8  580s
+ 177481 36927  173.50000   40   15  236.00000  161.50000  31.6%  35.8  586s
+ 179065 37149 infeasible   51       236.00000  161.50000  31.6%  35.7  590s
+H179724 37181                     235.9998704  161.50000  31.6%  35.7  592s
+ 180023 37273 infeasible   38       235.99987  161.50000  31.6%  35.7  600s
+
+Cutting planes:
+  Gomory: 17
+  Cover: 18
+  Implied bound: 18
+  MIR: 232
+  Flow cover: 226
+  GUB cover: 5
+  Zero half: 34
+
+Explored 180034 nodes (6434044 simplex iterations) in 300.03 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 236 236 236 ... 271
+Pool objective bound 161.5
+
+Time limit reached
+Best objective 2.359998703522e+02, best bound 1.615000000000e+02, gap 31.5678%
+
+#######################################
+TR: iteration 0 at stage 3
+Added demands: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/17/17 00:16:39
+
+Changed value of parameter LogFile to log-opt-11.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 300.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 16993 rows, 1874 columns and 76559 nonzeros
+Variable types: 862 continuous, 1012 integer (1006 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 9784 rows and 905 columns
+Presolve time: 0.13s
+Presolved: 7209 rows, 969 columns, 33718 nonzeros
+Variable types: 455 continuous, 514 integer (514 binary)
+Found heuristic solution: objective 1227.5000000
+Found heuristic solution: objective 868.5000000
+Presolve removed 0 rows and 20 columns
+Presolved: 969 rows, 8158 columns, 34594 nonzeros
+
+Presolve removed 969 rows and 8158 columns
+
+Root relaxation: objective 9.800000e+01, 3891 iterations, 0.23 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   98.00000    0   25  868.50000   98.00000  88.7%     -    0s
+H    0     0                     376.5000000   98.00000  74.0%     -    0s
+H    0     0                     353.5000000   98.00000  72.3%     -    0s
+H    0     0                     280.0000000   98.00000  65.0%     -    0s
+     0     0   98.00000    0   48  280.00000   98.00000  65.0%     -    0s
+H    0     0                     267.0000000   98.00000  63.3%     -    0s
+H    0     0                     257.0000000   98.00000  61.9%     -    0s
+     0     0   98.00000    0   62  257.00000   98.00000  61.9%     -    0s
+H    0     0                     254.0000000   98.00000  61.4%     -    0s
+H    0     0                     250.0000000   98.00000  60.8%     -    0s
+     0     0   98.00000    0   58  250.00000   98.00000  60.8%     -    0s
+     0     0   98.00000    0   55  250.00000   98.00000  60.8%     -    0s
+     0     0   98.00000    0   59  250.00000   98.00000  60.8%     -    1s
+     0     0   98.00000    0   56  250.00000   98.00000  60.8%     -    1s
+     0     0   98.00000    0   58  250.00000   98.00000  60.8%     -    1s
+     0     0   98.00000    0   20  250.00000   98.00000  60.8%     -    1s
+     0     2   98.00000    0   20  250.00000   98.00000  60.8%     -    1s
+H  299   193                     236.0000000   98.00000  58.5%  17.2    2s
+H  640   332                     236.0000000   98.00000  58.5%  14.1    2s
+  2210   908   98.00000   18   20  236.00000   98.00000  58.5%   9.7    5s
+  2976  1046  133.52005   33   32  236.00000   98.00000  58.5%  13.2   10s
+  4092  1244 infeasible   46       236.00000   98.00000  58.5%  13.8   15s
+  6241  2017  169.50000   38   55  236.00000   98.00000  58.5%  13.8   20s
+  8664  3143   98.00000   22   54  236.00000   98.00000  58.5%  13.9   25s
+ 10972  4242  190.50000   34   36  236.00000   98.00000  58.5%  14.3   30s
+ 13919  5492  168.50000   31   45  236.00000   98.00000  58.5%  14.1   35s
+ 16963  6813   98.00000   22   59  236.00000   98.00000  58.5%  14.2   40s
+H18958  7655                     235.9997240   98.00000  58.5%  14.1   42s
+ 19817  8055  190.50000   32   34  235.99972   98.00000  58.5%  14.0   45s
+ 22416  9102 infeasible   45       235.99972   98.00000  58.5%  13.9   50s
+ 25564 10364  144.50000   47   53  235.99972   99.50000  57.8%  13.6   55s
+ 28668 11618  203.50000   28   36  235.99972  128.50000  45.6%  13.2   60s
+ 32935 12979  188.50000   28   34  235.99972  136.50000  42.2%  12.8   65s
+ 37406 14642 infeasible   41       235.99972  141.50000  40.0%  12.4   70s
+ 41231 15681  144.50000   25   35  235.99972  144.50000  38.8%  12.2   75s
+ 45686 16777  188.50000   42   25  235.99972  144.50000  38.8%  12.1   80s
+ 49531 17756 infeasible   46       235.99972  148.50000  37.1%  11.9   85s
+ 53834 18786 infeasible   33       235.99972  149.50000  36.7%  11.8   90s
+ 57358 19801 infeasible   44       235.99972  151.50000  35.8%  11.7   95s
+ 61140 20623  205.50000   42   24  235.99972  152.50000  35.4%  11.6  100s
+ 64953 21395  198.50000   39   35  235.99972  152.50000  35.4%  11.7  105s
+ 68811 22396  155.50000   33   52  235.99972  155.50000  34.1%  11.6  110s
+ 73352 23269  156.50000   48   30  235.99972  155.50000  34.1%  11.4  115s
+ 78049 24200  177.50000   47   33  235.99972  156.50000  33.7%  11.3  120s
+ 81993 24953  205.50000   43   18  235.99972  158.50000  32.8%  11.2  125s
+ 86307 25715 infeasible   40       235.99972  158.50000  32.8%  11.2  130s
+ 90090 26465  200.50000   54   22  235.99972  158.50000  32.8%  11.1  135s
+ 94005 27471  198.50000   50   37  235.99972  158.50000  32.8%  11.1  140s
+ 98540 28569  163.50000   36   29  235.99972  158.50000  32.8%  11.0  145s
+ 102013 29413  190.50000   41   35  235.99972  160.50000  32.0%  11.0  150s
+ 105921 30290  193.50000   49   31  235.99972  161.50000  31.6%  11.0  155s
+ 109964 30956 infeasible   54       235.99972  161.50000  31.6%  11.0  160s
+ 114100 31740  188.50000   34   18  235.99972  161.50000  31.6%  11.0  165s
+ 117889 32413 infeasible   52       235.99972  163.50000  30.7%  10.9  170s
+ 121965 33268 infeasible   51       235.99972  163.50000  30.7%  10.9  175s
+ 125836 34310 infeasible   45       235.99972  163.50000  30.7%  10.9  180s
+ 129620 35116 infeasible   46       235.99972  163.50000  30.7%  10.8  185s
+ 134134 36083 infeasible   51       235.99972  163.50000  30.7%  10.8  190s
+ 138290 37246  190.50000   37   16  235.99972  163.50000  30.7%  10.8  195s
+ 142275 38258 infeasible   46       235.99972  163.50000  30.7%  10.8  200s
+ 146471 39249  189.50000   44   50  235.99972  163.50000  30.7%  10.8  205s
+ 150665 40190 infeasible   51       235.99972  163.50000  30.7%  10.7  210s
+ 154421 40759  190.50000   34   45  235.99972  164.50000  30.3%  10.7  215s
+ 158998 41436  193.50000   48   33  235.99972  165.50000  29.9%  10.7  220s
+ 164198 42497 infeasible   45       235.99972  165.50000  29.9%  10.6  225s
+ 168439 42956 infeasible   42       235.99972  165.50000  29.9%  10.6  230s
+ 173163 43397  193.50000   53   28  235.99972  165.50000  29.9%  10.5  235s
+ 176465 43758  193.50000   44   28  235.99972  165.50000  29.9%  10.5  240s
+ 180713 44518  201.50000   38   34  235.99972  165.50000  29.9%  10.4  245s
+ 185085 44995  193.50000   42   29  235.99972  165.50000  29.9%  10.4  250s
+ 189184 45300 infeasible   49       235.99972  165.50000  29.9%  10.4  255s
+ 194056 45860 infeasible   45       235.99972  165.50000  29.9%  10.4  260s
+ 198475 46514  165.50000   35   26  235.99972  165.50000  29.9%  10.3  265s
+ 202898 47070  165.50000   40   26  235.99972  165.50000  29.9%  10.3  270s
+ 207569 47751  205.50000   43   38  235.99972  165.50000  29.9%  10.2  275s
+ 212097 47834 infeasible   49       235.99972  165.50000  29.9%  10.2  280s
+ 216781 48828 infeasible   52       235.99972  165.50000  29.9%  10.1  285s
+ 221589 49586  196.50000   38   31  235.99972  165.50000  29.9%  10.1  290s
+ 226022 50303  165.50000   33   27  235.99972  165.50000  29.9%  10.1  295s
+ 229282 50696  205.50000   53   31  235.99972  165.50000  29.9%  10.1  300s
+
+Cutting planes:
+  Gomory: 29
+  Cover: 11
+  Implied bound: 4
+  MIR: 204
+  Flow cover: 213
+
+Explored 229546 nodes (2317794 simplex iterations) in 300.03 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 10: 236 236 236 ... 376.5
+Pool objective bound 165.5
+
+Time limit reached
+Best objective 2.359997239997e+02, best bound 1.655000000000e+02, gap 29.8728%
+
+#######################################
+GN: iteration 0 at stage 3
+Added demands: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+Fixed demands: []
+
+Gurobi 7.0.2 (win64) logging started 03/17/17 00:21:39
+
+Changed value of parameter LogFile to log-opt-11.log
+   Prev: gurobi.log  Default: 
+Changed value of parameter presolve to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter mipgap to 0.001
+   Prev: 0.0001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Changed value of parameter timelimit to 300.0
+   Prev: 1e+100  Min: 0.0  Max: 1e+100  Default: 1e+100
+Changed value of parameter mipfocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Optimize a model with 44491 rows, 11252 columns and 144737 nonzeros
+Variable types: 3040 continuous, 8212 integer (8206 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolve removed 26956 rows and 6610 columns
+Presolve time: 1.22s
+Presolved: 17535 rows, 4642 columns, 64457 nonzeros
+Variable types: 1134 continuous, 3508 integer (3508 binary)
+Found heuristic solution: objective 1250.5000000
+Found heuristic solution: objective 832.0000000
+Presolve removed 659 rows and 312 columns
+Presolved: 16876 rows, 4330 columns, 62746 nonzeros
+
+
+Root relaxation: objective 9.800000e+01, 518 iterations, 0.16 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   98.00000    0   16  832.00000   98.00000  88.2%     -    2s
+H    0     0                     299.0000000   98.00000  67.2%     -    2s
+H    0     0                     236.0000000   98.00000  58.5%     -    2s
+     0     0   98.00000    0   86  236.00000   98.00000  58.5%     -    2s
+     0     0   98.00000    0   91  236.00000   98.00000  58.5%     -    3s
+     0     0   98.00000    0   94  236.00000   98.00000  58.5%     -    3s
+     0     0   98.00000    0  101  236.00000   98.00000  58.5%     -    3s
+     0     0   98.00000    0   96  236.00000   98.00000  58.5%     -    3s
+     0     0   98.00000    0   84  236.00000   98.00000  58.5%     -    3s
+     0     0   98.00000    0  159  236.00000   98.00000  58.5%     -    4s
+     0     0   98.00000    0  149  236.00000   98.00000  58.5%     -    4s
+     0     0   98.00000    0   41  236.00000   98.00000  58.5%     -   61s
+     0     2   98.00000    0   41  236.00000   98.00000  58.5%     -   73s
+     1     4   98.00000    1  106  236.00000   98.00000  58.5% 12227   75s
+    57    50  155.50000   16   37  236.00000   98.00000  58.5%   352   80s
+H   81    72                     236.0000000   98.00000  58.5%   252   80s
+   201   150   98.00000   18  112  236.00000   98.00000  58.5%   127  102s
+   460   302   98.00000    9  122  236.00000   98.00000  58.5%   146  147s
+   764   479   98.72151   26  369  236.00000   98.00000  58.5%   305  197s
+  1027   613  201.50000   34   17  236.00000   98.00000  58.5%   276  200s
+  1037   620  179.50000   34   82  236.00000   98.00000  58.5%   273  207s
+  1046   629   98.00000   17  604  236.00000   98.00000  58.5%   350  266s
+  1058   633   98.00000   20  126  236.00000   98.00000  58.5%   349  300s
+
+Cutting planes:
+  Gomory: 11
+  Implied bound: 18
+  MIR: 62
+  Flow cover: 61
+  Zero half: 24
+
+Explored 1064 nodes (454380 simplex iterations) in 300.03 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 5: 236 236 299 ... 1250.5
+Pool objective bound 98
+
+Time limit reached
+Best objective 2.359999999763e+02, best bound 9.800000000000e+01, gap 58.4746%
+
+Gurobi 7.0.2 (win64) logging started 03/17/17 00:26:39
+
+Parameter LogFile unchanged
+   Value: log-opt-11.log  Default: 
+Parameter presolve unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter mipgap unchanged
+   Value: 0.001  Min: 0.0  Max: 1e+100  Default: 0.0001
+Parameter method unchanged
+   Value: -1  Min: -1  Max: 4  Default: -1
+Parameter timelimit unchanged
+   Value: 300.0  Min: 0.0  Max: 1e+100  Default: 1e+100
+Parameter mipfocus unchanged
+   Value: 1  Min: 0  Max: 3  Default: 0
+Optimize a model with 44491 rows, 11252 columns and 144737 nonzeros
+Variable types: 3040 continuous, 8212 integer (8206 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+04]
+  RHS range        [1e+00, 6e+04]
+Presolved: 17535 rows, 4642 columns, 64457 nonzeros
+
+Continuing optimization...
+
+  1064   638   98.00000   20  293  236.00000   98.00000  58.5%   360  306s
+  1163   684  198.50000   31   75  236.00000   98.00000  58.5%   336  310s
+  1226   693  198.50000   45   32  236.00000   98.00000  58.5%   320  316s
+  1263   711  200.50000   26   80  236.00000   98.00000  58.5%   321  329s
+  1269   711  200.50000   28   53  236.00000   98.00000  58.5%   345  336s
+  1329   724  198.50000   29   60  236.00000   98.00000  58.5%   350  367s
+  1407   753  190.50000   23   91  236.00000   98.00000  58.5%   408  384s
+  1420   760 infeasible   27       236.00000   98.00000  58.5%   455  404s
+  1463   778  190.50000   33   34  236.00000   98.00000  58.5%   482  412s
+  1537   785  198.50000   43   48  236.00000   98.00000  58.5%   477  425s
+  1794   832  165.50000   37   80  236.00000   98.00000  58.5%   450  481s
+  1915   865 infeasible   47       236.00000   98.00000  58.5%   484  543s
+  1947   862 infeasible   48       236.00000   98.00000  58.5%   552  580s
+  1962   865 infeasible   49       236.00000   98.00000  58.5%   611  600s
+
+Cutting planes:
+  Gomory: 23
+  Implied bound: 22
+  MIR: 172
+  Flow cover: 133
+  Zero half: 27
+
+Explored 1987 nodes (1317105 simplex iterations) in 300.03 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 5: 236 236 299 ... 1250.5
+Pool objective bound 98
+
+Time limit reached
+Best objective 2.359999999763e+02, best bound 9.800000000000e+01, gap 58.4746%
